@@ -1,14 +1,17 @@
-<!doctype html>
+---
+import "../styles/global.css";
+---
+
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <title>Playlists de YouTube</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Sitio Web en Construcción</title>
   </head>
-  <body>
-    <slot />
+  <body class="bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
+    <main class="max-w-7xl mx-auto p-4">
+      <slot />
+    </main>
   </body>
 </html>
 

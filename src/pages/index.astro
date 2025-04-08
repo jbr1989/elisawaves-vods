@@ -1,19 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PlaylistCard from "../components/PlaylistCard.astro";
+import { getPlaylists } from "../lib/youtube";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const playlists = await getPlaylists();
 ---
 
 <Layout>
-  <div class="container">
-    <h1 class="text-4xl font-bold mb-4">Sitio en Construcción</h1>
-    <p class="text-lg mb-6">
-      Estamos trabajando para traerte algo increíble. ¡Vuelve pronto!
-    </p>
-    <div
-      class="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"
-    >
-    </div>
+  <h1 class="text-3xl font-bold mb-6">Listas de reproducción del canal</h1>
+
+  <div
+    class="grid gap-6"
+    style="grid-template-columns: repeat(5,minmax(0,1fr));"
+  >
+    {playlists.map((playlist) => <PlaylistCard playlist={playlist} />)}
   </div>
 </Layout>

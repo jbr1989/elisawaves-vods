@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getPlaylists, getPlaylistVideos } from "../../lib/youtube";
+
+export async function getStaticPaths() {
+  const playlists = await getPlaylists();
+
+  return playlists.map((playlist) => ({
+    params: { id: playlist.id },
+    props: { title: playlist.snippet.title },
+  }));
+}
+
+const { params, props } = Astro;
+const playlistId = params.id;
+const title = props.title;
+
+const rawVideos = await getPlaylistVideos(playlistId);
+const videos = rawVideos.map((video) => ({
+  id: video.contentDetails.videoId,
+  title: video.snippet.title,
+  thumbnail: video.snippet.thumbnails.medium.url,
+}));
+
+const initialVideoId = videos[0]?.id;
+---
+
+<Layout>
+  <h1 class="text-2xl font-bold mb-6">{title}</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6">
+    <!-- 🎬 Player -->
+    <div class="aspect-video w-full">
+      <iframe
+        id="videoPlayer"
+        class="w-full h-full rounded-xl"
+        src={`https://www.youtube.com/embed/${initialVideoId}?autoplay=1&rel=0`}
+        title="YouTube Video Player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen></iframe>
+    </div>
+
+    <!-- 📺 Sidebar video list -->
+    <aside class="space-y-4 overflow-y-auto max-h-[70vh] pr-1">
+      {
+        videos.map((video) => (
+          <button
+            key={video.id}
+            class="flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full"
+            onClick={`changeVideo('${video.id}')`}
+          >
+            <img
+              src={video.thumbnail}
+              alt={video.title}
+              class="w-32 h-auto rounded-lg object-cover"
+            />
+            <div class="flex flex-col justify-center">
+              <h3 class="text-sm font-semibold leading-snug line-clamp-2">
+                {video.title}
+              </h3>
+            </div>
+          </button>
+        ))
+      }
+    </aside>
+  </div>
+
+  <!-- JavaScript para cambiar el vídeo -->
+</Layout>
+
+<script is:inline>
+  function changeVideo(videoId) {
+    const player = document.getElementById("videoPlayer");
+    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+  }
+</script>

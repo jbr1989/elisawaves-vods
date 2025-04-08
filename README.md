@@ -1,48 +1,61 @@
-# Astro Starter Kit: Basics
+# Elisawaves VODs
 
-```sh
-pnpm create astro@latest -- --template basics
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+A web application built with Astro for managing and viewing VODs (Video On Demand) content.
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+├── public/          # Static assets
+├── src/            # Source code
+│   ├── layouts/    # Layout components
+│   └── pages/      # Page components
+├── .astro/         # Astro build output
+├── .vscode/        # VS Code configuration
+├── node_modules/   # Dependencies
+├── astro.config.mjs # Astro configuration
+├── package.json    # Project metadata and dependencies
+├── pnpm-lock.yaml  # Dependency lock file
+├── tsconfig.json   # TypeScript configuration
+└── .env            # Environment variables
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🛠️ Development
 
-## 🧞 Commands
+### Prerequisites
 
-All commands are run from the root of the project, from a terminal:
+- Node.js (LTS version recommended)
+- pnpm (Package manager)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+### Installation
 
-## 👀 Want to learn more?
+```bash
+# Install dependencies
+pnpm install
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+# Start development server
+pnpm dev
+```
+
+### Available Scripts
+
+| Command           | Description                                    |
+|------------------|------------------------------------------------|
+| `pnpm dev`       | Start development server at `localhost:4321`   |
+| `pnpm build`     | Build for production                           |
+| `pnpm preview`   | Preview production build locally               |
+| `pnpm astro`     | Run Astro CLI commands                         |
+
+## 📦 Dependencies
+
+- Astro ^5.5.4
+
+## 🔧 Configuration
+
+- TypeScript support
+- VS Code configuration included
+- Environment variables support (.env)
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
