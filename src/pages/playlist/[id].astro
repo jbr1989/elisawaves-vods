@@ -16,11 +16,21 @@ const playlistId = params.id;
 const title = props.title;
 
 const rawVideos = await getPlaylistVideos(playlistId);
-const videos = rawVideos.map((video) => ({
-  id: video.contentDetails.videoId,
-  title: video.snippet.title,
-  thumbnail: video.snippet.thumbnails.medium.url,
-}));
+
+const videos = rawVideos.map((video) => {
+  try {
+    return {
+      id: video.contentDetails.videoId,
+      title: video.snippet.title,
+      thumbnail:
+        video.snippet.thumbnails?.medium?.url ||
+        video.snippet.thumbnails?.default?.url,
+    };
+  } catch (error) {
+    console.error("Error processing video:", video, error);
+    return null; // O manejarlo de otra manera
+  }
+});
 
 const initialVideoId = videos[0]?.id;
 ---
