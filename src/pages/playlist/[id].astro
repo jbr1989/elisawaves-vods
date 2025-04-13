@@ -38,7 +38,7 @@ const initialVideoId = videos[0]?.id;
 <Layout>
   <h1 class="text-2xl font-bold mb-6">{title}</h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
     <!-- 🎬 Player -->
     <div class="aspect-video w-full">
       <iframe
@@ -52,27 +52,46 @@ const initialVideoId = videos[0]?.id;
     </div>
 
     <!-- 📺 Sidebar video list -->
-    <aside class="space-y-4 overflow-y-auto max-h-[70vh] pr-1">
-      {
-        videos.map((video) => (
-          <button
-            key={video.id}
-            class="flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full"
-            onClick={`changeVideo('${video.id}')`}
-          >
-            <img
-              src={video.thumbnail}
-              alt={video.title}
-              class="w-32 h-auto rounded-lg object-cover"
-            />
-            <div class="flex flex-col justify-center">
-              <h3 class="text-sm font-semibold leading-snug line-clamp-2">
-                {video.title}
-              </h3>
-            </div>
-          </button>
-        ))
-      }
+    <aside
+      id="playList"
+      class="border-2 rounded-xl border-b-gray-900 dark:border-zinc-800 overflow-hidden"
+      style="max-height:var(--height-playlist);"
+    >
+      <div
+        id="playListHeader"
+        class="flex items-center justify-between px-4 py-3 bg-stone-900 border-b border-b-gray-950 dark:border-zinc-800"
+      >
+        <div class="text-sm font-medium">{videos.length} videos</div>
+        <div class="flex space-x-2">
+          <button title="Anterior" class="text-xl">⏮️</button>
+          <button title="Siguiente" class="text-xl">⏭️</button>
+        </div>
+      </div>
+      <div
+        class="flex-1 overflow-y-auto px-4 py-3"
+        style="max-height:var(--height-playlist-list);"
+      >
+        {
+          videos.map((video) => (
+            <button
+              key={video.id}
+              class="flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full cursor-pointer"
+              onClick={`changeVideo('${video.id}')`}
+            >
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                class="w-32 h-auto rounded-lg object-cover"
+              />
+              <div class="flex flex-col justify-center">
+                <h3 class="text-sm font-semibold leading-snug line-clamp-3">
+                  {video.title}
+                </h3>
+              </div>
+            </button>
+          ))
+        }
+      </div>
     </aside>
   </div>
 
@@ -80,6 +99,27 @@ const initialVideoId = videos[0]?.id;
 </Layout>
 
 <script is:inline>
+  var videoPlayer;
+  var playlistHeader;
+  var r = document.querySelector(":root");
+
+  window.addEventListener("DOMContentLoaded", function () {
+    videoPlayer = document.getElementById("videoPlayer");
+    playlistHeader = document.getElementById("playListHeader");
+    setHeightPlaylist();
+    window.addEventListener("resize", setHeightPlaylist);
+  });
+
+  function setHeightPlaylist() {
+    var heightContainer = videoPlayer.offsetHeight;
+    r.style.setProperty("--height-playlist", heightContainer + "px");
+    var heightHeader = playlistHeader.offsetHeight;
+    r.style.setProperty(
+      "--height-playlist-list",
+      heightContainer - heightHeader + "px"
+    );
+  }
+
   function changeVideo(videoId) {
     const player = document.getElementById("videoPlayer");
     player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
