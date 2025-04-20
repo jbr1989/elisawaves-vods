@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PlaylistCard from "../../components/PlaylistCard.astro";
+import { getChannel, getChannels, getPlaylists } from "../../lib/youtube";
+
+export async function getStaticPaths() {
+  const channels = await getChannels();
+
+  return channels.map((channel) => ({
+    params: { id: channel.id },
+    props: { title: channel.title },
+  }));
+}
+
+const { params, props } = Astro;
+const channelId = params.id;
+
+const channel = await getChannel(channelId || "");
+const playlists = await getPlaylists(channelId || "");
+---
+
+<Layout>
+  <h1 class="text-3xl font-bold mb-6">{channel.snippet.title}</h1>
+
+  <div
+    class="grid gap-6"
+    style="grid-template-columns: repeat(5,minmax(0,1fr));"
+  >
+    {playlists.map((playlist) => <PlaylistCard playlist={playlist} />)}
+  </div>
+</Layout>

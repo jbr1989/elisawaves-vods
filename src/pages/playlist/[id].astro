@@ -1,9 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getPlaylists, getPlaylistVideos } from "../../lib/youtube";
+import { getAllPlaylists, getPlaylistVideos } from "../../lib/youtube";
 
 export async function getStaticPaths() {
-  const playlists = await getPlaylists();
+  const playlists = await getAllPlaylists();
 
   return playlists.map((playlist) => ({
     params: { id: playlist.id },
