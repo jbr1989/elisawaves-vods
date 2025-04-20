@@ -7,7 +7,7 @@ export async function getStaticPaths() {
 
   return playlists.map((playlist) => ({
     params: { id: playlist.id },
-    props: { title: playlist.snippet.title },
+    props: { title: playlist.title },
   }));
 }
 
@@ -15,27 +15,12 @@ const { params, props } = Astro;
 const playlistId = params.id;
 const title = props.title;
 
-const rawVideos = await getPlaylistVideos(playlistId);
-
-const videos = rawVideos.map((video) => {
-  try {
-    return {
-      id: video.contentDetails.videoId,
-      title: video.snippet.title,
-      thumbnail:
-        video.snippet.thumbnails?.medium?.url ||
-        video.snippet.thumbnails?.default?.url,
-    };
-  } catch (error) {
-    console.error("Error processing video:", video, error);
-    return null; // O manejarlo de otra manera
-  }
-});
+const videos = await getPlaylistVideos(playlistId);
 
 const initialVideoId = videos[0]?.id;
 ---
 
-<Layout>
+<Layout title={title}>
   <h1 class="text-2xl font-bold mb-6">{title}</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">

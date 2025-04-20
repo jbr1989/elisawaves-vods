@@ -1,13 +1,13 @@
 ---
 import "../styles/global.css";
 
-const { bodyClass, mainClass } = Astro.props;
+const { title, bodyClass, mainClass } = Astro.props;
 ---
 
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Playlists de YouTube</title>
+    <title>{title || "Elisa Waves"}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body
