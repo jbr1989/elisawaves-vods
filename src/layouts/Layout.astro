@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+
+const { bodyClass, mainClass } = Astro.props;
 ---
 
 <html lang="es">
@@ -8,8 +10,10 @@ import "../styles/global.css";
     <title>Playlists de YouTube</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body class="bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
-    <main class="max-w-8xl mx-auto p-4">
+  <body
+    class=`bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 ${bodyClass}`
+  >
+    <main class=`max-w-8xl mx-auto p-4 ${mainClass}`>
       <slot />
     </main>
   </body>
@@ -23,7 +27,7 @@ import "../styles/global.css";
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     min-height: 100vh;
     text-align: center;
     padding: 0;
