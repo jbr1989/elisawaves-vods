@@ -7,7 +7,7 @@ export class Channel {
 	subscribers: number;
 
 	constructor(channelYoutube) {
-		console.log("channelYoutube", channelYoutube);
+		// console.log("channelYoutube", channelYoutube);
 
 		this.id = channelYoutube.id;
 		this.title = channelYoutube.snippet.title;

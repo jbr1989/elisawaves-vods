@@ -45,7 +45,7 @@ export async function getChannels() {
 
 	const channels = data.items.map((channel) => new Channel(channel));
 
-	console.log("CHANNELS", channels);
+	// console.log("CHANNELS", channels);
 
 	return channels;
 }
