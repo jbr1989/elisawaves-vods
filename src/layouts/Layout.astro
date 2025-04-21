@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
+import Header from "./components/Header.astro";
 
-const { title, bodyClass, mainClass } = Astro.props;
+const { title, bodyClass, mainClass, currentChannelId } = Astro.props;
 ---
 
 <html lang="es">
@@ -13,6 +14,7 @@ const { title, bodyClass, mainClass } = Astro.props;
   <body
     class=`bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 ${bodyClass}`
   >
+    <Header currentChannelId={currentChannelId} />
     <main class=`max-w-8xl mx-auto p-4 ${mainClass}`>
       <slot />
     </main>
@@ -32,6 +34,9 @@ const { title, bodyClass, mainClass } = Astro.props;
     text-align: center;
     padding: 0;
     margin: 0;
+  }
+  main {
+    min-height: calc(100vh - 64px);
   }
   .container {
     animation: fadeIn 1.5s ease-in-out;
