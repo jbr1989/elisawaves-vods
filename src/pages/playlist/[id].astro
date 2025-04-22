@@ -52,7 +52,7 @@ console.log("CHANNEL ID", channelId);
         >
           <div class="text-sm font-medium">{videos.length} videos</div>
           <div class="flex space-x-2">
-            <button title="Anterior" class="text-xl">
+            <button title="Anterior" class="text-xl" onclick="nextVideo(-1)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -67,8 +67,8 @@ console.log("CHANNEL ID", channelId);
                 ></path>
               </svg>
             </button>
-            <button title="Siguiente" class="text-xl"
-              ><svg
+            <button title="Siguiente" class="text-xl" onclick="nextVideo(1)">
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -80,8 +80,8 @@ console.log("CHANNEL ID", channelId);
                   fill-rule="evenodd"
                   d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
                 ></path>
-              </svg></button
-            >
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -91,11 +91,13 @@ console.log("CHANNEL ID", channelId);
         style="max-height:var(--height-playlist-list);"
       >
         {
-          videos.map((video) => (
+          videos.map((video, index) => (
             <button
-              key={video.id}
-              class="flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full cursor-pointer"
-              onClick={`changeVideo('${video.id}')`}
+              data-video-id={video.id}
+              class={`videoButton flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full cursor-pointer ${
+                initialVideoId === video.id ? "videoSelected" : ""
+              }`}
+              onclick={`changeVideo('${index}')`}
             >
               <img
                 src={video.thumbnail}
@@ -113,17 +115,24 @@ console.log("CHANNEL ID", channelId);
       </div>
     </aside>
   </div>
-
-  <!-- JavaScript para cambiar el vídeo -->
 </Layout>
 
+<!-- JavaScript para cambiar el vídeo -->
+
+<style></style>
+
 <script is:inline>
+  var videosButton = { numVideos };
+  var numVideos = 0;
   var currentVideoIndex = 0;
   var videoPlayer;
   var playlistHeader;
   var r = document.querySelector(":root");
 
   window.addEventListener("DOMContentLoaded", function () {
+    videosButton = document.querySelectorAll(".videoButton");
+    numVideos = videosButton.length;
+
     videoPlayer = document.getElementById("videoPlayer");
     playlistHeader = document.getElementById("playListHeader");
     setHeightPlaylist();
@@ -140,11 +149,23 @@ console.log("CHANNEL ID", channelId);
     );
   }
 
-  function nextVideo() {
-    const nextVideo = videos[currentVideoIndex + 1];
+  function nextVideo(sum) {
+    index = (currentVideoIndex + sum + numVideos) % numVideos;
+    console.log("INDEX", index);
+    changeVideo(index);
   }
 
-  function changeVideo(videoId) {
+  function changeVideo(index) {
+    videosButton.forEach((element) => {
+      element.classList.remove("videoSelected");
+    });
+
+    const videoButton = videosButton[index];
+    videoButton.classList.add("videoSelected");
+
+    const videoId = videoButton.getAttribute("data-video-id");
+    currentVideoIndex = index;
+
     const player = document.getElementById("videoPlayer");
     player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
   }
