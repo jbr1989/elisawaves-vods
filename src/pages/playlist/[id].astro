@@ -24,8 +24,6 @@ console.log("CHANNEL ID", channelId);
 ---
 
 <Layout title={title} currentChannelId={channelId}>
-  <h1 class="text-2xl font-bold mb-6">{title}</h1>
-
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
     <!-- 🎬 Player -->
     <div class="aspect-video w-full">
@@ -45,44 +43,49 @@ console.log("CHANNEL ID", channelId);
       class="border-2 rounded-xl border-b-gray-900 dark:border-zinc-800 overflow-hidden"
       style="max-height:var(--height-playlist);"
     >
-      <div
-        id="playListHeader"
-        class="flex items-center justify-between px-4 py-3 bg-stone-900 border-b border-b-gray-950 dark:border-zinc-800"
-      >
-        <div class="text-sm font-medium">{videos.length} videos</div>
-        <div class="flex space-x-2">
-          <button title="Anterior" class="text-xl">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-chevron-left"
-              viewBox="0 0 16 16"
+      <div id="playListHeader" class="border-b border-b-gray-950">
+        <div class="bg-zinc-900">
+          <h1 class="text-2xl font-bold p-2">{title}</h1>
+        </div>
+        <div
+          class="flex items-center justify-between px-4 py-3 bg-stone-900 dark:border-zinc-800"
+        >
+          <div class="text-sm font-medium">{videos.length} videos</div>
+          <div class="flex space-x-2">
+            <button title="Anterior" class="text-xl">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-chevron-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                ></path>
+              </svg>
+            </button>
+            <button title="Siguiente" class="text-xl"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-chevron-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                ></path>
+              </svg></button
             >
-              <path
-                fill-rule="evenodd"
-                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
-              ></path>
-            </svg>
-          </button>
-          <button title="Siguiente" class="text-xl"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-chevron-right"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-              ></path>
-            </svg></button
-          >
+          </div>
         </div>
       </div>
+
       <div
         class="flex-1 overflow-y-auto px-4 py-3"
         style="max-height:var(--height-playlist-list);"
