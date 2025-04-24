@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import PageLayout from "../../layouts/PageLayout.astro";
 import { getAllPlaylists, getPlaylistVideos } from "../../lib/youtube";
 
 export async function getStaticPaths() {
@@ -23,7 +23,7 @@ const initialVideoId = videos[0]?.id;
 console.log("CHANNEL ID", channelId);
 ---
 
-<Layout title={title} currentChannelId={channelId}>
+<PageLayout title={title} currentChannelId={channelId}>
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
     <!-- 🎬 Player -->
     <div class="aspect-video w-full">
@@ -115,7 +115,7 @@ console.log("CHANNEL ID", channelId);
       </div>
     </aside>
   </div>
-</Layout>
+</PageLayout>
 
 <!-- JavaScript para cambiar el vídeo -->
 

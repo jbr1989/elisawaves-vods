@@ -1,6 +1,6 @@
 ---
-import { getChannels } from "../../lib/youtube";
-import Wiki from "../../assets/wiki.svg";
+import Logo from "@/assets/logo.svg";
+import Wiki from "@/assets/wiki.svg";
 import { channelsConst } from "@/constants/channels";
 
 const { currentChannelId } = Astro.props;
@@ -11,6 +11,12 @@ const { currentChannelId } = Astro.props;
 >
   <div class="flex gap-2 items-center justify-start">
     <a href="/" class="flex gap-2 items-center">
+      <!-- <Logo
+        width={40}
+        height={40}
+        class="w-10 h-10 rounded-full inline-block"
+        fill="white"
+      /> -->
       <img
         src="/img/elisawaves.png"
         alt="Elisa Waves"
@@ -42,7 +48,6 @@ const { currentChannelId } = Astro.props;
   <div class="flex gap-2 items-center justify-end">
     <a href="https://eliverse.fandom.com/es/wiki/Elisawaves" target="_blank">
       <Wiki
-        alt="Wiki"
         class="w-10 h-10 rounded-full inline-block"
         fill="white"
         title="Wiki"
