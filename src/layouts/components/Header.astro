@@ -1,10 +1,9 @@
 ---
 import { getChannels } from "../../lib/youtube";
 import Wiki from "../../assets/wiki.svg";
+import { channelsConst } from "@/constants/channels";
 
 const { currentChannelId } = Astro.props;
-
-const channels = await getChannels();
 ---
 
 <header
@@ -22,13 +21,13 @@ const channels = await getChannels();
   </div>
   <div class="flex gap-4 items-center justify-center">
     {
-      channels.map((channel) => (
+      channelsConst.map((channel) => (
         <a
-          href={`/channel/${channel.name}`}
+          href={`/channel/${channel.tag}`}
           class={`flex flex-col items-center gap-1 px-2 group   transition`}
         >
           <img
-            src={channel.thumbnail}
+            src={channel.logo}
             alt={channel.title}
             class={`w-10 h-10 rounded-full ${
               currentChannelId === channel.id

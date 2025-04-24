@@ -1,9 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PlaylistCard from "../components/PlaylistCard.astro";
-import { getChannels } from "../lib/youtube";
-
-const channels = await getChannels();
+import { channelsConst } from "../constants/channels";
 ---
 
 <Layout bodyClass=" justify-center align-center ">
@@ -11,13 +8,13 @@ const channels = await getChannels();
 
   <div class="grid grid-cols-3 gap-8 content-center justify-items-center">
     {
-      channels.map((channel) => (
+      channelsConst.map((channel) => (
         <a
-          href={`/channel/${channel.name}`}
+          href={`/channel/${channel.tag}`}
           class="group space-y-2 hover:scale-105 transition-transform"
         >
           <img
-            src={channel.thumbnail}
+            src={channel.logo}
             alt={channel.title}
             class="max-w-72 max-h-72 rounded-full border-4 border-transparent group-hover:border-red-500 transition"
           />

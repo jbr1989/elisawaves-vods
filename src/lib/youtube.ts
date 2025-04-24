@@ -2,23 +2,19 @@ import { Channel } from "../models/channel";
 import { Playlist } from "../models/playlist";
 import { Video } from "../models/video";
 
+import { channelsConst } from "../constants/channels";
+
 // src/lib/youtube.ts
 const apiUrl = "https://www.googleapis.com/youtube/v3/";
 const apiKey = import.meta.env.YOUTUBE_API_KEY;
 // const channelId = import.meta.env.YOUTUBE_CHANNEL_ID;
-
-export const channelsIds = [
-	{ name: "@elisawavesroleplay", id: "UCmjo9V6ptM_Cdx67X5UXJEw" },
-	{ name: "@elisamotion", id: "UCsLebFG6jRTC0KUkN_bLcjw" },
-	{ name: "@elisawavestv", id: "UCskFPl21j0IsryvBsq-EbDw" },
-];
 
 export async function getChannel({
 	channelId = "",
 	name = "",
 }: { channelId?: string | undefined; name?: string | undefined } = {}) {
 	if (channelId === "" && name !== "")
-		channelId = channelsIds.find((channel) => channel.name === name)?.id || "";
+		channelId = channelsConst.find((channel) => channel.tag === name)?.id || "";
 
 	if (channelId === "") return null;
 
@@ -35,7 +31,7 @@ export async function getChannel({
 }
 
 export async function getChannels() {
-	const channelsId = channelsIds.map((channel) => channel.id);
+	const channelsId = channelsConst.map((channel) => channel.id);
 
 	const res = await fetch(
 		`${apiUrl}channels?part=snippet,statistics&id=${channelsId.join(",")}&key=${apiKey}`,
@@ -53,7 +49,7 @@ export async function getChannels() {
 export async function getAllPlaylists() {
 	const playlists = [];
 
-	for (const channel of channelsIds) {
+	for (const channel of channelsConst) {
 		playlists.push(...(await getPlaylists(channel.id)));
 	}
 
