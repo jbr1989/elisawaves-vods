@@ -19,12 +19,16 @@ const channel = await getChannel({ name: name });
 const playlists = await getPlaylists(channel?.id || "");
 ---
 
-<PageLayout title={channel.title} currentChannelId={channel.id}>
+<PageLayout
+  title={channel.title}
+  currentChannelId={channel.id}
+  mainClass="w-full"
+>
   <h1 class="text-3xl font-bold mb-6">{channel.title}</h1>
 
   <div
-    class="grid gap-6"
-    style="grid-template-columns: repeat(5,minmax(0,1fr));"
+    class="w-full grid gap-6"
+    style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
   >
     {playlists.map((playlist) => <PlaylistCard playlist={playlist} />)}
   </div>
