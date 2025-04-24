@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import PageLayout from "../../layouts/PageLayout.astro";
 import { getAllPlaylists, getPlaylistVideos } from "../../lib/youtube";
 
 export async function getStaticPaths() {
@@ -23,13 +23,13 @@ const initialVideoId = videos[0]?.id;
 console.log("CHANNEL ID", channelId);
 ---
 
-<Layout title={title} currentChannelId={channelId}>
+<PageLayout title={title} currentChannelId={channelId}>
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
     <!-- 🎬 Player -->
     <div class="aspect-video w-full">
       <iframe
         id="videoPlayer"
-        class="w-full h-full rounded-xl"
+        class="w-full h-full rounded-xl aspect-video"
         src={`https://www.youtube.com/embed/${initialVideoId}?autoplay=1&rel=0`}
         title="YouTube Video Player"
         frameBorder="0"
@@ -87,6 +87,7 @@ console.log("CHANNEL ID", channelId);
       </div>
 
       <div
+        id="playListList"
         class="flex-1 overflow-y-auto px-4 py-3"
         style="max-height:var(--height-playlist-list);"
       >
@@ -115,7 +116,7 @@ console.log("CHANNEL ID", channelId);
       </div>
     </aside>
   </div>
-</Layout>
+</PageLayout>
 
 <!-- JavaScript para cambiar el vídeo -->
 
@@ -127,6 +128,7 @@ console.log("CHANNEL ID", channelId);
   var currentVideoIndex = 0;
   var videoPlayer;
   var playlistHeader;
+  var playListList;
   var r = document.querySelector(":root");
 
   window.addEventListener("DOMContentLoaded", function () {
@@ -135,18 +137,36 @@ console.log("CHANNEL ID", channelId);
 
     videoPlayer = document.getElementById("videoPlayer");
     playlistHeader = document.getElementById("playListHeader");
+    playListList = document.getElementById("playListList");
+
     setHeightPlaylist();
     window.addEventListener("resize", setHeightPlaylist);
   });
 
   function setHeightPlaylist() {
-    var heightContainer = videoPlayer.offsetHeight;
-    r.style.setProperty("--height-playlist", heightContainer + "px");
-    var heightHeader = playlistHeader.offsetHeight;
-    r.style.setProperty(
-      "--height-playlist-list",
-      heightContainer - heightHeader + "px"
-    );
+    var isMobile = window.innerWidth < 768;
+
+    if (!isMobile) {
+      var heightContainer = videoPlayer.getBoundingClientRect().bottom;
+      // r.style.setProperty("--height-playlist", heightContainer + "px");
+      var heightHeader = playlistHeader.getBoundingClientRect().bottom;
+      r.style.setProperty(
+        "--height-playlist-list",
+        heightContainer - heightHeader + "px"
+      );
+    } else {
+      var screenHeight = window.innerHeight;
+      var minHeight = playListList.offsetHeight;
+      console.log("MIN HEIGHT", minHeight);
+      var heightHeader = playlistHeader.getBoundingClientRect().bottom;
+      var height = Math.max(
+        Math.min(screenHeight - heightHeader - 10, minHeight),
+        300
+      );
+      r.style.setProperty("--height-playlist-list", height + "px");
+    }
+
+    console.log("HEIGHT PLAYLIST", heightContainer, heightHeader);
   }
 
   function nextVideo(sum) {

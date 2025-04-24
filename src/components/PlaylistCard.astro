@@ -9,7 +9,7 @@ const { playlist } = Astro.props;
   <img
     src={playlist.image}
     alt={playlist.title}
-    class="w-full h-48 object-cover"
+    class="w-full object-cover aspect-video"
   />
   <div class="p-2 bg-white dark:bg-zinc-800">
     <h2 class="text-md font-semibold">{playlist.title}</h2>

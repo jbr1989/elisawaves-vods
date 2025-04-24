@@ -6,7 +6,9 @@ import { channelsConst } from "../constants/channels";
 <Layout bodyClass=" justify-center align-center ">
   <h1 class="text-3xl font-bold mb-6">¿Qué quieres ver?</h1>
 
-  <div class="grid grid-cols-3 gap-8 content-center justify-items-center">
+  <div
+    class="grid grid-cols-3 gap-8 content-center justify-items-center max-w-[90%]"
+  >
     {
       channelsConst.map((channel) => (
         <a
@@ -16,7 +18,7 @@ import { channelsConst } from "../constants/channels";
           <img
             src={channel.logo}
             alt={channel.title}
-            class="max-w-72 max-h-72 rounded-full border-4 border-transparent group-hover:border-red-500 transition"
+            class="w-72 max-w-[100%] max-h-72 rounded-full border-4 border-transparent group-hover:border-red-500 transition"
           />
           <span class="text-sm font-semibold">{channel.title}</span>
         </a>

@@ -1,8 +1,7 @@
 ---
 import "../styles/global.css";
-import Header from "./components/Header.astro";
 
-const { title, bodyClass, mainClass, currentChannelId } = Astro.props;
+const { title, bodyClass } = Astro.props;
 ---
 
 <html lang="es">
@@ -10,14 +9,14 @@ const { title, bodyClass, mainClass, currentChannelId } = Astro.props;
     <meta charset="UTF-8" />
     <title>{title || "Elisa Waves"}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <meta name="robots" content="index, follow" />
   </head>
   <body
-    class=`bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 ${bodyClass}`
+    class=`bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 ${bodyClass || ""}`
   >
-    <Header currentChannelId={currentChannelId} />
-    <main class=`max-w-8xl mx-auto p-4 ${mainClass}`>
-      <slot />
-    </main>
+    <slot />
   </body>
 </html>
 
