@@ -1,13 +1,14 @@
 ---
 import "../styles/global.css";
 
-const { title, bodyClass } = Astro.props;
+const { title, descr, bodyClass } = Astro.props;
 ---
 
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <title>{title || "Elisa Waves"}</title>
+    {descr && <meta name="description" content={descr} />}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="sitemap" href="/sitemap.xml" />
@@ -30,6 +31,7 @@ const { title, bodyClass } = Astro.props;
     align-items: center;
     /* justify-content: center; */
     min-height: 100vh;
+    min-height: 100dvh; /* FIX MOBILE */
     text-align: center;
     padding: 0;
     margin: 0;

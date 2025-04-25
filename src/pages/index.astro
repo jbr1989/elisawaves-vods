@@ -3,7 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import { channelsConst } from "../constants/channels";
 ---
 
-<Layout bodyClass=" justify-center align-center ">
+<Layout
+  descr="Elige entre todos los canales de youtube de ElisaWaves"
+  bodyClass=" justify-center align-center "
+>
   <h1 class="text-3xl font-bold mb-6">¿Qué quieres ver?</h1>
 
   <div
@@ -17,8 +20,10 @@ import { channelsConst } from "../constants/channels";
         >
           <img
             src={channel.logo}
-            alt={channel.title}
-            class="w-72 max-w-[100%] max-h-72 rounded-full border-4 border-transparent group-hover:border-red-500 transition"
+            alt="Imagen del canal"
+            width="300px"
+            height="300px"
+            class="max-w-[100%] rounded-full border-4 border-transparent group-hover:border-red-500 transition"
           />
           <span class="text-sm font-semibold">{channel.title}</span>
         </a>
