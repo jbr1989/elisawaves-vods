@@ -1,0 +1,19 @@
+# robots.txt para Mi Aplicación Astro
+# https://www.robotstxt.org/
+
+# Permitir a todos los robots de búsqueda
+User-agent: *
+Allow: /
+
+
+# Archivos específicos a no indexar
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /404
+
+
+# Tiempo de espera entre solicitudes (en segundos)
+Crawl-delay: 10
+
+# Ubicación del sitemap
+Sitemap: https://elisawaves.es/sitemap.xml
