@@ -29,7 +29,7 @@ console.log("CHANNEL ID", channelId);
 console.log("PLAYLIST CHATS", playListChats);
 ---
 
-<PageLayout title={title} currentChannelId={channelId}>
+<PageLayout title={title} currentChannelId={channelId} mainClass="w-full">
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
     <!-- 🎬 Player -->
     <div class="aspect-video w-full">
@@ -237,7 +237,7 @@ console.log("PLAYLIST CHATS", playListChats);
     const videoButton = videosButton[index];
     videoButton.classList.add("videoSelected");
 
-    const videoId = videoButton.dataset.video_id; //.getAttribute("data-video-id");
+    const videoId = videoButton.dataset.videoId; //.getAttribute("data-video-id");
     const hasChat = videoButton.dataset.chat == 1; //.getAttribute("data-chat");
     currentVideoIndex = index;
 
