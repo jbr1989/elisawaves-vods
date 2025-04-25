@@ -2,10 +2,10 @@
 import Header from "./components/Header.astro";
 import Layout from "./Layout.astro";
 
-const { title, bodyClass, mainClass, currentChannelId } = Astro.props;
+const { title, descr, bodyClass, mainClass, currentChannelId } = Astro.props;
 ---
 
-<Layout title={title} bodyClass={bodyClass}>
+<Layout title={title} descr={descr} bodyClass={bodyClass}>
   <Header currentChannelId={currentChannelId} />
   <main class=`max-w-8xl mx-auto p-4 ${mainClass || ""}` }>
     <slot />

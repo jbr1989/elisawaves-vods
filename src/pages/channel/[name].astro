@@ -17,6 +17,8 @@ const name = params.name;
 
 const channel = await getChannel({ name: name });
 const playlists = await getPlaylists(channel?.id || "");
+
+// console.log("CHANNEL", channel);
 ---
 
 <PageLayout
