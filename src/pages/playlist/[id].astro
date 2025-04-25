@@ -1,6 +1,9 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
+import { Script } from "@astrojs/script";
+
 import { getAllPlaylists, getPlaylistVideos } from "../../lib/youtube";
+import { playlistsConst } from "@/constants/playlists";
 
 export async function getStaticPaths() {
   const playlists = await getAllPlaylists();
@@ -16,25 +19,37 @@ const playlistId = params.id;
 const title = props.title;
 
 const videos = await getPlaylistVideos(playlistId);
+const playListKeys = videos.map((video) => video.id);
+const playListChats = playListKeys.filter((id) => id in playlistsConst);
 
 const channelId = videos[0]?.channelId;
 const initialVideoId = videos[0]?.id;
 
-console.log("CHANNEL ID", channelId);
+// console.log("VIDEO", videos[0]);
+// console.log("CHANNEL ID", channelId);
+// console.log("PLAYLIST CHATS", playListChats);
 ---
 
-<PageLayout title={title} currentChannelId={channelId}>
-  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
+<PageLayout
+  title={title}
+  descr={videos[0]?.descr}
+  currentChannelId={channelId}
+  mainClass="w-full"
+>
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-x-6 relative">
     <!-- 🎬 Player -->
-    <div class="aspect-video w-full">
+    <div class="w-full aspect-video">
       <iframe
         id="videoPlayer"
         class="w-full h-full rounded-xl aspect-video"
         src={`https://www.youtube.com/embed/${initialVideoId}?autoplay=1&rel=0`}
         title="YouTube Video Player"
+        loading="lazy"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen></iframe>
+
+      <h1 class="text-2xl font-bold p-2 text-left">{title}</h1>
     </div>
 
     <!-- 📺 Sidebar video list -->
@@ -44,15 +59,39 @@ console.log("CHANNEL ID", channelId);
       style="max-height:var(--height-playlist);"
     >
       <div id="playListHeader" class="border-b border-b-gray-950">
-        <div class="bg-zinc-900">
-          <h1 class="text-2xl font-bold p-2">{title}</h1>
-        </div>
         <div
           class="flex items-center justify-between px-4 py-3 bg-stone-900 dark:border-zinc-800"
         >
           <div class="text-sm font-medium">{videos.length} videos</div>
           <div class="flex space-x-2">
-            <button title="Anterior" class="text-xl" onclick="nextVideo(-1)">
+            <button
+              id="playListChatButton"
+              title="Chat"
+              class=`text-xl cursor-pointer`
+              style=`${!playListChats.includes(initialVideoId) ? "display:none" : ""}`
+              onclick="openChat()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-chat-left-text"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+                ></path>
+                <path
+                  d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"
+                ></path>
+              </svg>
+            </button>
+            <button
+              title="Anterior"
+              class="text-xl cursor-pointer"
+              onclick="nextVideo(-1)"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -67,7 +106,11 @@ console.log("CHANNEL ID", channelId);
                 ></path>
               </svg>
             </button>
-            <button title="Siguiente" class="text-xl" onclick="nextVideo(1)">
+            <button
+              title="Siguiente"
+              class="text-xl cursor-pointer"
+              onclick="nextVideo(1)"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -90,11 +133,13 @@ console.log("CHANNEL ID", channelId);
         id="playListList"
         class="flex-1 overflow-y-auto px-4 py-3"
         style="max-height:var(--height-playlist-list);"
+        data-chats={playListChats.join(",")}
       >
         {
           videos.map((video, index) => (
             <button
               data-video-id={video.id}
+              data-chat={playListChats.includes(video.id) ? 1 : 0}
               class={`videoButton flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full cursor-pointer ${
                 initialVideoId === video.id ? "videoSelected" : ""
               }`}
@@ -102,17 +147,28 @@ console.log("CHANNEL ID", channelId);
             >
               <img
                 src={video.thumbnail}
-                alt={video.title}
-                class="w-32 h-auto rounded-lg object-cover"
+                alt="Poster del video"
+                width="128px"
+                height="72px"
+                class="h-auto rounded-lg object-cover"
               />
               <div class="flex flex-col justify-center">
-                <h3 class="text-sm font-semibold leading-snug line-clamp-3">
+                <h2 class="text-sm font-semibold leading-snug line-clamp-3">
                   {video.title}
-                </h3>
+                </h2>
               </div>
             </button>
           ))
         }
+      </div>
+
+      <div
+        id="playListChat"
+        class="flex-1 overflow-y-auto p-0"
+        style="display:none; height:var(--height-playlist-list);"
+      >
+        <iframe id="chatFrame" class="w-full h-full m-0" frameborder="0"
+        ></iframe>
       </div>
     </aside>
   </div>
@@ -129,6 +185,9 @@ console.log("CHANNEL ID", channelId);
   var videoPlayer;
   var playlistHeader;
   var playListList;
+  var playListVideos;
+  var playListChatButton;
+  var chatFrame;
   var r = document.querySelector(":root");
 
   window.addEventListener("DOMContentLoaded", function () {
@@ -138,6 +197,9 @@ console.log("CHANNEL ID", channelId);
     videoPlayer = document.getElementById("videoPlayer");
     playlistHeader = document.getElementById("playListHeader");
     playListList = document.getElementById("playListList");
+    playListVideos = document.querySelectorAll("#playListList button");
+    playListChatButton = document.getElementById("playListChatButton");
+    chatFrame = document.getElementById("chatFrame");
 
     setHeightPlaylist();
     window.addEventListener("resize", setHeightPlaylist);
@@ -147,9 +209,9 @@ console.log("CHANNEL ID", channelId);
     var isMobile = window.innerWidth < 768;
 
     if (!isMobile) {
-      var heightContainer = videoPlayer.getBoundingClientRect().bottom;
-      // r.style.setProperty("--height-playlist", heightContainer + "px");
-      var heightHeader = playlistHeader.getBoundingClientRect().bottom;
+      var heightContainer = videoPlayer.offsetHeight;
+      r.style.setProperty("--height-playlist", heightContainer + "px");
+      var heightHeader = playlistHeader.offsetHeight;
       r.style.setProperty(
         "--height-playlist-list",
         heightContainer - heightHeader + "px"
@@ -183,10 +245,30 @@ console.log("CHANNEL ID", channelId);
     const videoButton = videosButton[index];
     videoButton.classList.add("videoSelected");
 
-    const videoId = videoButton.getAttribute("data-video-id");
+    const videoId = videoButton.dataset.videoId; //.getAttribute("data-video-id");
+    const hasChat = videoButton.dataset.chat == 1; //.getAttribute("data-chat");
     currentVideoIndex = index;
 
     const player = document.getElementById("videoPlayer");
     player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+
+    playListChatButton.style.display = hasChat ? "block" : "none";
+  }
+
+  function openChat() {
+    console.log("OPEN CHAT");
+    const isChatVisible = playListChat.style.display != "none";
+
+    playListChat.style.display = isChatVisible ? "none" : "block";
+    playListList.style.display = isChatVisible ? "block" : "none";
+
+    const video = playListVideos[currentVideoIndex];
+    console.log(playListVideos);
+    console.log(video);
+    const id = video.dataset.videoId;
+    chatFrame.src = `/chat/${id}.html`;
+    // let html = fetch(`/chat/${id}.html`)
+    //   .then((response) => response.text())
+    //   .then((html) => (chatFrame.innerHTML = html));
   }
 </script>

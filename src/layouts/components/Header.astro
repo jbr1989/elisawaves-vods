@@ -18,9 +18,11 @@ const { currentChannelId } = Astro.props;
         fill="white"
       /> -->
       <img
-        src="/img/elisawaves.png"
-        alt="Elisa Waves"
-        class="w-10 h-10 rounded-full inline-block"
+        src="/img/elisawaves.webp"
+        alt="Logo"
+        width="40px"
+        height="40px"
+        class="rounded-full inline-block"
       />
       <h1 class="hidden md:block text-xl font-bold">Elisa Waves</h1>
     </a>
@@ -34,8 +36,10 @@ const { currentChannelId } = Astro.props;
         >
           <img
             src={channel.logo}
-            alt={channel.title}
-            class={`w-10 h-10 rounded-full ${
+            alt="Poster del video"
+            width="40px"
+            height="40px"
+            class={`rounded-full ${
               currentChannelId === channel.id
                 ? "opacity-100 rounded-full border-2 border-red-500"
                 : "opacity-50 hover:opacity-100"
