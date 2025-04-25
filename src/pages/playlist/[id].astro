@@ -36,9 +36,9 @@ const initialVideoId = videos[0]?.id;
   currentChannelId={channelId}
   mainClass="w-full"
 >
-  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-x-6 relative">
     <!-- 🎬 Player -->
-    <div class="aspect-video w-full">
+    <div class="w-full aspect-video">
       <iframe
         id="videoPlayer"
         class="w-full h-full rounded-xl aspect-video"
@@ -48,6 +48,8 @@ const initialVideoId = videos[0]?.id;
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen></iframe>
+
+      <h1 class="text-2xl font-bold p-2 text-left">{title}</h1>
     </div>
 
     <!-- 📺 Sidebar video list -->
@@ -57,9 +59,6 @@ const initialVideoId = videos[0]?.id;
       style="max-height:var(--height-playlist);"
     >
       <div id="playListHeader" class="border-b border-b-gray-950">
-        <div class="bg-zinc-900">
-          <h1 class="text-2xl font-bold p-2">{title}</h1>
-        </div>
         <div
           class="flex items-center justify-between px-4 py-3 bg-stone-900 dark:border-zinc-800"
         >
@@ -149,7 +148,9 @@ const initialVideoId = videos[0]?.id;
               <img
                 src={video.thumbnail}
                 alt="Poster del video"
-                class="w-32 h-auto rounded-lg object-cover"
+                width="128px"
+                height="72px"
+                class="h-auto rounded-lg object-cover"
               />
               <div class="flex flex-col justify-center">
                 <h2 class="text-sm font-semibold leading-snug line-clamp-3">
@@ -208,9 +209,9 @@ const initialVideoId = videos[0]?.id;
     var isMobile = window.innerWidth < 768;
 
     if (!isMobile) {
-      var heightContainer = videoPlayer.getBoundingClientRect().bottom;
-      // r.style.setProperty("--height-playlist", heightContainer + "px");
-      var heightHeader = playlistHeader.getBoundingClientRect().bottom;
+      var heightContainer = videoPlayer.offsetHeight;
+      r.style.setProperty("--height-playlist", heightContainer + "px");
+      var heightHeader = playlistHeader.offsetHeight;
       r.style.setProperty(
         "--height-playlist-list",
         heightContainer - heightHeader + "px"
