@@ -25,11 +25,17 @@ const playListChats = playListKeys.filter((id) => id in playlistsConst);
 const channelId = videos[0]?.channelId;
 const initialVideoId = videos[0]?.id;
 
-console.log("CHANNEL ID", channelId);
-console.log("PLAYLIST CHATS", playListChats);
+// console.log("VIDEO", videos[0]);
+// console.log("CHANNEL ID", channelId);
+// console.log("PLAYLIST CHATS", playListChats);
 ---
 
-<PageLayout title={title} currentChannelId={channelId} mainClass="w-full">
+<PageLayout
+  title={title}
+  descr={videos[0]?.descr}
+  currentChannelId={channelId}
+  mainClass="w-full"
+>
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 relative">
     <!-- 🎬 Player -->
     <div class="aspect-video w-full">
