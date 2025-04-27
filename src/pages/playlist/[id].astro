@@ -1,6 +1,6 @@
 ---
 import PageLayout from "../../layouts/PageLayout.astro";
-import { Script } from "@astrojs/script";
+import PlaylistChat from "../../components/playlist/PlayListChat.astro";
 
 import { getAllPlaylists, getPlaylistVideos } from "../../lib/youtube";
 import { playlistsConst } from "@/constants/playlists";
@@ -140,6 +140,11 @@ const initialVideoId = videos[0]?.id;
             <button
               data-video-id={video.id}
               data-chat={playListChats.includes(video.id) ? 1 : 0}
+              data-seconds={
+                playListChats.includes(video.id)
+                  ? playlistsConst[video.id]?.toString()
+                  : 0
+              }
               class={`videoButton flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full cursor-pointer ${
                 initialVideoId === video.id ? "videoSelected" : ""
               }`}
@@ -167,8 +172,7 @@ const initialVideoId = videos[0]?.id;
         class="flex-1 overflow-y-auto p-0"
         style="display:none; height:var(--height-playlist-list);"
       >
-        <iframe id="chatFrame" class="w-full h-full m-0" frameborder="0"
-        ></iframe>
+        <PlaylistChat />
       </div>
     </aside>
   </div>
@@ -177,6 +181,37 @@ const initialVideoId = videos[0]?.id;
 <!-- JavaScript para cambiar el vídeo -->
 
 <style></style>
+
+<script is:inline>
+  // 2. This code loads the IFrame Player API code asynchronously.
+  var tag = document.createElement("script");
+
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  // 3. This function creates an <iframe> (and YouTube player)
+  //    after the API code downloads.
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player("videoPlayer", {
+      events: {
+        onReady: onPlayerReady,
+      },
+    });
+  }
+
+  // 4. The API will call this function when the video player is ready.
+  function onPlayerReady(event) {
+    // Cada X tiempo consultamos el tiempo actual
+    setInterval(() => {
+      const currentSeconds = player.getCurrentTime();
+      console.log("CURRENT SECONDS", currentSeconds);
+
+      findComments(currentSeconds);
+    }, 1000); // Cada medio segundo, por ejemplo
+  }
+</script>
 
 <script is:inline>
   var videosButton = { numVideos };
@@ -188,6 +223,7 @@ const initialVideoId = videos[0]?.id;
   var playListVideos;
   var playListChatButton;
   var chatFrame;
+  var initSeconds = 0;
   var r = document.querySelector(":root");
 
   window.addEventListener("DOMContentLoaded", function () {
@@ -212,10 +248,15 @@ const initialVideoId = videos[0]?.id;
       var heightContainer = videoPlayer.offsetHeight;
       r.style.setProperty("--height-playlist", heightContainer + "px");
       var heightHeader = playlistHeader.offsetHeight;
+      console.log("HEIGHT", heightContainer, heightHeader);
       r.style.setProperty(
         "--height-playlist-list",
         heightContainer - heightHeader + "px"
       );
+      r.style.setProperty(
+        "--height-playlist-chat",
+        heightContainer - heightHeader - 20 + "px"
+      ); // FIX padding chat
     } else {
       var screenHeight = window.innerHeight;
       var minHeight = playListList.offsetHeight;
@@ -250,7 +291,7 @@ const initialVideoId = videos[0]?.id;
     currentVideoIndex = index;
 
     const player = document.getElementById("videoPlayer");
-    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1`;
 
     playListChatButton.style.display = hasChat ? "block" : "none";
   }
@@ -266,7 +307,9 @@ const initialVideoId = videos[0]?.id;
     console.log(playListVideos);
     console.log(video);
     const id = video.dataset.videoId;
+
     chatFrame.src = `/chat/${id}.html`;
+    chatFrame.dataset.seconds = video.dataset.seconds;
     // let html = fetch(`/chat/${id}.html`)
     //   .then((response) => response.text())
     //   .then((html) => (chatFrame.innerHTML = html));
