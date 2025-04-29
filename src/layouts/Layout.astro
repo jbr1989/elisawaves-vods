@@ -2,6 +2,8 @@
 import "../styles/global.css";
 
 const { title, descr, bodyClass } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="es" data-theme="dark">
@@ -11,6 +13,7 @@ const { title, descr, bodyClass } = Astro.props;
     {descr && <meta name="description" content={descr} />}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="robots" content="index, follow" />
     <script type="application/ld+json">
