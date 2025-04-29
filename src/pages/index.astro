@@ -1,14 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { channelsConst } from "../constants/channels";
+
+const description =
+  "Descubre y redescubre todos los vídeos de Elisa Waves en Youtube. ElisaWaves es una actriz de doblaje y locutora de publicidad creando contenido en Twitch. Juega a GTA V Roleplay, canta, cocina, y es un patata.";
 ---
 
 <Layout
-  descr="Elige entre todos los canales de youtube de ElisaWaves"
+  title="Canales de Youtube de Elisa Waves"
+  descr={description}
   bodyClass=" justify-center align-center "
 >
   <div class="min-h-dvh grid content-center justify-items-center">
-    <h1 class="text-3xl font-bold mb-6">¿Qué quieres ver?</h1>
+    <h1 class="text-3xl mb-6 leading-12">
+      Todos los canales de <strong>Elisa Waves</strong><br />¿Qué quieres ver?
+    </h1>
 
     <div
       class="grid grid-cols-3 gap-8 content-center justify-items-center max-w-[90%]"

@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 
   return playlists.map((playlist) => ({
     params: { id: playlist.id },
-    props: { title: playlist.title },
+    props: { title: playlist.title + " - " + playlist.channelTitle },
   }));
 }
 
@@ -31,7 +31,7 @@ const initialVideoId = videos[0]?.id;
 ---
 
 <PageLayout
-  title={title}
+  title=`Playlist de ${title}`
   descr={videos[0]?.descr}
   currentChannelId={channelId}
   mainClass="w-full"

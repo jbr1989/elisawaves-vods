@@ -4,6 +4,7 @@ export class Video {
 	descr: string;
 	thumbnail: string;
 	channelId: string;
+	channelTitle: string;
 
 	constructor(videoYoutube) {
 		this.id = videoYoutube.contentDetails.videoId;
@@ -13,5 +14,6 @@ export class Video {
 			videoYoutube.snippet.thumbnails?.medium?.url ||
 			videoYoutube.snippet.thumbnails?.default?.url;
 		this.channelId = videoYoutube.snippet.channelId;
+		this.channelTitle = videoYoutube.snippet.channelTitle;
 	}
 }

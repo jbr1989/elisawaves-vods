@@ -22,7 +22,7 @@ const playlists = await getPlaylists(channel?.id || "");
 ---
 
 <PageLayout
-  title={channel.title}
+  title=`Canal de ${channel.title}`
   descr={channel.description}
   currentChannelId={channel.id}
   mainClass="w-full"
