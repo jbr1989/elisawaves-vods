@@ -7,27 +7,37 @@ import { channelsConst } from "../constants/channels";
   descr="Elige entre todos los canales de youtube de ElisaWaves"
   bodyClass=" justify-center align-center "
 >
-  <h1 class="text-3xl font-bold mb-6">¿Qué quieres ver?</h1>
+  <div class="min-h-dvh grid content-center justify-items-center">
+    <h1 class="text-3xl font-bold mb-6">¿Qué quieres ver?</h1>
 
-  <div
-    class="grid grid-cols-3 gap-8 content-center justify-items-center max-w-[90%]"
-  >
-    {
-      channelsConst.map((channel) => (
-        <a
-          href={`/channel/${channel.tag}`}
-          class="group space-y-2 hover:scale-105 transition-transform"
-        >
-          <img
-            src={channel.logo}
-            alt="Imagen del canal"
-            width="300px"
-            height="300px"
-            class="max-w-[100%] rounded-full border-4 border-transparent group-hover:border-red-500 transition"
-          />
-          <span class="text-sm font-semibold">{channel.title}</span>
-        </a>
-      ))
-    }
+    <div
+      class="grid grid-cols-3 gap-8 content-center justify-items-center max-w-[90%]"
+    >
+      {
+        channelsConst.map((channel) => (
+          <a
+            href={`/channel/${channel.tag}`}
+            class="group space-y-2 hover:scale-105 transition-transform"
+          >
+            <img
+              src={channel.logo}
+              alt="Imagen del canal"
+              width="300px"
+              height="300px"
+              class="max-w-[100%] rounded-full border-4 border-transparent group-hover:border-red-500 transition"
+            />
+            <span class="text-sm font-semibold">{channel.title}</span>
+          </a>
+        ))
+      }
+    </div>
   </div>
+
+  <p class="text-center text-lg my-32">
+    ¡Hola! Soy Elisa, actriz de doblaje y locutora de publicidad creando
+    contenido en Twitch.<br />
+    En GTA V Roleplay interpreto a Iris Márquez, Noah Sobchak y Agatha Marquéz. <br
+    />
+    Jugamos a cosas randoms, variamos contenido, cocinamos, cantamos y estamos patata.
+  </p>
 </Layout>
