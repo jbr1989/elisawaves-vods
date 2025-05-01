@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+:root {
+	--header-height: 64px;
+	--full-height-whithout-header: calc(100dvh - var(--header-height));
+}
+
 .videoSelected {
 	@apply bg-gray-100 dark:bg-zinc-800;
 }

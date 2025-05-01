@@ -1,7 +1,7 @@
 ---
-import PageLayout from "../../layouts/PageLayout.astro";
-import PlaylistCard from "../../components/PlaylistCard.astro";
-import { getChannel, getChannels, getPlaylists } from "../../lib/youtube";
+import PageLayout from "@/layouts/PageLayout.astro";
+import PlaylistCard from "@/components/playlist/PlaylistCard.astro";
+import { getChannel, getChannels, getPlaylists } from "@/lib/youtube";
 
 export async function getStaticPaths() {
   const channels = await getChannels();

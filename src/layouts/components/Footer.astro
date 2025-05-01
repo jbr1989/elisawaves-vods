@@ -1,0 +1,15 @@
+---
+import SocialIcon from "@/components/social/SocialIcon.astro";
+import { socials } from "@/constants/socials";
+---
+
+<footer
+  class="w-full px-6 py-3 bg-zinc-900 shadow gap-4 items-center overflow-x-auto"
+>
+  <p>¿Quieres ver más?</p>
+  <div id="social-icons" class="flex gap-6 items-center justify-center my-2">
+    {socials.map((social) => <SocialIcon {...social} />)}
+  </div>
+
+  <p>Hecho con ❤️ para Elisa</p>
+</footer>
