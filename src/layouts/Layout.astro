@@ -44,7 +44,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   if (theme === "dark") {
     document.documentElement.classList.add("dark");
     //element.checked = "checked";
-  } else {
+  } else if (theme === "light") {
     document.documentElement.classList.remove("dark");
     element.checked = "";
   }
