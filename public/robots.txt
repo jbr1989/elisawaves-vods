@@ -6,10 +6,10 @@ User-agent: *
 Allow: /
 
 # Archivos específicos a no indexar
-Disallow: /404
+# Disallow: /404
 
 # Tiempo de espera entre solicitudes (en segundos)
-Crawl-delay: 10
+# Crawl-delay: 10
 
 # Ubicación del sitemap
 Sitemap: https://elisawaves.es/sitemap.xml
