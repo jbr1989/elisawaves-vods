@@ -9,9 +9,6 @@
 	--color-bg: floralwhite;
 	--color-bg-opposite: black;
 
-	--color-primary: #1a202c;
-	--color-primary-opposite: black;
-
 	--color-grey: #171717;
 
 	--color-secondary: darkcyan;
@@ -30,14 +27,15 @@
 		--color-secondary: cadetblue;
 
 		--color-grey: #171717;
-
-		--color-primary: #171717;
 	}
 }
 
 :root {
 	--header-height: 64px;
 	--full-height-whithout-header: calc(100dvh - var(--header-height));
+
+	--color-primary: #1a202c;
+	--color-primary-opposite: black;
 }
 
 .videoSelected {
