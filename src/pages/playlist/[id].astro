@@ -4,6 +4,7 @@ import PlaylistChat from "../../components/playlist/PlayListChat.astro";
 
 import { getAllPlaylists, getPlaylistVideos } from "../../lib/youtube";
 import { playlistsConst } from "@/constants/playlists";
+import PlayListList from "@/components/playlist/PlayListList.astro";
 
 export async function getStaticPaths() {
   const playlists = await getAllPlaylists();
@@ -55,12 +56,12 @@ const initialVideoId = videos[0]?.id;
     <!-- 📺 Sidebar video list -->
     <aside
       id="playList"
-      class="border-2 rounded-xl border-b-gray-900 dark:border-zinc-800 overflow-hidden"
+      class="border-2 rounded-xl border-(--color-primary) overflow-hidden"
       style="max-height:var(--height-playlist);"
     >
       <div id="playListHeader" class="border-b border-b-gray-950">
         <div
-          class="flex items-center justify-between px-4 py-3 bg-stone-900 dark:border-zinc-800"
+          class="flex items-center justify-between px-4 py-3 bg-(--color-grey) text-white dark:border-zinc-800"
         >
           <div class="text-sm font-medium">{videos.length} videos</div>
           <div class="flex space-x-2">
@@ -129,51 +130,14 @@ const initialVideoId = videos[0]?.id;
         </div>
       </div>
 
-      <div
-        id="playListList"
-        class="flex-1 overflow-y-auto px-4 py-3"
-        style="max-height:var(--height-playlist-list);"
-        data-chats={playListChats.join(",")}
-      >
-        {
-          videos.map((video, index) => (
-            <button
-              data-video-id={video.id}
-              data-chat={playListChats.includes(video.id) ? 1 : 0}
-              data-seconds={
-                playListChats.includes(video.id)
-                  ? playlistsConst[video.id]?.toString()
-                  : 0
-              }
-              class={`videoButton flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full cursor-pointer ${
-                initialVideoId === video.id ? "videoSelected" : ""
-              }`}
-              onclick={`changeVideo('${index}')`}
-            >
-              <img
-                src={video.thumbnail}
-                alt="Poster del video"
-                width="128px"
-                height="72px"
-                class="h-auto rounded-lg object-cover"
-              />
-              <div class="flex flex-col justify-center">
-                <h2 class="text-sm font-semibold leading-snug line-clamp-3">
-                  {video.title}
-                </h2>
-              </div>
-            </button>
-          ))
-        }
-      </div>
+      <PlayListList
+        videos={videos}
+        initialVideoId={initialVideoId}
+        playListsConst={playlistsConst}
+        playListChats={playListChats}
+      />
 
-      <div
-        id="playListChat"
-        class="flex-1 overflow-y-auto p-0"
-        style="display:none; height:var(--height-playlist-list);"
-      >
-        <PlaylistChat />
-      </div>
+      <PlaylistChat />
     </aside>
   </div>
 </PageLayout>
@@ -223,7 +187,6 @@ const initialVideoId = videos[0]?.id;
   var playListVideos;
   var playListChatButton;
   var chatFrame;
-  var initSeconds = 0;
   var r = document.querySelector(":root");
 
   window.addEventListener("DOMContentLoaded", function () {

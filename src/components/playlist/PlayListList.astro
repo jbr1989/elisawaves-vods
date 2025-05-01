@@ -1,0 +1,29 @@
+---
+import PlayListListElement from "./PlayListListElement.astro";
+
+const { videos, initialVideoId, playListsConst, playListChats } = Astro.props;
+---
+
+<div
+  id="playListList"
+  class="flex-1 overflow-y-auto px-4 py-3"
+  style="max-height:var(--height-playlist-list); "
+  data-chats={playListChats.join(",")}
+>
+  {
+    videos.map((video, index) => (
+      <PlayListListElement
+        video={video}
+        index={index}
+        selected={initialVideoId === video.id}
+        initialVideoId={initialVideoId}
+        hasChat={playListChats.includes(video.id)}
+        seconds={
+          playListChats.includes(video.id)
+            ? playListsConst[video.id]?.toString()
+            : 0
+        }
+      />
+    ))
+  }
+</div>

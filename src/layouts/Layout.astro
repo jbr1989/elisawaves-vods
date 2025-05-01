@@ -7,7 +7,7 @@ const { title, descr, bodyClass } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<html lang="es" data-theme="dark">
+<html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,11 +36,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </body>
 </html>
 
+<script>
+  const theme = localStorage.getItem("theme");
+  const element = document.querySelector("#theme-toggle-check");
+  console.log("THEME", theme);
+
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+    //element.checked = "checked";
+  } else {
+    document.documentElement.classList.remove("dark");
+    element.checked = "";
+  }
+</script>
+
 <style>
   body {
     font-family: "Poppins", sans-serif;
-    background-color: #1a202c;
-    color: white;
+    background-color: var(--color-bg); /*#1a202c;*/
+    color: var(--color-text); /* white; */
     display: flex;
     flex-direction: column;
     align-items: center;
