@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { channelsConst } from "../constants/channels";
+import LightDark from "@/layouts/components/LightDark.astro";
 
 const description =
   "Descubre todos los vídeos de Elisa Waves en Youtube. ElisaWaves es una actriz de doblaje y locutora de publicidad creando contenido en Twitch.";
@@ -9,8 +10,10 @@ const description =
 <Layout
   title="Canales de Youtube de Elisa Waves"
   descr={description}
-  bodyClass=" justify-center align-center "
+  bodyClass=" justify-center align-center  "
 >
+  <LightDark color="black" elementClass="absolute right-4 top-4" />
+
   <div class="min-h-dvh grid content-center justify-items-center">
     <h1 class="text-3xl mb-6 leading-12">
       Todos los canales de <strong>Elisa Waves</strong>

@@ -1,8 +1,41 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-text: black;
+	--color-text-opposite: white;
+
+	--color-bg: floralwhite;
+	--color-bg-opposite: black;
+
+	--color-grey: #171717;
+
+	--color-secondary: darkcyan;
+
+	--header-color-bg: #1a202c;
+}
+
+@layer base {
+	@variant dark {
+		--color-text: white;
+		--color-text-opposite: black;
+
+		--color-bg: #121212;
+		--color-bg-opposite: white;
+
+		--color-secondary: cadetblue;
+
+		--color-grey: #171717;
+	}
+}
+
 :root {
 	--header-height: 64px;
 	--full-height-whithout-header: calc(100dvh - var(--header-height));
+
+	--color-primary: #1a202c;
+	--color-primary-opposite: black;
 }
 
 .videoSelected {

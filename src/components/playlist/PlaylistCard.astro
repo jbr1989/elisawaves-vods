@@ -6,7 +6,7 @@ const { playlist } = Astro.props;
 
 <a
   href={`/playlist/${playlist.id}`}
-  class="rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
+  class="rounded-xl overflow-hidden shadow-lg bg-zinc-800 text-white hover:scale-105 transition"
 >
   <Image
     src={playlist.image}
@@ -21,7 +21,7 @@ const { playlist } = Astro.props;
     alt={playlist.title}
     class="w-full object-cover aspect-video"
   /> -->
-  <div class="p-2 bg-white dark:bg-zinc-800">
+  <div class="p-2">
     <h2 class="text-md font-semibold">{playlist.title}</h2>
   </div>
 </a>
