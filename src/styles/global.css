@@ -38,6 +38,24 @@
 	--color-primary-opposite: black;
 }
 
+body {
+	font-family: "Poppins", sans-serif;
+	/* background-color: var(--color-bg); */
+	color: var(--color-text); /* white; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* justify-content: center; */
+	min-height: 100vh;
+	min-height: 100dvh; /* FIX MOBILE */
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+main {
+	min-height: calc(100vh - 64px);
+}
+
 .videoSelected {
 	@apply bg-gray-100 dark:bg-zinc-800;
 }

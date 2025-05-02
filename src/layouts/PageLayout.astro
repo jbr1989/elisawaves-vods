@@ -8,7 +8,7 @@ const { title, descr, bodyClass, mainClass, currentChannelId } = Astro.props;
 <Layout title={title} descr={descr} bodyClass={bodyClass}>
   <Header currentChannelId={currentChannelId} />
   <main
-    class=`max-w-8xl mx-auto mb-6 p-4 min-h-(--full-height-whithout-header) ${mainClass || ""}`
+    class=`relative max-w-8xl mx-auto p-4 pb-6 min-h-(--full-height-whithout-header) ${mainClass || ""}`
     }
   >
     <slot />

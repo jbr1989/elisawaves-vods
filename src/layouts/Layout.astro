@@ -17,7 +17,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="robots" content="index, follow" />
-    <!-- <script type="application/ld+json">
+    <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
@@ -26,7 +26,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         "url": "https://elisawaves.es",
         "sameAs": "[https://twitch.tv/elisawaves,https://www.youtube.com/elisawaves]"
       }
-    </script> -->
+    </script>
+    <meta property="og:title" content={title || "Elisa Waves"} />
+    <meta property="og:description" content={descr} />
+    <meta property="og:image" content={new URL("/favicon.png", Astro.site)} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title || "Elisa Waves"} />
+    <meta name="twitter:description" content={descr} />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary" />
   </head>
   <body
     class=`bg-zinc-100 text-zinc-900 dark:bg-(--color-grey) dark:text-zinc-100 ${bodyClass || ""}`
@@ -49,36 +57,3 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     element.checked = "";
   }
 </script>
-
-<style>
-  body {
-    font-family: "Poppins", sans-serif;
-    /* background-color: var(--color-bg); */
-    color: var(--color-text); /* white; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: center; */
-    min-height: 100vh;
-    min-height: 100dvh; /* FIX MOBILE */
-    text-align: center;
-    padding: 0;
-    margin: 0;
-  }
-  main {
-    min-height: calc(100vh - 64px);
-  }
-  .container {
-    animation: fadeIn 1.5s ease-in-out;
-  }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>

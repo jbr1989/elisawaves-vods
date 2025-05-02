@@ -6,7 +6,7 @@ const { videos, initialVideoId, playListsConst, playListChats } = Astro.props;
 
 <div
   id="playListList"
-  class="flex-1 overflow-y-auto px-4 py-3"
+  class="grid gap-2 overflow-x-hidden overflow-y-auto pr-2 py-3"
   style="max-height:var(--height-playlist-list); "
   data-chats={playListChats.join(",")}
 >
