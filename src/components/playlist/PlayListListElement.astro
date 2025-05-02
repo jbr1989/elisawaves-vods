@@ -6,7 +6,7 @@ const { video, index, selected, hasChat, seconds } = Astro.props;
   data-video-id={video.id}
   data-chat={hasChat ? 1 : 0}
   data-seconds={seconds}
-  class={`videoButton flex gap-3 hover:bg-gray-100 dark:hover:bg-zinc-800 p-2 rounded-xl transition text-left w-full cursor-pointer ${
+  class={`videoButton flex gap-1 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-xl transition text-left w-full cursor-pointer ${
     selected ? "videoSelected" : ""
   }`}
   onclick={`changeVideo('${index}')`}
@@ -14,11 +14,11 @@ const { video, index, selected, hasChat, seconds } = Astro.props;
   <img
     src={video.thumbnail}
     alt="Poster del video"
-    width="128px"
-    height="72px"
-    class="h-auto rounded-lg object-cover"
+    width="200px"
+    height="112.5px"
+    class="h-auto rounded-lg object-cover aspect-video max-w-[40%]"
   />
-  <div class="flex flex-col justify-center">
+  <div class="flex flex-col justify-center p-2">
     <h2 class="text-sm font-semibold leading-snug line-clamp-3">
       {video.title}
     </h2>

@@ -56,77 +56,79 @@ const initialVideoId = videos[0]?.id;
     <!-- 📺 Sidebar video list -->
     <aside
       id="playList"
-      class="border-2 rounded-xl border-(--color-primary) overflow-hidden"
+      class="overflow-hidden"
       style="max-height:var(--height-playlist);"
     >
-      <div id="playListHeader" class="border-b border-b-gray-950">
-        <div
-          class="flex items-center justify-between px-4 py-3 bg-(--color-primary) text-white dark:border-zinc-800"
-        >
-          <div class="text-sm font-medium">{videos.length} videos</div>
-          <div class="flex space-x-2">
-            <button
-              id="playListChatButton"
-              title="Chat"
-              class=`text-xl cursor-pointer`
-              style=`${!playListChats.includes(initialVideoId) ? "display:none" : ""}`
-              onclick="openChat()"
+      <div
+        id="playListHeader"
+        class="border-b border-b-gray-950 flex items-center justify-between px-4 py-3 bg-(--color-primary) text-white dark:border-zinc-800"
+      >
+        <div class="text-sm font-medium">
+          {videos.length}
+          {videos.length > 1 ? "videos" : "video"}
+        </div>
+        <div class="flex space-x-2">
+          <button
+            id="playListChatButton"
+            title="Chat"
+            class=`text-xl cursor-pointer`
+            style=`${!playListChats.includes(initialVideoId) ? "display:none" : ""}`
+            onclick="openChat()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-chat-left-text"
+              viewBox="0 0 16 16"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-chat-left-text"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
-                ></path>
-                <path
-                  d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"
-                ></path>
-              </svg>
-            </button>
-            <button
-              title="Anterior"
-              class="text-xl cursor-pointer"
-              onclick="nextVideo(-1)"
+              <path
+                d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+              ></path>
+              <path
+                d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"
+              ></path>
+            </svg>
+          </button>
+          <button
+            title="Anterior"
+            class="text-xl cursor-pointer"
+            onclick="nextVideo(-1)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-chevron-left"
+              viewBox="0 0 16 16"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-chevron-left"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
-                ></path>
-              </svg>
-            </button>
-            <button
-              title="Siguiente"
-              class="text-xl cursor-pointer"
-              onclick="nextVideo(1)"
+              <path
+                fill-rule="evenodd"
+                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+              ></path>
+            </svg>
+          </button>
+          <button
+            title="Siguiente"
+            class="text-xl cursor-pointer"
+            onclick="nextVideo(1)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-chevron-right"
+              viewBox="0 0 16 16"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-chevron-right"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                ></path>
-              </svg>
-            </button>
-          </div>
+              <path
+                fill-rule="evenodd"
+                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+              ></path>
+            </svg>
+          </button>
         </div>
       </div>
 
