@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<base target="_blank">
+<!-- <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'> -->
+<title>
+[4-16-25] elisawaves - HOY ES EL D&#205;A &#128191;✨LOST RECORDS： BLOOM &amp;RAGE parte 2✨≋ELISAWAVES≋✨ - Chat
+</title>
 
 <style>
 /*!
@@ -280,6 +288,9 @@ pre {
 .badge-marathon-reveal-runner-1 { content:url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKBSURBVHgB7Vg9TBsxFH72MUYqY7aiip2IOVJRp2xFFUMnGlWMUX+YMlStWnXo1LRSRgRhY0AINiYUJGZ07BEwMhIpY5LjPocjse/5fFwSKUM+KbrEfrE/2++97/lEs78Q0AxB0oxhTsiFBVtH556ovt2j3AtBywVBhdeC8kuUCXe3AflNotZVQJ12QJW/HuUWeVthc+q7W6L3r7paW2FNUOmDDD+C0sBvBtT41VfPURzceJR/yY9h3SHbBH6zR6f7gqq7nnXHsJg/H3sxImmQyYcw0Zc3PWr58QlbPtHWajYymQkB8AuTFHYGbZ377KltrCiD439711fPSZABnuVDHLBTjZ8RqfGT/tiEgMP/fZoU5pnahTkhFzSnPm0Mo6TTpqnh4jgINXL4u1QeyoimZWuyyw5QKof6tSnIPx+YFt+KMLKCUEL46ILmlb9LujgZiOnGJ5loH3J4+q4dWX5JsGSqu1JNEgHqX92TtPE5fuLFdUn/zjxlHyl6kr05p2aBP5rASm0o/5CMvUi0N8sOU6B1QiumcXINhMHNFXKLGrXPLer9qLOshMxOSAEkwQZOLpLsB/26PfzRTig891FfAZJkgXNS6JrVvqEvELtr7mjMCUqbMjYBRwpt9a98O0cKoV7f1ts5H2RLWJQRZoGFs48cEqt0lRkue+zOwbWXjhBqm63VrtMfsgJkdy75EpiNaRjiZjAtVGr26LUmGaTzSm3ypCo1qW4uNgjX3T5yxnGrQRzT7yMZi2ITTrUvrgslBUmrco8hlc+4yADiOW8/4OwIaSWaKaIMF0okvjREMhEaBdJC6+oxm7eHQyyvSCVBSHi26/JUCE0L8xLWhZkj9ADZkxVOqwpGwAAAAABJRU5ErkJggg=="); }
 
 </style>
+
+</head>
+<body>
 
 <div id="content">
 <pre class="comment-root">[0:00:17] <img class="badge-image badge-vip-1" title="vip"><span class="text-hide">vip</span> <img class="badge-image badge-sub-gifter-25" title="sub-gifter"><span class="text-hide">sub-gifter</span> <a href="https://twitch.tv/lauti662"><span class="comment-author" style="color: #FF69B4">Lauti662</span></a><span class="comment-message">: EliOnline </span></pre>
@@ -4261,3 +4272,52 @@ pre {
 <pre class="comment-root">[6:07:54] <img class="badge-image badge-la-velada-iv-1" title="la-velada-iv"><span class="text-hide">la-velada-iv</span> <a href="https://twitch.tv/crazhing25"><span class="comment-author" style="color: #FF0000">crazhing25</span></a><span class="comment-message">: EliOffline </span></pre>
 <pre class="comment-root">[6:07:56] <img class="badge-image badge-vip-1" title="vip"><span class="text-hide">vip</span> <img class="badge-image badge-raging-wolf-helm-1" title="raging-wolf-helm"><span class="text-hide">raging-wolf-helm</span> <a href="https://twitch.tv/chibi__a"><span class="comment-author" style="color: #B22222">CHiBi__a</span></a><span class="comment-message">: byee </span></pre>
 </div>
+</body>
+<script>
+/* https://stackoverflow.com/a/63270816 */
+/* I am lazy, seriously if you want to have better solution to contrast PRs are welcome :) */
+// const convertColor = (v) => {
+//     const val = v / 255;
+//     return val <= 0.03928
+//         ? val / 12.92
+//         : Math.pow((val + 0.055) / 1.055, 2.4);
+// }
+
+// const getLuminance = (values) => {
+//     const r = convertColor(values[0]);
+//     const g = convertColor(values[1]);
+//     const b = convertColor(values[2]);
+
+//     return Number(0.2126 * r + 0.7152 * g + 0.0722 * b);
+// };
+
+// const getContrastRatio = (lumA, lumB) => {
+//     return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
+// };
+
+// const back_color = [255, 255, 255];
+// const back_luminance = getLuminance(back_color);
+// $('.comment-author').each(function (i, obj) {
+//     let colorRgb = $(obj).css("color");
+//     let color = colorRgb.substring(4, colorRgb.length - 1).replace(/ /g, '').split(',');
+//     if (getContrastRatio(back_luminance, getLuminance(color)) < 1.2) {
+//         $(obj).css("color", "black");
+//     }
+// });
+
+// let flexiblePagination = $('#content').flexiblePagination({
+//     pagingControlsContainer: "#pagingControls",
+//     pagingContainer: "#content",
+//     itemSelector: ".comment-root:visible",
+//     itemsPerPageSelector: ".itemPerPageDropDown", /* Paragraphs Per Page */
+//     searchBoxSelector: '.searchBox',
+//     itemsPerPage: 999999999999, //100,
+//     currentPage: 1,
+
+//     css: {
+//         btnNumberingClass: "btn btn-sm btn-primary",
+//         btnActiveClass: "btn btn-sm btn-secondary"
+//     },
+// });
+</script>
+</html>
