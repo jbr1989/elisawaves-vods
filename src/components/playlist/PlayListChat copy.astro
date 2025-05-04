@@ -1,0 +1,132 @@
+---
+
+---
+
+<div
+  id="playListChat"
+  class="flex-1 overflow-y-auto p-0"
+  style="display:none; height:var(--height-playlist-list);"
+>
+  <iframe
+    id="chatFrame"
+    class="w-full h-full m-0"
+    frameborder="0"
+    data-seconds="0"></iframe>
+</div>
+
+<script is:inline>
+  var chatFrame = document.getElementById("chatFrame");
+  var chatContent;
+  var comments;
+
+  window.addEventListener("DOMContentLoaded", function () {
+    chatFrame.addEventListener("load", function () {
+      // Accedemos al contenido del iframe
+      init();
+      setComments();
+      // findComments(1000);
+    });
+  });
+
+  async function init() {
+    console.log("IFRAME CHAT", chatFrame);
+
+    // Accedemos al contenido del iframe
+    const iframeDocument =
+      chatFrame.contentDocument || chatFrame.contentWindow.document;
+
+    chatContent = iframeDocument.querySelector("#content");
+
+    const heightChat = window
+      .getComputedStyle(document.documentElement)
+      .getPropertyValue("--height-playlist-chat");
+    console.log("HEIGHT Chat", heightChat);
+
+    chatContent.style.height = heightChat;
+
+    comments = Array.from(iframeDocument.querySelectorAll(".comment-root"));
+
+    console.log("COMMENTS", comments);
+  }
+
+  function convertedTime(texto) {
+    const match = texto.match(/\[(\d+):(\d+):(\d+)\]/);
+
+    if (match) {
+      const hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const seconds = parseInt(match[3], 10);
+
+      // Calculamos el total de segundos
+      const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+      return totalSeconds;
+    }
+
+    return null;
+  }
+
+  function findComments(seconds) {
+    const initSeconds = parseInt(chatFrame.dataset.seconds);
+    seconds += initSeconds;
+
+    console.log("FIND COMMENTS", seconds);
+
+    const showingComments = comments.filter(
+      (comment) =>
+        !comment.classList.contains("comment-visible") &&
+        parseInt(comment.dataset.seconds) <= seconds
+    );
+
+    const hidingComments = comments.filter(
+      (comment) =>
+        comment.classList.contains("comment-visible") &&
+        parseInt(comment.dataset.seconds) > seconds
+    );
+
+    console.log(
+      "FINDED COMMENTS",
+      showingComments.length,
+      hidingComments.length
+    );
+
+    showComments(showingComments);
+    hideComments(hidingComments);
+  }
+
+  async function setComments() {
+    for (const comment of comments) {
+      const totalSeconds = convertedTime(comment.textContent);
+
+      // Asignamos el valor como propiedad del elemento
+      comment.dataset.seconds = totalSeconds;
+    }
+  }
+
+  async function showComments(comments) {
+    for (const comment of comments) {
+      showComment(comment);
+    }
+    chatContent.scrollTop = chatContent.scrollHeight;
+  }
+
+  function hideComments(comments) {
+    for (const comment of comments) {
+      hideComment(comment);
+    }
+    chatContent.scrollTop = chatContent.scrollHeight;
+  }
+
+  function showComment(comment) {
+    comment.classList.add("comment-visible");
+  }
+
+  function hideComment(comment) {
+    comment.classList.remove("comment-visible");
+  }
+
+  // Función para esperar
+  function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+</script>
