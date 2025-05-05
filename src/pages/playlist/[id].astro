@@ -172,7 +172,7 @@ const initialVideoId = videos[0]?.id;
     // Cada X tiempo consultamos el tiempo actual
     setInterval(() => {
       const currentSeconds = player.getCurrentTime();
-      console.log("CURRENT SECONDS", currentSeconds);
+      // console.log("CURRENT SECONDS", currentSeconds);
 
       findComments(currentSeconds);
     }, 1000); // Cada medio segundo, por ejemplo
@@ -180,7 +180,7 @@ const initialVideoId = videos[0]?.id;
 </script>
 
 <script is:inline>
-  var videosButton = { numVideos };
+  var videosButton = 0;
   var numVideos = 0;
   var currentVideoIndex = 0;
   var videoPlayer;
@@ -278,5 +278,8 @@ const initialVideoId = videos[0]?.id;
     // let html = fetch(`/chat/${id}.html`)
     //   .then((response) => response.text())
     //   .then((html) => (chatFrame.innerHTML = html));
+
+    // initChat();
+    // setComments();
   }
 </script>

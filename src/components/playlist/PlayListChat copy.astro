@@ -70,7 +70,7 @@
     const initSeconds = parseInt(chatFrame.dataset.seconds);
     seconds += initSeconds;
 
-    console.log("FIND COMMENTS", seconds);
+    // console.log("FIND COMMENTS", seconds);
 
     const showingComments = comments.filter(
       (comment) =>
@@ -84,11 +84,11 @@
         parseInt(comment.dataset.seconds) > seconds
     );
 
-    console.log(
-      "FINDED COMMENTS",
-      showingComments.length,
-      hidingComments.length
-    );
+    // console.log(
+    //   "FINDED COMMENTS",
+    //   showingComments.length,
+    //   hidingComments.length
+    // );
 
     showComments(showingComments);
     hideComments(hidingComments);

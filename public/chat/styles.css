@@ -1,0 +1,77 @@
+html {
+	--text-color: #212529;
+	--bg-color: white;
+}
+
+html[data-theme="dark"],
+html.dark {
+	--text-color: #fff !important;
+	--bg-color: #212529 !important;
+}
+
+body {
+	font-family: "Inter", Roobert, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-align: left;
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	font-size: 16px;
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+}
+
+.text-hide {
+	display: none;
+}
+
+.comment-root {
+	padding: 0.45em 0;
+	margin: 0;
+	display: none;
+	transition: opacity 1s;
+}
+
+.comment-visible {
+	display: block !important;
+	opacity: 1 !important;
+}
+
+/* .comment-hidden {
+    display: none !important;
+    opacity: 0 !important;
+} */
+
+.comment-author {
+	font-weight: bold;
+}
+
+.emote-image {
+	vertical-align: middle;
+	width: max-content;
+	height: 32px;
+	margin: -6px 0;
+}
+
+.badge-image {
+	vertical-align: middle;
+	width: max-content;
+	height: 18px;
+}
+
+#content {
+	padding: 10px;
+	/* scroll-behavior: smooth; */
+	height: 100%;
+	overflow-y: scroll;
+}
+
+pre {
+	font-family: inherit;
+	white-space: pre-wrap;
+}
