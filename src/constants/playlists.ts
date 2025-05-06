@@ -15,4 +15,15 @@ export const playlistsConst = {
 	_L7bsdtOvPQ: 0, //  🧡 M. Mackenzie🧡 || T01x10: "A' choinneamh" || ✨≋ELISAWAVES≋ ✨
 	NEDQcvBvU1g: 0, //  🧡 M. Mackenzie 🧡 || T01x11: "An Toitean" || ✨≋ELISAWAVES≋✨
 	I29f4_48CBw: 0, //  🧡 M. Mackenzie 🧡 || T01x12: "Cogadh" || ✨≋ELISAWAVES≋✨
+
+	// MAFIA
+	MzdyMj7cMKg: 0, //  🤵‍♂️MAFIA: Definitive Edition🤵‍♂️(Pt.01) || ✨≋ELISAWAVES≋✨
+	lzJZJSJ27nc: 0, //  🤵‍♂️MAFIA: Definitive Edition🤵‍♂️(Pt.02 - FINAL) || ✨≋ELISAWAVES≋✨
+
+	// BEYOND TWO SOULS
+	EKeu3cQkvH0: 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.01) ||✨≋ELISAWAVES≋✨
+	"0wHW-7yk7x0": 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.02) || ✨≋ELISAWAVES≋✨
+	bHpPnZZhIrc: 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.03) ||✨≋ELISAWAVES≋✨
+	"2xIMvDYasUI": 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.04) ||✨≋ELISAWAVES≋✨
+	rfPPvxm5S98: 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.05 - FINAL) || ✨≋ELISAWAVES≋✨
 };
