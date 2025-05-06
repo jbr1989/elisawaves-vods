@@ -15,6 +15,8 @@
 </div>
 
 <script is:inline>
+  var regex = /\[(\d+):(\d+):(\d+)\]/;
+
   var chatFrame = document.getElementById("chatFrame");
   var chatContent;
   var comments;
@@ -35,6 +37,10 @@
     const iframeDocument =
       chatFrame.contentDocument || chatFrame.contentWindow.document;
 
+    const dark = getThemeisDark();
+    const html = iframeDocument.querySelector("html");
+    html.classList.add(dark ? "dark" : "light");
+
     chatContent = iframeDocument.querySelector("#content");
 
     const heightChat = window
@@ -50,7 +56,8 @@
   }
 
   function convertedTime(texto) {
-    const match = texto.match(/\[(\d+):(\d+):(\d+)\]/);
+    const match = texto.match(regex);
+    //console.log(match);
 
     if (match) {
       const hours = parseInt(match[1], 10);
@@ -66,11 +73,15 @@
     return null;
   }
 
+  function clearComment(texto) {
+    return texto.replace(regex, "");
+  }
+
   function findComments(seconds) {
     const initSeconds = parseInt(chatFrame.dataset.seconds);
     seconds += initSeconds;
 
-    console.log("FIND COMMENTS", seconds);
+    //console.log("FIND COMMENTS", seconds);
 
     const showingComments = comments.filter(
       (comment) =>
@@ -84,11 +95,11 @@
         parseInt(comment.dataset.seconds) > seconds
     );
 
-    console.log(
-      "FINDED COMMENTS",
-      showingComments.length,
-      hidingComments.length
-    );
+    // console.log(
+    //   "FINDED COMMENTS",
+    //   showingComments.length,
+    //   hidingComments.length
+    // );
 
     showComments(showingComments);
     hideComments(hidingComments);
@@ -97,6 +108,7 @@
   async function setComments() {
     for (const comment of comments) {
       const totalSeconds = convertedTime(comment.textContent);
+      comment.innerHTML = clearComment(comment.innerHTML);
 
       // Asignamos el valor como propiedad del elemento
       comment.dataset.seconds = totalSeconds;

@@ -43,7 +43,7 @@ const initialVideoId = videos[0]?.id;
       <iframe
         id="videoPlayer"
         class="w-full h-full rounded-xl aspect-video"
-        src={`https://www.youtube.com/embed/${initialVideoId}?autoplay=1&rel=0`}
+        src={`https://www.youtube.com/embed/${initialVideoId}?autoplay=1&rel=0&enablejsapi=1`}
         title="YouTube Video Player"
         loading="lazy"
         frameBorder="0"
@@ -180,7 +180,7 @@ const initialVideoId = videos[0]?.id;
 </script>
 
 <script is:inline>
-  var videosButton = { numVideos };
+  var videosButton = 0;
   var numVideos = 0;
   var currentVideoIndex = 0;
   var videoPlayer;
@@ -278,5 +278,8 @@ const initialVideoId = videos[0]?.id;
     // let html = fetch(`/chat/${id}.html`)
     //   .then((response) => response.text())
     //   .then((html) => (chatFrame.innerHTML = html));
+
+    // initChat();
+    // setComments();
   }
 </script>

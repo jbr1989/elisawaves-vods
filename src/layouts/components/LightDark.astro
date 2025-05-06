@@ -43,6 +43,11 @@ const { color, elementClass } = Astro.props;
 </label>
 
 <script is:inline>
+  function getThemeisDark() {
+    const element = document.documentElement;
+    return element.classList.contains("dark");
+  }
+
   function toggleTheme() {
     const element = document.documentElement;
     element.classList.toggle("dark");
