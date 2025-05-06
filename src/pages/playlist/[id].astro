@@ -43,7 +43,7 @@ const initialVideoId = videos[0]?.id;
       <iframe
         id="videoPlayer"
         class="w-full h-full rounded-xl aspect-video"
-        src={`https://www.youtube.com/embed/${initialVideoId}?autoplay=1&rel=0`}
+        src={`https://www.youtube.com/embed/${initialVideoId}?autoplay=1&rel=0&enablejsapi=1`}
         title="YouTube Video Player"
         loading="lazy"
         frameBorder="0"
@@ -172,7 +172,7 @@ const initialVideoId = videos[0]?.id;
     // Cada X tiempo consultamos el tiempo actual
     setInterval(() => {
       const currentSeconds = player.getCurrentTime();
-      // console.log("CURRENT SECONDS", currentSeconds);
+      console.log("CURRENT SECONDS", currentSeconds);
 
       findComments(currentSeconds);
     }, 1000); // Cada medio segundo, por ejemplo
