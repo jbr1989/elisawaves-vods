@@ -1,61 +1,21 @@
-# Elisawaves VODs
+# 📺 ElisaWaves VODs
 
-A web application built with Astro for managing and viewing VODs (Video On Demand) content.
+Una aplicación web construida con Astro para organizar y visualizar el contenido VOD (Video On Demand) de Elisa Waves, una actriz de doblaje y locutora de publicidad española que crea contenido en Twitch.
 
-## 🚀 Project Structure
+## 🌟 Características principales
 
-```text
-/
-├── public/          # Static assets
-├── src/            # Source code
-│   ├── layouts/    # Layout components
-│   └── pages/      # Page components
-├── .astro/         # Astro build output
-├── .vscode/        # VS Code configuration
-├── node_modules/   # Dependencies
-├── astro.config.mjs # Astro configuration
-├── package.json    # Project metadata and dependencies
-├── pnpm-lock.yaml  # Dependency lock file
-├── tsconfig.json   # TypeScript configuration
-└── .env            # Environment variables
-```
+    - Navegación por canales: Explora los diferentes canales de YouTube de Elisa Waves
+    - Organización por listas de reproducción: Visualiza los videos organizados por listas de reproducción
+    - Reproductor de video integrado: Disfruta de los videos con un reproductor YouTube embebido
+    - Chat sincronizado: Visualiza los mensajes del chat en el momento exacto en que fueron enviados durante la transmisión
+    - Tema claro/oscuro: Cambia entre modo claro y oscuro según tus preferencias
 
-## 🛠️ Development
+## 📋 Páginas principales
 
-### Prerequisites
+    - Página de inicio: Muestra todos los canales disponibles de Elisa Waves
+    - Página de canal: Muestra las listas de reproducción disponibles para un canal específico
+    - Página de lista de reproducción: Reproduce videos con navegación de lista y chat sincronizado
 
-- Node.js (LTS version recommended)
-- pnpm (Package manager)
+## 🌐 Sobre Elisa Waves
 
-### Installation
-
-```bash
-# Install dependencies
-pnpm install
-
-# Start development server
-pnpm dev
-```
-
-### Available Scripts
-
-| Command           | Description                                    |
-|------------------|------------------------------------------------|
-| `pnpm dev`       | Start development server at `localhost:4321`   |
-| `pnpm build`     | Build for production                           |
-| `pnpm preview`   | Preview production build locally               |
-| `pnpm astro`     | Run Astro CLI commands                         |
-
-## 📦 Dependencies
-
-- Astro ^5.5.4
-
-## 🔧 Configuration
-
-- TypeScript support
-- VS Code configuration included
-- Environment variables support (.env)
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+Elisa Waves es una actriz de doblaje y locutora de publicidad que crea contenido en Twitch. En GTA V Roleplay interpreta a Iris Márquez, Noah Sobchak y Agatha Marquéz. Su contenido incluye juegos variados, cocina, canto y más.
