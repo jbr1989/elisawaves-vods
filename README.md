@@ -4,17 +4,17 @@ Una aplicación web construida con Astro para organizar y visualizar el contenid
 
 ## 🌟 Características principales
 
-    - Navegación por canales: Explora los diferentes canales de YouTube de Elisa Waves
-    - Organización por listas de reproducción: Visualiza los videos organizados por listas de reproducción
-    - Reproductor de video integrado: Disfruta de los videos con un reproductor YouTube embebido
-    - Chat sincronizado: Visualiza los mensajes del chat en el momento exacto en que fueron enviados durante la transmisión
-    - Tema claro/oscuro: Cambia entre modo claro y oscuro según tus preferencias
+- Navegación por canales: Explora los diferentes canales de YouTube de Elisa Waves
+- Organización por listas de reproducción: Visualiza los videos organizados por listas de reproducción
+- Reproductor de video integrado: Disfruta de los videos con un reproductor YouTube embebido
+- Chat sincronizado: Visualiza los mensajes del chat en el momento exacto en que fueron enviados durante la transmisión
+- Tema claro/oscuro: Cambia entre modo claro y oscuro según tus preferencias
 
 ## 📋 Páginas principales
 
-    - Página de inicio: Muestra todos los canales disponibles de Elisa Waves
-    - Página de canal: Muestra las listas de reproducción disponibles para un canal específico
-    - Página de lista de reproducción: Reproduce videos con navegación de lista y chat sincronizado
+- Página de inicio: Muestra todos los canales disponibles de Elisa Waves
+- Página de canal: Muestra las listas de reproducción disponibles para un canal específico
+- Página de lista de reproducción: Reproduce videos con navegación de lista y chat sincronizado
 
 ## 🌐 Sobre Elisa Waves
 
