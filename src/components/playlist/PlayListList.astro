@@ -11,19 +11,24 @@ const { videos, initialVideoId, playListsConst, playListChats } = Astro.props;
   data-chats={playListChats.join(",")}
 >
   {
-    videos.map((video, index) => (
-      <PlayListListElement
-        video={video}
-        index={index}
-        selected={initialVideoId === video.id}
-        initialVideoId={initialVideoId}
-        hasChat={playListChats.includes(video.id)}
-        seconds={
-          playListChats.includes(video.id)
-            ? playListsConst[video.id]?.toString()
-            : 0
-        }
-      />
-    ))
+    videos.map((video, index) => {
+      let chatFolder = "";
+      let seconds = 0;
+
+      if (playListChats.includes(video.id)) {
+        chatFolder = playListsConst[video.id]?.folder;
+        seconds = playListsConst[video.id]?.seconds;
+      }
+
+      return (
+        <PlayListListElement
+          video={video}
+          index={index}
+          selected={initialVideoId === video.id}
+          chat={chatFolder}
+          seconds={seconds}
+        />
+      );
+    })
   }
 </div>

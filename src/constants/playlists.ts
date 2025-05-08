@@ -1,31 +1,88 @@
 export const playlistsConst = {
 	// Lost Records
-	PT7kwCk4N80: 1534, //00:25:36
+	PT7kwCk4N80: {
+		folder: "Lost_Records",
+		seconds: 1534, //00:25:36
+	},
 
 	// ROL: M. MacKenzie
-	i1oaYkTYGNA: 0, //  🧡 M. MacKenzie 🧡 || T01x01: "Long Time Ago" || ✨≋ELISAWAVES≋ ✨
-	QbQoICZb6mE: 0, //  🧡 M. Mackenzie 🧡 || T01x02: "Marcaichean is Gàrraidhean" || ✨≋ELISAWAVES≋ ✨
+	i1oaYkTYGNA: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. MacKenzie 🧡 || T01x01: "Long Time Ago" || ✨≋ELISAWAVES≋ ✨
+	QbQoICZb6mE: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. Mackenzie 🧡 || T01x02: "Marcaichean is Gàrraidhean" || ✨≋ELISAWAVES≋ ✨
 	// 3 ??
-	pPOxEdCeywM: 0, //  🧡 M. Mackenzie 🧡 || T01x04: "Leugh Le Gràdh" || ✨≋ELISAWAVES≋ ✨
-	nbeYW843U5w: 0, //  🧡 M. Mackenzie 🧡 || T01x05: "fosgladh" || ✨≋ELISAWAVES≋ ✨
-	UXVBMEPNLCE: 0, //  🧡 M. MacKenzie 🧡 || T01x06: "Campa ùr" || ✨≋ELISAWAVES≋ ✨
-	wPXLQ0sgd9Y: 0, //  🧡 M. MacKenzie 🧡 || T01x07: "A' feuchainn ri mairsinn (mar is lugha)" || ✨≋ELISAWAVES≋ ✨
-	"5X6YBndn2YU": 0, //  🧡 M. MacKenzie 🧡 || T01x08: "coinneamh" || ✨≋ELISAWAVES≋✨
-	WzvG_vzmm08: 0, //  🧡 M. MacKenzie 🧡 || T01x09: "Flùr a tha a 'fàs" ||✨≋ELISAWAVES≋✨
-	_L7bsdtOvPQ: 0, //  🧡 M. Mackenzie🧡 || T01x10: "A' choinneamh" || ✨≋ELISAWAVES≋ ✨
-	NEDQcvBvU1g: 0, //  🧡 M. Mackenzie 🧡 || T01x11: "An Toitean" || ✨≋ELISAWAVES≋✨
-	I29f4_48CBw: 0, //  🧡 M. Mackenzie 🧡 || T01x12: "Cogadh" || ✨≋ELISAWAVES≋✨
+	pPOxEdCeywM: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. Mackenzie 🧡 || T01x04: "Leugh Le Gràdh" || ✨≋ELISAWAVES≋ ✨
+	nbeYW843U5w: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. Mackenzie 🧡 || T01x05: "fosgladh" || ✨≋ELISAWAVES≋ ✨
+	UXVBMEPNLCE: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. MacKenzie 🧡 || T01x06: "Campa ùr" || ✨≋ELISAWAVES≋ ✨
+	wPXLQ0sgd9Y: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. MacKenzie 🧡 || T01x07: "A' feuchainn ri mairsinn (mar is lugha)" || ✨≋ELISAWAVES≋ ✨
+	"5X6YBndn2YU": {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. MacKenzie 🧡 || T01x08: "coinneamh" || ✨≋ELISAWAVES≋✨
+	WzvG_vzmm08: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. MacKenzie 🧡 || T01x09: "Flùr a tha a 'fàs" ||✨≋ELISAWAVES≋✨
+	_L7bsdtOvPQ: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. Mackenzie🧡 || T01x10: "A' choinneamh" || ✨≋ELISAWAVES≋ ✨
+	NEDQcvBvU1g: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. Mackenzie 🧡 || T01x11: "An Toitean" || ✨≋ELISAWAVES≋✨
+	I29f4_48CBw: {
+		folder: "Mackenzie",
+		seconds: 0,
+	}, //  🧡 M. Mackenzie 🧡 || T01x12: "Cogadh" || ✨≋ELISAWAVES≋✨
 
 	// MAFIA
-	MzdyMj7cMKg: 0, //  🤵‍♂️MAFIA: Definitive Edition🤵‍♂️(Pt.01) || ✨≋ELISAWAVES≋✨
-	lzJZJSJ27nc: 0, //  🤵‍♂️MAFIA: Definitive Edition🤵‍♂️(Pt.02 - FINAL) || ✨≋ELISAWAVES≋✨
+	MzdyMj7cMKg: {
+		folder: "Mafia",
+		seconds: 0,
+	}, //  🤵‍♂️MAFIA: Definitive Edition🤵‍♂️(Pt.01) || ✨≋ELISAWAVES≋✨
+	lzJZJSJ27nc: {
+		folder: "Mafia",
+		seconds: 0,
+	}, //  🤵‍♂️MAFIA: Definitive Edition🤵‍♂️(Pt.02 - FINAL) || ✨≋ELISAWAVES≋✨
 
 	// BEYOND TWO SOULS
-	EKeu3cQkvH0: 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.01) ||✨≋ELISAWAVES≋✨
-	"0wHW-7yk7x0": 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.02) || ✨≋ELISAWAVES≋✨
-	bHpPnZZhIrc: 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.03) ||✨≋ELISAWAVES≋✨
-	"2xIMvDYasUI": 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.04) ||✨≋ELISAWAVES≋✨
-	rfPPvxm5S98: 0, //  🔗 BEYOND TWO SOULS 🔗 (Pt.05 - FINAL) || ✨≋ELISAWAVES≋✨
+	EKeu3cQkvH0: {
+		folder: "Beyond_Two_Souls",
+		seconds: 0,
+	}, //  🔗 BEYOND TWO SOULS 🔗 (Pt.01) ||✨≋ELISAWAVES≋✨
+	"0wHW-7yk7x0": {
+		folder: "Beyond_Two_Souls",
+		seconds: 0,
+	}, //  🔗 BEYOND TWO SOULS 🔗 (Pt.02) || ✨≋ELISAWAVES≋✨
+	bHpPnZZhIrc: {
+		folder: "Beyond_Two_Souls",
+		seconds: 0,
+	}, //  🔗 BEYOND TWO SOULS 🔗 (Pt.03) ||✨≋ELISAWAVES≋✨
+	"2xIMvDYasUI": {
+		folder: "Beyond_Two_Souls",
+		seconds: 0,
+	}, //  🔗 BEYOND TWO SOULS 🔗 (Pt.04) ||✨≋ELISAWAVES≋✨
+	rfPPvxm5S98: {
+		folder: "Beyond_Two_Souls",
+		seconds: 0,
+	}, //  🔗 BEYOND TWO SOULS 🔗 (Pt.05 - FINAL) || ✨≋ELISAWAVES≋✨
 
 	// JANE TURNER T01
 	//M0eLphlv9pA: 0, //  💚 Jane Turner 💚 || T01x01: “A New Beginning" || ✨≋ELISAWAVES≋✨
@@ -44,22 +101,76 @@ export const playlistsConst = {
 	//AsvnCeDyQ_A: 0, //  💚 Jane Turner 💚 || T01x14: "Scáth Fearthainne" || ✨≋ELISAWAVES≋✨
 	//iOx6repgmaE: 0, //  💚 Jane Turner 💚 || T01x15: "Cambiar El Mundo Entero” || ✨≋ELISAWAVES≋✨
 	//"vqruu-cmYc0": 0, //  💚 Jane Turner 💚 || T01x16: "Room Service" || ✨≋ELISAWAVES≋✨
-	NxTREyLWzhY: 0, //  💚 Jane Turner 💚 || T01x17: "New Home" || ✨≋ELISAWAVES≋✨
-	"DewYQW_-aK8": 0, //  💚 Jane Turner 💚 || T01x18: "Anarchy In LS" || ✨≋ELISAWAVES≋✨
-	"I-vmVRVef_k": 0, //  💚 Jane Turner 💚 || T01x19: "The Bar Is On The Floor" || ✨≋ELISAWAVES≋✨
-	VYTVUbCms3g: 0, //  💚 Jane Turner 💚 || T01x20: "Too Much" || ✨≋ELISAWAVES≋✨
-	wLrhMmXktM4: 0, //  💚 Jane Turner 💚 || T01x21: "Can't Fight The Moonlight" || ✨≋ELISAWAVES≋✨
-	sKTOaaeLug4: 0, //  💚 Jane Turner 💚 || T01x22: "So American" || ✨≋ELISAWAVES≋✨
-	"2rJwrKeMjGg": 0, //  💚 Jane Turner 💚 || T01x23: "Dónde" || ✨≋ELISAWAVES≋✨
-	"QLXdM-RNbPw": 0, //  💚 Jane Turner 💚 || T01x24: "El Yate" || ✨≋ELISAWAVES≋✨
-	"5Re9rbqiIdY": 0, //  💚 Jane Turner 💚 || T01x25: "Letter" || ✨≋ELISAWAVES≋✨
-	TcGGG6XSqOw: 0, //  💚 Jane Turner 💚 || T01x26: "Sospecha" || ✨≋ELISAWAVES≋✨
-	"gEbM5Z-M3cQ": 0, //  💚 Jane Turner 💚 || T01x27: "Vínculos" || ✨≋ELISAWAVES≋✨
-	QacYnLqc60g: 0, //  💚 Jane Turner 💚 || T01x28: "War" || ✨≋ELISAWAVES≋✨
-	cgGokGcvaFo: 0, //  💚 Jane Turner 💚 || T01x29: "Vendedores" || ✨≋ELISAWAVES≋✨
-	"4iwziNCn7uE": 0, //  💚 Jane Turner 💚 || T01x30: "Bréaga" || ✨≋ELISAWAVES≋✨
-	PpsGcyQ1HD0: 0, //  💚 Jane Turner 💚 || T01x31: "Call Me" || ✨≋ELISAWAVES≋✨
-	WyYB3WefRPQ: 0, //  💚 Jane Turner 💚 || T01x32 (Pt.01): "Conflicto" || ✨≋ELISAWAVES≋✨
-	"w-RApVYD0oE": 0, //  💚 Jane Turner 💚 || T01x33 (Pt.02): "Conflicto" || ✨≋ELISAWAVES≋✨
-	rbywgi1z_DM: 0, //   💚 Jane Turner 💚 || T01x34: "Soundscape" || ✨≋ELISAWAVES≋✨
+	NxTREyLWzhY: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x17: "New Home" || ✨≋ELISAWAVES≋✨
+	"DewYQW_-aK8": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x18: "Anarchy In LS" || ✨≋ELISAWAVES≋✨
+	"I-vmVRVef_k": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x19: "The Bar Is On The Floor" || ✨≋ELISAWAVES≋✨
+	VYTVUbCms3g: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x20: "Too Much" || ✨≋ELISAWAVES≋✨
+	wLrhMmXktM4: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x21: "Can't Fight The Moonlight" || ✨≋ELISAWAVES≋✨
+	sKTOaaeLug4: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x22: "So American" || ✨≋ELISAWAVES≋✨
+	"2rJwrKeMjGg": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x23: "Dónde" || ✨≋ELISAWAVES≋✨
+	"QLXdM-RNbPw": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x24: "El Yate" || ✨≋ELISAWAVES≋✨
+	"5Re9rbqiIdY": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x25: "Letter" || ✨≋ELISAWAVES≋✨
+	TcGGG6XSqOw: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x26: "Sospecha" || ✨≋ELISAWAVES≋✨
+	"gEbM5Z-M3cQ": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x27: "Vínculos" || ✨≋ELISAWAVES≋✨
+	QacYnLqc60g: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x28: "War" || ✨≋ELISAWAVES≋✨
+	cgGokGcvaFo: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x29: "Vendedores" || ✨≋ELISAWAVES≋✨
+	"4iwziNCn7uE": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x30: "Bréaga" || ✨≋ELISAWAVES≋✨
+	PpsGcyQ1HD0: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x31: "Call Me" || ✨≋ELISAWAVES≋✨
+	WyYB3WefRPQ: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x32 (Pt.01): "Conflicto" || ✨≋ELISAWAVES≋✨
+	"w-RApVYD0oE": {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //  💚 Jane Turner 💚 || T01x33 (Pt.02): "Conflicto" || ✨≋ELISAWAVES≋✨
+	rbywgi1z_DM: {
+		folder: "Jane_Turner",
+		seconds: 0,
+	}, //   💚 Jane Turner 💚 || T01x34: "Soundscape" || ✨≋ELISAWAVES≋✨
 };

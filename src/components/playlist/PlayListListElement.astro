@@ -1,15 +1,17 @@
 ---
-const { video, index, selected, hasChat, seconds } = Astro.props;
+const { video, index, selected, chat, seconds } = Astro.props;
+
+console.log(video);
 ---
 
 <button
   data-video-id={video.id}
-  data-chat={hasChat ? 1 : 0}
+  data-chat={chat}
   data-seconds={seconds}
   class={`videoButton flex gap-1 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-xl transition text-left w-full cursor-pointer ${
     selected ? "videoSelected" : ""
   }`}
-  onclick={`changeVideo('${index}')`}
+  onclick={`changeVideo(${index})`}
 >
   <img
     src={video.thumbnail}

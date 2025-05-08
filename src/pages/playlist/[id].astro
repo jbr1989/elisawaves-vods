@@ -170,25 +170,27 @@ const initialVideoId = videos[0]?.id;
   // 4. The API will call this function when the video player is ready.
   function onPlayerReady(event) {
     // Cada X tiempo consultamos el tiempo actual
-    setInterval(() => {
+    playerInterval = setInterval(() => {
+      if (!chatVisible) return;
+
       const currentSeconds = player.getCurrentTime();
       console.log("CURRENT SECONDS", currentSeconds);
 
-      findComments(currentSeconds);
+      if (comments !== undefined) findComments(currentSeconds);
     }, 1000); // Cada medio segundo, por ejemplo
   }
-</script>
 
-<script is:inline>
   var videosButton = 0;
   var numVideos = 0;
   var currentVideoIndex = 0;
   var videoPlayer;
+  var playerInterval = null;
   var playlistHeader;
   var playListList;
   var playListVideos;
   var playListChatButton;
   var chatFrame;
+  var chatVisible = false;
   var r = document.querySelector(":root");
 
   window.addEventListener("DOMContentLoaded", function () {
@@ -252,34 +254,57 @@ const initialVideoId = videos[0]?.id;
     videoButton.classList.add("videoSelected");
 
     const videoId = videoButton.dataset.videoId; //.getAttribute("data-video-id");
-    const hasChat = videoButton.dataset.chat == 1; //.getAttribute("data-chat");
+    const hasChat = videoButton.dataset.chat !== ""; //.getAttribute("data-chat");
     currentVideoIndex = index;
 
     const player = document.getElementById("videoPlayer");
     player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1`;
 
     playListChatButton.style.display = hasChat ? "block" : "none";
+
+    toggleChat();
   }
 
   function openChat() {
     console.log("OPEN CHAT");
-    const isChatVisible = playListChat.style.display != "none";
+    chatIsVisible = playListChat.style.display != "none";
 
-    playListChat.style.display = isChatVisible ? "none" : "block";
-    playListList.style.display = isChatVisible ? "block" : "none";
+    playListChat.style.display = chatIsVisible ? "none" : "block";
+    playListList.style.display = chatIsVisible ? "block" : "none";
 
-    const video = playListVideos[currentVideoIndex];
-    console.log(playListVideos);
-    console.log(video);
-    const id = video.dataset.videoId;
+    chatVisible = !chatIsVisible;
+    toggleChat();
+  }
 
-    chatFrame.src = `/chat/${id}.html`;
-    chatFrame.dataset.seconds = video.dataset.seconds;
-    // let html = fetch(`/chat/${id}.html`)
-    //   .then((response) => response.text())
-    //   .then((html) => (chatFrame.innerHTML = html));
+  function toggleChat() {
+    console.log("TOGGLE CHAT", chatVisible);
 
-    // initChat();
-    // setComments();
+    if (chatVisible) {
+      const video = playListVideos[currentVideoIndex];
+      console.log(playListVideos);
+      console.log(video);
+      console.log(video.dataset);
+
+      const id = video.dataset.videoId;
+      const folder = video.dataset.chat;
+      const url = `/chat/${folder}/${id}.html`;
+
+      console.log("URL", url);
+
+      chatFrame.src = url;
+      chatFrame.dataset.seconds = video.dataset.seconds;
+
+      // let html = fetch(`/chat/${id}.html`)
+      //   .then((response) => response.text())
+      //   .then((html) => (chatFrame.innerHTML = html));
+
+      // initChat();
+      // setComments();
+      //onPlayerReady();
+    } else {
+      //clearInterval(playerInterval);
+    }
+
+    console.log("PLAYER", player);
   }
 </script>
