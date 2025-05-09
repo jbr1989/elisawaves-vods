@@ -59,3 +59,20 @@ main {
 .videoSelected {
 	@apply bg-gray-100 dark:bg-zinc-800;
 }
+
+.thumbnail {
+	position: relative;
+}
+.thumbnail-overlay {
+	font-size: 0.8rem;
+	position: absolute;
+	bottom: 0;
+	margin: 5px;
+	right: 0;
+}
+.thumbnail-overlay > div {
+	background: rgba(0, 0, 0, 0.4);
+	color: white;
+	border-radius: 5px;
+	padding: 0 5px;
+}

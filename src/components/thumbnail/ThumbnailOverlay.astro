@@ -1,0 +1,7 @@
+---
+const { overlays } = Astro.props;
+---
+
+<div class="thumbnail-overlay">
+  {overlays.map((overlay) => <div>{overlay}</div>)}
+</div>

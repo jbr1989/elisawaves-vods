@@ -6,6 +6,8 @@ export class Playlist {
 	channelId: string;
 	channelTitle: string;
 
+	numVideos: number;
+
 	constructor(playlistYoutube) {
 		this.id = playlistYoutube.id;
 		this.title = playlistYoutube.snippet.title;
@@ -13,5 +15,7 @@ export class Playlist {
 
 		this.channelId = playlistYoutube.snippet.channelId;
 		this.channelTitle = playlistYoutube.snippet.channelTitle;
+
+		this.numVideos = playlistYoutube.contentDetails.itemCount;
 	}
 }

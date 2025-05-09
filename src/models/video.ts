@@ -1,3 +1,5 @@
+import { iso8601ToHumanTime } from "@/utils/time";
+
 export class Video {
 	id: string;
 	title: string;
@@ -6,8 +8,10 @@ export class Video {
 	channelId: string;
 	channelTitle: string;
 
+	duration: string;
+
 	constructor(videoYoutube) {
-		this.id = videoYoutube.contentDetails.videoId;
+		this.id = videoYoutube.id;
 		this.title = videoYoutube.snippet.title;
 		this.descr = videoYoutube.snippet.description;
 		this.thumbnail =
@@ -15,5 +19,7 @@ export class Video {
 			videoYoutube.snippet.thumbnails?.default?.url;
 		this.channelId = videoYoutube.snippet.channelId;
 		this.channelTitle = videoYoutube.snippet.channelTitle;
+		this.duration = iso8601ToHumanTime(videoYoutube.contentDetails.duration);
 	}
+
 }
