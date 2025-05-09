@@ -57,7 +57,7 @@ export async function getAllPlaylists() {
 }
 
 export async function getPlaylists(channelId: string) {
-	const url = `${apiUrl}playlists?part=snippet&channelId=${channelId}&maxResults=25&key=${apiKey}`;
+	const url = `${apiUrl}playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=25&key=${apiKey}`;
 
 	const res = await fetch(url);
 	if (!res.ok) throw new Error("Error al obtener listas de reproducción.");
@@ -70,14 +70,34 @@ export async function getPlaylists(channelId: string) {
 }
 
 export async function getPlaylistVideos(playlistId: string) {
-	const url = `${apiUrl}playlistItems?part=snippet,contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
+	const url = `${apiUrl}playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
 
 	const res = await fetch(url);
 	if (!res.ok) throw new Error("Error al obtener vídeos de la playlist.");
 
 	const data = await res.json();
 
+	console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
+
+	const ids = data.items.map((item) => item.contentDetails.videoId);
+	console.log("IDS", ids);
+
+	return await getVideos(ids);
+}
+
+export async function getVideos(ids: string[]) {
+	const url = `${apiUrl}videos?part=snippet,contentDetails&id=${ids.join(",")}&key=${apiKey}`;
+	console.log("URL", url);
+
+	const res = await fetch(url);
+	if (!res.ok) throw new Error("Error al obtener el vídeo.");
+
+	const data = await res.json();
+
 	const videos = data.items.map((video) => new Video(video));
+
+	console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
+	console.log("CONTENTDETAILS", data.items[0].contentDetails); // TODO: eliminar este console.log una vez que se tenga el vide
 
 	return videos;
 }
