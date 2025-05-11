@@ -77,10 +77,10 @@ export async function getPlaylistVideos(playlistId: string) {
 
 	const data = await res.json();
 
-	console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
+	//console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
 
 	const ids = data.items.map((item) => item.contentDetails.videoId);
-	console.log("IDS", ids);
+	//console.log("IDS", ids);
 
 	return await getVideos(ids);
 }
@@ -96,8 +96,8 @@ export async function getVideos(ids: string[]) {
 
 	const videos = data.items.map((video) => new Video(video));
 
-	console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
-	console.log("CONTENTDETAILS", data.items[0].contentDetails); // TODO: eliminar este console.log una vez que se tenga el vide
+	//console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
+	//console.log("CONTENTDETAILS", data.items[0].contentDetails); // TODO: eliminar este console.log una vez que se tenga el vide
 
 	return videos;
 }
