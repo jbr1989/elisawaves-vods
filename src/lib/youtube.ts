@@ -3,6 +3,7 @@ import { Playlist } from "../models/playlist";
 import { Video } from "../models/video";
 
 import { channelsConst } from "../constants/channels";
+import { searchVideo } from "@/models/searchVideo";
 
 // src/lib/youtube.ts
 const apiUrl = "https://www.googleapis.com/youtube/v3/";
@@ -39,7 +40,7 @@ export async function getChannels() {
 
 	const data = await res.json();
 
-	const channels = data.items.map((channel) => new Channel(channel));
+	const channels = data.items.map((channel: any) => new Channel(channel));
 
 	// console.log("CHANNELS", channels);
 
@@ -64,7 +65,7 @@ export async function getPlaylists(channelId: string) {
 
 	const data = await res.json();
 
-	const playlists = data.items.map((playlist) => new Playlist(playlist));
+	const playlists = data.items.map((playlist: any) => new Playlist(playlist));
 
 	return playlists;
 }
@@ -79,7 +80,7 @@ export async function getPlaylistVideos(playlistId: string) {
 
 	//console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
 
-	const ids = data.items.map((item) => item.contentDetails.videoId);
+	const ids = data.items.map((item: any) => item.contentDetails.videoId);
 	//console.log("IDS", ids);
 
 	return await getVideos(ids);
@@ -94,10 +95,39 @@ export async function getVideos(ids: string[]) {
 
 	const data = await res.json();
 
-	const videos = data.items.map((video) => new Video(video));
+	const videos = data.items.map((video: any) => new Video(video));
 
 	//console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
 	//console.log("CONTENTDETAILS", data.items[0].contentDetails); // TODO: eliminar este console.log una vez que se tenga el vide
+
+	return videos;
+}
+
+export async function findVideos(query: string) {
+
+	const channels = channelsConst.map((channel) => channel.id);
+	console.log("CHANNELS", channels);
+
+	const videos = [];
+
+	for (const channel of channels) {
+		videos.push(...(await findVideoInChannel(query, channel)));
+	}
+
+	return videos;
+
+}
+
+export async function findVideoInChannel(query: string, channelId: string) {
+	const url = `${apiUrl}search?part=snippet&q=${query}&channelId=${channelId}&key=${apiKey}`;
+	console.log("URL", url); // TODO: eliminar este console.log una vez que se tenga el vid
+
+	const res = await fetch(url);
+	if (!res.ok) throw new Error("Error al buscar vídeos.");
+
+	const data = await res.json();
+
+	const videos = data.items.map((video: any) => new searchVideo(video));
 
 	return videos;
 }

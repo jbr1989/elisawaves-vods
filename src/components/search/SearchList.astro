@@ -1,0 +1,17 @@
+---
+import VideoListCard from "../video/VideoListCard.astro";
+import PlayListCard from "../playlist/PlayListCard.astro";
+
+const { videos, initialVideoId, playListsConst, playListChats } = Astro.props;
+---
+
+<div
+  class="w-full grid gap-6"
+  style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
+>
+  {
+    videos.map((video, index) => {
+      return <VideoListCard video={video} />;
+    })
+  }
+</div>
