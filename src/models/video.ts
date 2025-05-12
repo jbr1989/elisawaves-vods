@@ -19,7 +19,10 @@ export class Video {
 			videoYoutube.snippet.thumbnails?.default?.url;
 		this.channelId = videoYoutube.snippet.channelId;
 		this.channelTitle = videoYoutube.snippet.channelTitle;
-		this.duration = iso8601ToHumanTime(videoYoutube.contentDetails.duration);
+		if (videoYoutube.contentDetails !== undefined)
+			this.duration = iso8601ToHumanTime(videoYoutube.contentDetails.duration);
+		else
+			this.duration = "";
 	}
 
 }

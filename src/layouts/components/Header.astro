@@ -1,6 +1,6 @@
 ---
-import Logo from "@/assets/logo.svg";
-import Wiki from "@/assets/wiki.svg";
+import SearchHeader from "@/components/search/SearchHeader.astro";
+
 import LightDark from "./LightDark.astro";
 import { channelsConst } from "@/constants/channels";
 
@@ -8,7 +8,7 @@ const { currentChannelId } = Astro.props;
 ---
 
 <header
-  class="w-full px-6 py-3 bg-(--color-primary) text-white shadow gap-4 items-center overflow-x-auto"
+  class="w-full px-6 py-3 bg-(--color-primary) text-white shadow gap-4 items-center"
 >
   <div class="flex gap-2 items-center justify-start">
     <a href="/" class="flex gap-2 items-center">
@@ -52,13 +52,7 @@ const { currentChannelId } = Astro.props;
     }
   </div>
   <div class="flex gap-2 items-center justify-end">
-    <a href="https://eliverse.fandom.com/es/wiki/Elisawaves" target="_blank">
-      <Wiki
-        class="w-10 h-10 rounded-full inline-block"
-        fill="white"
-        title="Wiki"
-      />
-    </a>
+    <SearchHeader />
     <LightDark />
   </div>
 </header>
