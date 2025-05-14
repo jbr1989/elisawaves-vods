@@ -26,22 +26,23 @@ const { imageUrl, stacked = 3 } = Astro.props;
     background-color: #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .thumbnail-stack div:nth-child(3) {
-    transform: translateY(-12px) scale(0.94);
-    opacity: 0.6;
+    transform: translateY(-18px) scale(0.91);
+    opacity: 0.3;
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
   .thumbnail-stack div:nth-child(2) {
-    transform: translateY(-6px) scale(0.97);
-    opacity: 0.8;
+    transform: translateY(-12px) scale(0.94);
+    opacity: 0.5;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .thumbnail-stack div:nth-child(1) {
-    transform: translateY(0) scale(1);
-    opacity: 1;
+    transform: translateY(-6px) scale(0.97);
+    opacity: 0.8;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .thumbnail-stack:hover div {

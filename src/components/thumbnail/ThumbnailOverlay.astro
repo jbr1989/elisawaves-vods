@@ -3,5 +3,5 @@ const { overlays } = Astro.props;
 ---
 
 <div class="thumbnail-overlay">
-  {overlays.map((overlay) => <div>{overlay}</div>)}
+  {overlays.map((overlay: string) => <div>{overlay}</div>)}
 </div>

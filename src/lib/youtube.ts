@@ -13,7 +13,7 @@ const apiKey = import.meta.env.YOUTUBE_API_KEY;
 export async function getChannel({
 	channelId = "",
 	name = "",
-}: { channelId?: string | undefined; name?: string | undefined } = {}) {
+}: { channelId?: string | undefined; name?: string | undefined } = {})  : Promise<Channel | null> {
 	if (channelId === "" && name !== "")
 		channelId = channelsConst.find((channel) => channel.tag === name)?.id || "";
 
@@ -31,7 +31,7 @@ export async function getChannel({
 	return channel;
 }
 
-export async function getChannels() {
+export async function getChannels() : Promise<Channel[]> {
 	const channelsId = channelsConst.map((channel) => channel.id);
 
 	const res = await fetch(
@@ -47,7 +47,7 @@ export async function getChannels() {
 	return channels;
 }
 
-export async function getAllPlaylists() {
+export async function getAllPlaylists() : Promise<Playlist[]> {
 	const playlists = [];
 
 	for (const channel of channelsConst) {
@@ -57,7 +57,7 @@ export async function getAllPlaylists() {
 	return playlists;
 }
 
-export async function getPlaylists(channelId: string) {
+export async function getPlaylists(channelId: string) : Promise<Playlist[]> {
 	const url = `${apiUrl}playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=25&key=${apiKey}`;
 
 	const res = await fetch(url);
@@ -70,7 +70,7 @@ export async function getPlaylists(channelId: string) {
 	return playlists;
 }
 
-export async function getPlaylistVideos(playlistId: string) {
+export async function getPlaylistVideos(playlistId: string): Promise<Video[]> {
 	const url = `${apiUrl}playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
 
 	const res = await fetch(url);
@@ -86,7 +86,7 @@ export async function getPlaylistVideos(playlistId: string) {
 	return await getVideos(ids);
 }
 
-export async function getVideos(ids: string[]) {
+export async function getVideos(ids: string[]): Promise<Video[]> {
 	const url = `${apiUrl}videos?part=snippet,contentDetails&id=${ids.join(",")}&key=${apiKey}`;
 	console.log("URL", url);
 
@@ -103,7 +103,7 @@ export async function getVideos(ids: string[]) {
 	return videos;
 }
 
-export async function findVideos(query: string) {
+export async function findVideos(query: string): Promise<searchVideo[]>  {
 
 	const channels = channelsConst.map((channel) => channel.id);
 	console.log("CHANNELS", channels);
@@ -118,7 +118,7 @@ export async function findVideos(query: string) {
 
 }
 
-export async function findVideoInChannel(query: string, channelId: string) {
+export async function findVideoInChannel(query: string, channelId: string): Promise<searchVideo[]> {
 	const url = `${apiUrl}search?part=snippet&q=${query}&channelId=${channelId}&key=${apiKey}`;
 	console.log("URL", url); // TODO: eliminar este console.log una vez que se tenga el vid
 
