@@ -1,33 +1,36 @@
 ---
+export const prerender = true;
+
 import PageLayout from "@/layouts/PageLayout.astro";
-import PlaylistCard from "@/components/playlist/PlaylistCard.astro";
+import PlaylistCard from "@/components/playlist/PlayListCard2.astro";
 import { getChannel, getChannels, getPlaylists } from "@/lib/youtube";
+import type { Channel } from "@/models/channel";
 
 export async function getStaticPaths() {
   const channels = await getChannels();
 
-  return channels.map((channel) => ({
+  return channels.map((channel: Channel) => ({
     params: { name: channel.name },
     props: { title: channel.title },
   }));
 }
 
 const { params, props } = Astro;
-const name = params.name;
+const name = params.name || "";
 
-const channel = await getChannel({ name: name });
+const channel: Channel | null = await getChannel({ name: name });
 const playlists = await getPlaylists(channel?.id || "");
 
 // console.log("CHANNEL", channel);
 ---
 
 <PageLayout
-  title=`Canal de ${channel.title}`
-  descr={channel.description}
-  currentChannelId={channel.id}
+  title=`Canal de ${channel?.title}`
+  descr={channel?.description}
+  currentChannelId={channel?.id}
   mainClass="w-full"
 >
-  <h1 class="text-3xl font-bold mb-6">Canal de {channel.title}</h1>
+  <h1 class="text-3xl font-bold mb-6">Canal de {channel?.title}</h1>
 
   <div
     class="w-full grid gap-6"

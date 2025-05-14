@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import Footer from "./components/Footer.astro";
 
-const { title, descr, bodyClass } = Astro.props;
+const { title, descr, bodyClass, robots } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -16,7 +16,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots || "index, follow"} />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -46,14 +46,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <script>
   const theme = localStorage.getItem("theme");
-  const element = document.querySelector("#theme-toggle-check");
-  console.log("THEME", theme);
+  const element: HTMLInputElement | null = document.querySelector(
+    "#theme-toggle-check"
+  );
+  //console.log("THEME", theme);
 
   if (theme === "dark") {
     document.documentElement.classList.add("dark");
     //element.checked = "checked";
   } else if (theme === "light") {
     document.documentElement.classList.remove("dark");
-    element.checked = "";
+    if (element) element.checked = false;
   }
 </script>

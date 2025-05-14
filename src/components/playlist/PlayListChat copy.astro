@@ -29,7 +29,7 @@
   });
 
   async function init() {
-    console.log("IFRAME CHAT", chatFrame);
+    //console.log("IFRAME CHAT", chatFrame);
 
     // Accedemos al contenido del iframe
     const iframeDocument =
@@ -40,13 +40,13 @@
     const heightChat = window
       .getComputedStyle(document.documentElement)
       .getPropertyValue("--height-playlist-chat");
-    console.log("HEIGHT Chat", heightChat);
+    //console.log("HEIGHT Chat", heightChat);
 
     chatContent.style.height = heightChat;
 
     comments = Array.from(iframeDocument.querySelectorAll(".comment-root"));
 
-    console.log("COMMENTS", comments);
+    //console.log("COMMENTS", comments);
   }
 
   function convertedTime(texto) {

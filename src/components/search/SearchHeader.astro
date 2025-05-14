@@ -1,0 +1,44 @@
+---
+import Finder from "@/assets/finder.svg";
+---
+
+<label class="seach-toggle relative">
+  <Finder class="w-8 h-8 rounded-full inline-block" fill="white" />
+  <input
+    id="search-toggle-check"
+    type="checkbox"
+    class="hidden"
+    checked=""
+    onchange="toggleSearch()"
+  />
+  <form action="/search" class="search-div">
+    <input type="text" name="term" placeholder="Buscar..." />
+    <button type="submit" class="p-2"> 🔍 </button>
+  </form>
+</label>
+
+<style>
+  .seach-toggle {
+    display: none;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .search-div {
+    display: none;
+    color: black;
+    position: absolute;
+    bottom: -50px;
+    right: 0;
+    padding: 3px;
+    width: max-content;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 100;
+  }
+  #search-toggle-check:hover ~ .search-div,
+  #search-toggle-check:checked ~ .search-div {
+    display: block;
+  }
+</style>

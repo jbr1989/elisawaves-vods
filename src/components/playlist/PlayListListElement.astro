@@ -5,7 +5,7 @@ const { video, index, selected, chat, seconds } = Astro.props;
 
 const overlays = [`${video.duration}`];
 
-console.log(video);
+//console.log(video);
 ---
 
 <button
@@ -23,7 +23,7 @@ console.log(video);
       alt="Poster del video"
       width="200px"
       height="112.5px"
-      class="w-full h-auto object-cover aspect-video"
+      class="w-full h-auto rounded-lg object-cover aspect-video"
     />
     <ThumbnailOverlay overlays={overlays} />
   </div>

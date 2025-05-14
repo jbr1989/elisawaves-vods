@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+const { imageUrl, stacked = 3 } = Astro.props;
+---
+
+<style>
+  .thumbnail-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 1rem;
+  }
+
+  .thumbnail-stack {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    cursor: pointer;
+  }
+
+  .thumbnail-stack div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .thumbnail-stack div:nth-child(3) {
+    transform: translateY(-18px) scale(0.91);
+    opacity: 0.3;
+    transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .thumbnail-stack div:nth-child(2) {
+    transform: translateY(-12px) scale(0.94);
+    opacity: 0.5;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .thumbnail-stack div:nth-child(1) {
+    transform: translateY(-6px) scale(0.97);
+    opacity: 0.8;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .thumbnail-stack:hover div {
+    transform: translateY(0) scale(0);
+  }
+
+  .thumbnail-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    z-index: 2;
+  }
+</style>
+
+<div class="thumbnail-container">
+  <div class="thumbnail-stack">
+    {
+      Array.from({ length: stacked }).map((_, index) => (
+        <div class="stack-item" />
+      ))
+    }
+    <Image
+      src={imageUrl}
+      alt="Poster de la playlist"
+      width={200}
+      height={112}
+      loading="lazy"
+      class="thumbnail-image"
+    />
+  </div>
+</div>

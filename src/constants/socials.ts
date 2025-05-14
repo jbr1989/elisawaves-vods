@@ -29,4 +29,9 @@ export const socials = [
 		url: "https://www.tiktok.com/@elisawavess",
 		icon: "/img/social/tiktok.webp",
 	},
+	{
+		title: "Wiki",
+		url: "https://eliverse.fandom.com/es/wiki/Elisawaves",
+		icon: "/img/social/wiki.webp",
+	},
 ];
