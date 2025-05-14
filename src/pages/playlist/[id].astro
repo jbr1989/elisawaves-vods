@@ -165,7 +165,7 @@ const initialVideoId = videos[0]?.id;
       if (!chatVisible) return;
 
       const currentSeconds = player.getCurrentTime();
-      console.log("CURRENT SECONDS", currentSeconds);
+      //console.log("CURRENT SECONDS", currentSeconds);
 
       if (comments !== undefined) findComments(currentSeconds);
     }, 1000); // Cada medio segundo, por ejemplo
@@ -206,7 +206,7 @@ const initialVideoId = videos[0]?.id;
       var heightContainer = videoPlayer.offsetHeight;
       r.style.setProperty("--height-playlist", heightContainer + "px");
       var heightHeader = playlistHeader.offsetHeight;
-      console.log("HEIGHT", heightContainer, heightHeader);
+      //console.log("HEIGHT", heightContainer, heightHeader);
       r.style.setProperty(
         "--height-playlist-list",
         heightContainer - heightHeader + "px"
@@ -218,7 +218,7 @@ const initialVideoId = videos[0]?.id;
     } else {
       var screenHeight = window.innerHeight;
       var minHeight = playListList.offsetHeight;
-      console.log("MIN HEIGHT", minHeight);
+      //console.log("MIN HEIGHT", minHeight);
       var heightHeader = playlistHeader.getBoundingClientRect().bottom;
       var height = Math.max(
         Math.min(screenHeight - heightHeader - 10, minHeight),
@@ -227,12 +227,12 @@ const initialVideoId = videos[0]?.id;
       r.style.setProperty("--height-playlist-list", height + "px");
     }
 
-    console.log("HEIGHT PLAYLIST", heightContainer, heightHeader);
+    //console.log("HEIGHT PLAYLIST", heightContainer, heightHeader);
   }
 
   function nextVideo(sum) {
     index = (currentVideoIndex + sum + numVideos) % numVideos;
-    console.log("INDEX", index);
+    //console.log("INDEX", index);
     changeVideo(index);
   }
 
@@ -257,7 +257,7 @@ const initialVideoId = videos[0]?.id;
   }
 
   function openChat() {
-    console.log("OPEN CHAT");
+    //console.log("OPEN CHAT");
     chatIsVisible = playListChat.style.display != "none";
 
     playListChat.style.display = chatIsVisible ? "none" : "block";
@@ -268,19 +268,19 @@ const initialVideoId = videos[0]?.id;
   }
 
   function toggleChat() {
-    console.log("TOGGLE CHAT", chatVisible);
+    //console.log("TOGGLE CHAT", chatVisible);
 
     if (chatVisible) {
       const video = playListVideos[currentVideoIndex];
-      console.log(playListVideos);
-      console.log(video);
-      console.log(video.dataset);
+      // console.log(playListVideos);
+      // console.log(video);
+      // console.log(video.dataset);
 
       const id = video.dataset.videoId;
       const folder = video.dataset.chat;
       const url = `/chat/${folder}/${id}.html`;
 
-      console.log("URL", url);
+      // console.log("URL", url);
 
       chatFrame.src = url;
       chatFrame.dataset.seconds = video.dataset.seconds;
@@ -296,6 +296,6 @@ const initialVideoId = videos[0]?.id;
       //clearInterval(playerInterval);
     }
 
-    console.log("PLAYER", player);
+    // console.log("PLAYER", player);
   }
 </script>

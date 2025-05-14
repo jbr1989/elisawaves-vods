@@ -88,7 +88,7 @@ export async function getPlaylistVideos(playlistId: string): Promise<Video[]> {
 
 export async function getVideos(ids: string[]): Promise<Video[]> {
 	const url = `${apiUrl}videos?part=snippet,contentDetails&id=${ids.join(",")}&key=${apiKey}`;
-	console.log("URL", url);
+	//console.log("URL", url);
 
 	const res = await fetch(url);
 	if (!res.ok) throw new Error("Error al obtener el vídeo.");
