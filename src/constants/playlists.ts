@@ -5,6 +5,8 @@ export const playlistsConst = {
 		seconds: 1534, //00:25:36
 	},
 
+
+
 	// ROL: M. MacKenzie
 	i1oaYkTYGNA: {
 		folder: "Mackenzie",
@@ -52,6 +54,8 @@ export const playlistsConst = {
 		seconds: 0,
 	}, //  🧡 M. Mackenzie 🧡 || T01x12: "Cogadh" || ✨≋ELISAWAVES≋✨
 
+
+
 	// MAFIA
 	MzdyMj7cMKg: {
 		folder: "Mafia",
@@ -61,6 +65,8 @@ export const playlistsConst = {
 		folder: "Mafia",
 		seconds: 0,
 	}, //  🤵‍♂️MAFIA: Definitive Edition🤵‍♂️(Pt.02 - FINAL) || ✨≋ELISAWAVES≋✨
+
+
 
 	// BEYOND TWO SOULS
 	EKeu3cQkvH0: {
@@ -83,6 +89,8 @@ export const playlistsConst = {
 		folder: "Beyond_Two_Souls",
 		seconds: 0,
 	}, //  🔗 BEYOND TWO SOULS 🔗 (Pt.05 - FINAL) || ✨≋ELISAWAVES≋✨
+
+
 
 	// JANE TURNER T01
 	//M0eLphlv9pA: 0, //  💚 Jane Turner 💚 || T01x01: “A New Beginning" || ✨≋ELISAWAVES≋✨
@@ -173,6 +181,8 @@ export const playlistsConst = {
 		folder: "Jane_Turner",
 		seconds: 0,
 	}, //   💚 Jane Turner 💚 || T01x34: "Soundscape" || ✨≋ELISAWAVES≋✨
+
+
 
 	// JANE TURNER T02
 	"Ni3URlASl-Q": {
@@ -313,6 +323,8 @@ export const playlistsConst = {
 		folder: "Jane_Turner_2",
 		seconds: 0,
 	}, // 💚 Jane Turner 💚 || T02.5x06: "απάντηση" || ✨≋ELISAWAVES≋✨ 
+
+
 
 	// TORTILLA LAND 2
 	oUbjCJAErV0: {
@@ -523,6 +535,8 @@ export const playlistsConst = {
 		seconds: 0,
 	}, // 💛 Vera Márquez 💛 || Spinoff: "Payasos" || ✨≋ELISAWAVES≋✨ 
 
+
+
 	// HITMAN 2 y 3
 	"4pYTOlh9nvs": {
 		folder: "Hitman",
@@ -532,5 +546,93 @@ export const playlistsConst = {
 		folder: "Hitman",
 		seconds: 0,
 	}, // 🔫 HITMAN 3 🔫 Completo || ✨≋ELISAWAVES≋✨ 
+
+
+	// CONTENT WARNING
+	qBSEa02mIZU: {
+		folder: "Content_Warning",
+		seconds: 0,
+	}, // 🎥 CONTENT WARNING ft chocobomon, ahriadna y goes_x 🎥 || ✨ELISAWAVES≋✨ 
+	m_hrn0HTDU8: {
+		folder: "Content_Warning",
+		seconds: 0,
+	}, // 🎥 CONTENT WARNING ft synced_esp, jotacanario y jordimaquiavello🎥 || ✨≋ELISAWAVES≋✨ 
+
+	// NEVA
+	"2_5wUfGsGlg": {
+		folder: "Neva",
+		seconds: 0,
+	}, // 🐺 Presentación de NEVA 🐺 (Pt.01) - Probado NEVA ||✨≋ELISAWAVES≋✨ 
+	TDNQ995Skx8: {
+		folder: "Neva",
+		seconds: 0,
+	}, // 🐺 Presentación de NEVA 🐺 (Pt.02) - Charlas e impresiones ||✨≋ELISAWAVES≋✨ 
+	BUaALDU7aKQ: {
+		folder: "Neva",
+		seconds: 0,
+	}, // 🐺 Presentación de NEVA 🐺 (Pt.03) - Entrevista a Conrad Roset ||✨≋ELISAWAVES≋✨ 
+	V0lSTQA7Sb8: {
+		folder: "Neva",
+		seconds: 0,
+	}, // 🐺 Presentación de NEVA 🐺 (Pt.04) - Concierto de Berlinist ||✨≋ELISAWAVES≋✨ 
+	"KWI45-uI-VM": {
+		folder: "Neva",
+		seconds: 0,
+	}, // 🐺 Presentación de NEVA 🐺 (Pt.05) - FINAL ||✨≋ELISAWAVES≋✨ 
+
+	// TALKS
+	iwOkGUkdaYc: {
+		folder: "Talks",
+		seconds: 0,
+	}, // 🎙️ TALKS: Cristina Gutiérrez 🎙️ (PC GAME PASS) || ✨≋ELISAWAVES≋✨ 
+	OHQj0Zj1arg: {
+		folder: "Talks",
+		seconds: 0,
+	}, // 🎙️ TALKS: Orbesio (Irakli) 🎙️ || ✨≋ELISAWAVES≋✨ 
+
+
+	// ANTIGUOS
+	// SINgoDHbv1Y (VACIO) -> Hoy NO HAY TLOU ｜💥 Pelito NUEVO 💥✨≋LAGRITOSWAVES≋✨ parte 1 || ✨≋ELISAWAVES≋✨ 
+	// FqQtD4JAefE (VACIO) -> CHARLAMOS Y A POR LOS CHASQUEADORES || ✨≋ELISAWAVES≋✨ 
+	// I17Q4GlV0Nc (VACIO) -> ⚡️🏠 NOCHEBUENA WAVER 🏠⚡️ JUEGOS CON SUBS PARTE 1 ||✨≋ELISAWAVES≋✨ 
+	// atEc0d-DQAU -> 🍁Charlemos de cosas importantes - Carreritas de GTA, TortillaLand🍁 || ✨≋ELISAWAVES≋✨ 
+	// pZbqFFY_Afc -> FORASTEROS RP + 18 || NOAH SOBCHAK CAP 45 🥰 SOMOS 10K⭐️ | SOBCHAKHOME +18 🌸 
+	"lKY3_Oa8Py0": {
+		folder: "Antiguos",
+		seconds: 0,
+	}, // FINAL DE TEMPORADA London Eye RP  | ✨ ≋ELISAWAVES≋ ✨ 
+	// ZYmIeHjGGr4 ->  Intro nueva | ✨≋ELISAWAVES≋✨ 
+	// Yrin-4KOxeA ->  GTA V 11 | ✨≋ELISAWAVES≋✨ 
+	// 6q-0b1_hvSA -> CABREIROA #AD | ✨≋ELISAWAVES≋✨ 
+	// -WsYnfnh-r4 ->  LOLCITO || ✨≋ELISAWAVES≋✨ 
+	// J3PVWFBIRx8 ->  JORDI EPIC || ✨≋ELISAWAVES≋✨ 
+	// ooD6LYw4wOg -> FORASTEROS RP + 18 || NOAH SOBCHAK CAP 45 🥰 SOMOS 10K⭐️ | SOBCHAKHOME +18 🌸 
+	TanmZ1YL1B4: {
+		folder: "Antiguos",
+		seconds: 0,
+	}, // LORE LORE LORE 🖤 ✨≋ELISAWAVES≋✨ 
+	"9kHlmMiNLCQ": {
+		folder: "Antiguos",
+		seconds: 0,
+	}, // 🌴 MARBELLA VICE +18 🌴 IRIS MÁRQUEZ - DETECTIVE || ELISAWAVES⭐ 
+	// xfnMmdeCvLY ->  💛 FIN DE TEMPORADA VERA MARLOW S2X70 💛 Parte 1/2: Proverbios 12:19-28 PDT 🌴 GRUPO OASIS 🌴 
+	// M_yq_wb4yas ->  💛 FIN DE TEMPORADA VERA MARLOW S2X70 💛 Parte 2/2: Proverbios 12:19-28 PDT 🌴 GRUPO OASIS 🌴 
+	"5VPmuwOA48g": {
+		folder: "Antiguos",
+		seconds: 0,
+	}, // 👁️ LONDON EYE RP +18 🎡 🤍 IRIS MÁRQUEZ 🤍  DETECTIVE PRIVADA🧤 T2x21: ¿ES EL FINAL? 🔎 || ✨≋ELISAWAVES≋✨ 
+	A6nMXOlKlog: {
+		folder: "Antiguos",
+		seconds: 0,
+	}, // ESTRENAMOS LONDON EYE ||🌟≋ELISAWAVES≋🌟 
+	// LWqcHML3-Go ->  FORASTEROS RP + 18 || NOAH SOBCHAK CAP 45 🥰 SOMOS 10K⭐️ | SOBCHAKHOME +18 🌸 
+	// TPnFnSOyQhI ->  GTA V 9 
+	LtEkaaph6aU: {
+		folder: "Antiguos",
+		seconds: 0,
+	}, // ✨ 100K GRACIAS ✨⭐ELISAWAVES⭐#CÓDIGO100K ⭐ #100KFORELISA ⭐#2KSUBS ⭐ 
+
+
+
 
 };
