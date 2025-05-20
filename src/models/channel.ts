@@ -6,7 +6,7 @@ export class Channel {
 	thumbnail: string;
 	subscribers: number;
 
-	constructor(channelYoutube) {
+	constructor(channelYoutube: { id: string; snippet: { title: string; customUrl: string; description: string; thumbnails: { high: { url: string; }; }; }; statistics: { subscriberCount: number; }; }) {
 		// console.log("channelYoutube", channelYoutube);
 
 		this.id = channelYoutube.id;

@@ -3,7 +3,7 @@ import { Playlist } from "../models/playlist";
 import { Video } from "../models/video";
 
 import { channelsConst } from "../constants/channels";
-import { searchVideo } from "@/models/searchVideo";
+import { Result } from "@/models/result";
 
 // src/lib/youtube.ts
 const apiUrl = "https://www.googleapis.com/youtube/v3/";
@@ -103,31 +103,33 @@ export async function getVideos(ids: string[]): Promise<Video[]> {
 	return videos;
 }
 
-export async function findVideos(query: string): Promise<searchVideo[]>  {
+export async function find(query: string): Promise<Result[]>  {
 
 	const channels = channelsConst.map((channel) => channel.id);
 	console.log("CHANNELS", channels);
 
-	const videos = [];
+	const results = [];
 
 	for (const channel of channels) {
-		videos.push(...(await findVideoInChannel(query, channel)));
+		results.push(...(await findInChannel(query, channel)));
 	}
 
-	return videos;
+	return results;
 
 }
 
-export async function findVideoInChannel(query: string, channelId: string): Promise<searchVideo[]> {
+export async function findInChannel(query: string, channelId: string): Promise<Result[]> {
 	const url = `${apiUrl}search?part=snippet&q=${query}&channelId=${channelId}&key=${apiKey}`;
-	console.log("URL", url); // TODO: eliminar este console.log una vez que se tenga el vid
+	//console.log("URL", url); // TODO: eliminar este console.log una vez que se tenga el vid
 
 	const res = await fetch(url);
 	if (!res.ok) throw new Error("Error al buscar vídeos.");
 
 	const data = await res.json();
 
-	const videos = data.items.map((video: any) => new searchVideo(video));
+	const results = data.items.map((element: any) => new Result(element));
 
-	return videos;
+	console.log("RESULTS", results); // TODO: eliminar este console.log una vez que se tenga el vid
+
+	return results;
 }

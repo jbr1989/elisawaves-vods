@@ -2,20 +2,18 @@
 import { Image } from "astro:assets";
 import ThumbnailOverlay from "../thumbnail/ThumbnailOverlay.astro";
 
-const { playlist } = Astro.props;
+const { video } = Astro.props;
 
-const overlays = [
-  `${playlist.numVideos} ${playlist.numVideos > 1 ? "videos" : "video"}`,
-];
+const overlays = [``];
 ---
 
 <a
-  href={`/playlist/${playlist.id}`}
+  href={`/playlist/${video.id}`}
   class="overflow-hidden text-[--color-text] hover:scale-105 transition"
 >
   <div class="thumbnail w-full aspect-video relative">
     <Image
-      src={playlist.image}
+      src={video.thumbnail}
       alt="Poster de la playlist"
       width={100}
       height={100}
@@ -23,13 +21,13 @@ const overlays = [
       class="w-full object-cover rounded-xl"
     />
     <!-- <img
-    src={playlist.image}
+    src={playlist.thumbnail}
     alt={playlist.title}
     class="w-full object-cover aspect-video"
   /> -->
-    <ThumbnailOverlay overlays={overlays} />
+    <!-- <ThumbnailOverlay overlays={overlays} /> -->
   </div>
   <div class="p-2">
-    <h2 class="text-md font-semibold">{playlist.title}</h2>
+    <h2 class="text-md font-semibold">{video.title}</h2>
   </div>
 </a>
