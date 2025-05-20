@@ -1,21 +1,14 @@
-export class Playlist {
-	id: string;
-	title: string;
-	image: string;
+import { ElementYoutube } from "./ElementYoutube";
 
-	channelId: string;
-	channelTitle: string;
+export class Playlist extends ElementYoutube {
 
 	numVideos: number;
 
-	constructor(playlistYoutube) {
-		this.id = playlistYoutube.id;
-		this.title = playlistYoutube.snippet.title;
-		this.image = playlistYoutube.snippet.thumbnails.medium.url;
+	constructor(playlistYoutube: any) {
+		super(playlistYoutube);
 
-		this.channelId = playlistYoutube.snippet.channelId;
-		this.channelTitle = playlistYoutube.snippet.channelTitle;
+		this.thumbnail = playlistYoutube.snippet.thumbnails?.medium?.url || playlistYoutube.snippet.thumbnails?.default?.url;
 
-		this.numVideos = playlistYoutube.contentDetails.itemCount;
+		this.numVideos = playlistYoutube.contentDetails?.itemCount || 0;
 	}
 }

@@ -1,21 +1,21 @@
 ---
 import SearchList from "@/components/search/SearchList.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
-import { findVideos } from "@/lib/youtube";
+import { find } from "@/lib/youtube";
 
 const url = new URL(Astro.request.url);
 console.log("URL", url);
 const term = url.searchParams.get("term") || "";
 console.log("TERM", term);
 
-const videos = await findVideos(term);
-console.log("VIDEOS", videos);
+const results = await find(term);
+console.log("RESULTS", results);
 ---
 
 <PageLayout title=`Buscar ${term}` robots="noindex, follow" mainClass="w-full">
   <h1 class="text-3xl font-bold mb-6">
-    Buscando {term}: {videos.length} videos
+    Buscando {term}: {results.length} videos
   </h1>
 
-  <SearchList term={term} />
+  <SearchList term={term} results={results} />
 </PageLayout>

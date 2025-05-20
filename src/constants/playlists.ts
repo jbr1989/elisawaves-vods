@@ -632,7 +632,113 @@ export const playlistsConst = {
 		seconds: 0,
 	}, // ✨ 100K GRACIAS ✨⭐ELISAWAVES⭐#CÓDIGO100K ⭐ #100KFORELISA ⭐#2KSUBS ⭐ 
 
+	// ESPECIALES
+	// Euoh3xxI20c: {
+	// 	folder: "Especiales",
+	// 	seconds: 0,
+	// }, // 🔪 AMONG US con las nenas 🔪 || ✨≋ELISAWAVES≋✨ 
+	// "4Z2gYRNECqE": {
+	// 	folder: "Especiales",
+	// 	seconds: 0,
+	// }, // 🐕 SIRIUS STREAM 🐕 || ✨≋ELISAWAVES≋✨ 
+	isLkAzbdTlg: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // 🎙️ PREMIOS IRENE DE DOBLAJE 2023 🎙️ 
+	otF8wzuIlnI: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // 🪄 En el expreso de Hogwarts 🪄 || ✨≋ELISAWAVES≋✨ 
+	hvFBpTRd8l4: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // ✨🇳🇱 INTENTO DE IRL EN AMSTERDAM 🇳🇱 ✨ (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	FxOfb9njXhg: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // ✨🇳🇱 INTENTO DE IRL EN AMSTERDAM 🇳🇱 ✨ (Pt.02) || ✨≋ELISAWAVES≋✨ 
+	rKgvjCDVYtM: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // IRL EN BARCELONA con Pol 🤍 (Pt.01) ||✨≋ELISAWAVES≋✨ 
+	lrNj4VATIiQ: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // IRL EN BARCELONA con Pol 🤍 (Pt.02) ||✨≋ELISAWAVES≋✨ #ad 
+	nDeIgQOsByo: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // 🏎️ KA CHOW! 🏎️ || ✨≋ELISAWAVES≋✨ 
+	pm55PFGSiX8: {
+		folder: "Especiales",
+		seconds: 0,
+	}, // 🤍 FACE REVEAL 🤍 100% NO FAKE || CONOCE A NOAH SOBCHAK || ✨≋ELISAWAVES≋✨ 
 
 
+	// ElisaBDay
+	"6ozusOY0Ts4": {
+		folder: "ElisaBDay",
+		seconds: 0,
+	}, // 🎂 ElisaBDay 2024 🎂 
+	// "k670GB-g-Hk": {
+	// 	folder: "ElisaBDay",
+	// 	seconds: 0,
+	// }, // 🎂 CELEBRÉ MI CUMPLEAÑOS CON VOSOTROS 
+	"Xl_CcGiuwD4": {
+		folder: "ElisaBDay",
+		seconds: 0,
+	}, // 🎂 #elisaBday 2022 🎂 || ✨≋ELISAWAVES≋✨ 
+	// ZvXIEcdAY88: {
+	// 	folder: "ElisaBDay",
+	// 	seconds: 0,
+	// }, // 🌟CELEBRAMOS JUNTOS MI CUMPLEAÑOS Y OS DOY UNA SORPRESILLA #Código21añitos🔥🌟ELISAWAVES��� 
+
+	// Series en activo
+	cClDoFW5rzU: {
+		folder: "Series_Activo",
+		seconds: 0,
+	}, // 🎲 Baldur's Gate III ft  SutanRP, QuiquitoDR y Masyebra 🎲 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	cPGskT29DHc: {
+		folder: "Series_Activo",
+		seconds: 0,
+	}, // 🧝🏻‍♀️ World of Warcraft ft  SutanRP, QuiquitoDR y Masyebra 🧝🏻‍♀️ (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	"jci-RokyrLQ": {
+		folder: "Series_Activo",
+		seconds: 0,
+	}, // 🧝🏻‍♀️ World of Warcraft ft  SutanRP, QuiquitoDR y Masyebra 🧝🏻‍♀️ (Pt.02) || ✨≋ELISAWAVES≋✨ 
+	rSwiF4Vmceo: {
+		folder: "Series_Activo",
+		seconds: 0,
+	}, // 🧝🏻‍♀️ World of Warcraft ft  SutanRP, QuiquitoDR y Masyebra 🧝🏻‍♀️ (Pt.03) || ✨≋ELISAWAVES≋✨ 
+	"7Dc2WizXtW0": {
+		folder: "Series_Activo",
+		seconds: 0,
+	}, // 🧝🏻‍♀️ World of Warcraft ft  SutanRP, QuiquitoDR y Masyebra 🧝🏻‍♀️ (Pt.04) || ✨≋ELISAWAVES≋✨ 
+
+	// The Wolf Among Us
+	g1BzTdWEfwY: {
+		folder: "Wolf_Among_Us",
+		seconds: 0,
+	}, // 🐺 THE WOLF AMONG US 🐺 -  EP 1: Faith || ✨≋ELISAWAVES≋✨ 
+	CjuC6SiGcKM: {
+		folder: "Wolf_Among_Us",
+		seconds: 0,
+	}, // 🐺 THE WOLF AMONG US 🐺 -  EP 2: Smoke and Mirrors || ✨≋ELISAWAVES≋✨ 
+	"dxLEpN7bG-I": {
+		folder: "Wolf_Among_Us",
+		seconds: 0,
+	}, // 🐺 THE WOLF AMONG US 🐺 -  EP 3: A Crooked Mile || ✨≋ELISAWAVES≋✨ 
+	"HvVIca-LFH0": {
+		folder: "Wolf_Among_Us",
+		seconds: 0,
+	}, // 🐺 THE WOLF AMONG US 🐺 -  EP 4 (Pt.01): In Sheep's Clothing || ✨≋ELISAWAVES≋✨ 
+	"_2cuNR_ZiJg": {
+		folder: "Wolf_Among_Us",
+		seconds: 0,
+	}, // 🐺 THE WOLF AMONG US 🐺 -  EP 4 (Pt.02): In Sheep's Clothing || ✨≋ELISAWAVES≋✨ 
+	H55gl1C3y7o: {
+		folder: "Wolf_Among_Us",
+		seconds: 0,
+	}, // 🐺 THE WOLF AMONG US 🐺 -  EP 5 FINAL: Cry Wolf || ✨≋ELISAWAVES≋✨ 
 
 };

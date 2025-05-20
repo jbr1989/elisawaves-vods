@@ -1,8 +1,9 @@
 ---
+import PlayListCard2 from "../playlist/PlayListCard2.astro";
 import VideoListCard from "../video/VideoListCard.astro";
-import type { searchVideo } from "@/models/searchVideo";
+import type { Result } from "@/models/result";
 
-const { videos, initialVideoId, playListsConst, playListChats } = Astro.props;
+const { results } = Astro.props;
 ---
 
 <div
@@ -10,8 +11,17 @@ const { videos, initialVideoId, playListsConst, playListChats } = Astro.props;
   style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
 >
   {
-    videos.map((result: searchVideo, index: number) => {
-      return <VideoListCard video={result} />;
+    results.map((result: Result, index: number) => {
+      console.log("RESULT", result);
+
+      switch (result.type) {
+        case "video":
+          return <VideoListCard video={result.element} />;
+          break;
+        case "playlist":
+          return <PlayListCard2 playlist={result.element} />;
+          break;
+      }
     })
   }
 </div>
