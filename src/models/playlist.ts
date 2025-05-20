@@ -4,10 +4,10 @@ export class Playlist extends ElementYoutube {
 
 	numVideos: number;
 
-	constructor(playlistYoutube: { id: string; snippet: { title: string; thumbnails: { medium: { url: string; }; }; channelId: string; channelTitle: string; }; contentDetails: { itemCount: number; }; }) {
+	constructor(playlistYoutube: any) {
 		super(playlistYoutube);
 
-		this.thumbnail = playlistYoutube.snippet.thumbnails.medium.url;
+		this.thumbnail = playlistYoutube.snippet.thumbnails?.medium?.url || playlistYoutube.snippet.thumbnails?.default?.url;
 
 		this.numVideos = playlistYoutube.contentDetails?.itemCount || 0;
 	}
