@@ -693,6 +693,7 @@ export const playlistsConst = {
 	// 	seconds: 0,
 	// }, // 🌟CELEBRAMOS JUNTOS MI CUMPLEAÑOS Y OS DOY UNA SORPRESILLA #Código21añitos🔥🌟ELISAWAVES��� 
 
+
 	// Series en activo
 	cClDoFW5rzU: {
 		folder: "Series_Activo",
@@ -714,6 +715,7 @@ export const playlistsConst = {
 		folder: "Series_Activo",
 		seconds: 0,
 	}, // 🧝🏻‍♀️ World of Warcraft ft  SutanRP, QuiquitoDR y Masyebra 🧝🏻‍♀️ (Pt.04) || ✨≋ELISAWAVES≋✨ 
+
 
 	// The Wolf Among Us
 	g1BzTdWEfwY: {
@@ -740,5 +742,130 @@ export const playlistsConst = {
 		folder: "Wolf_Among_Us",
 		seconds: 0,
 	}, // 🐺 THE WOLF AMONG US 🐺 -  EP 5 FINAL: Cry Wolf || ✨≋ELISAWAVES≋✨ 
+
+
+	// Life_Strange_1
+	aYMTkyKWu0o: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🦋 LIFE IS STRANGE 1 🦋- EP 1 - 2: Chrysalis & Out Of Time || ✨≋ELISAWAVES≋✨  
+	Elh8cQlhLI0: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🦋 LIFE IS STRANGE 1 🦋- EP 3: Chaos Theory || 
+	VfgdJ5QFShs: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🦋 LIFE IS STRANGE 1 🦋- EP 4: Dark Room || ✨≋ELISAWAVES≋✨ 
+	"9o1EsYUmiUE": {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🦋 LIFE IS STRANGE 1 🦋- EP 5: Polarized || ✨≋ELISAWAVES≋✨ 
+	SwPAzMkJjto: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🌪️ LIFE IS STRANGE: BEFORE THE STORM 🌪️ - EP 1 (Pt.01): Awake || ✨≋ELISAWAVES≋✨ 
+	pJnPpd3mCsc: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🌪️ LIFE IS STRANGE: BEFORE THE STORM🌪️-EP 1(Pt.02)-2(Pt.01):Awake & Brave New World ||✨≋ELISAWAVES≋✨ 
+	NQKlPRAiRkc: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🌪️ LIFE IS STRANGE: BEFORE THE STORM 🌪️ - EP 2 (Pt.02): Brave New World || ✨≋ELISAWAVES≋✨ 
+	"9iXbFQN1ozw": {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🌪️ LIFE IS STRANGE: BEFORE THE STORM 🌪️ - EP 2 (Pt.03): Brave New World || ✨≋ELISAWAVES≋✨ 
+	pYOq9ai5Ml8: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🌪️ LIFE IS STRANGE: BEFORE THE STORM 🌪️ - EP 3: Hell Is Empty || ✨≋ELISAWAVES≋✨ 
+	p7EHdS_KsbE: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🌪️ LIFE IS STRANGE: BEFORE THE STORM 🌪️- BONUS: Farewell (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	gYIUOl550is: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🌪️ LIFE IS STRANGE: BEFORE THE STORM 🌪️- BONUS: Farewell (Pt.02) || ✨≋ELISAWAVES≋✨  
+	KX5Vq3lLHio: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🐺 LIFE IS STRANGE 2 🐺- EP 1: Roads || ✨≋ELISAWAVES≋✨ 
+	GyEP9xaTw5I: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🐺 LIFE IS STRANGE 2 🐺- EP 2: Rules || ✨≋ELISAWAVES≋✨ 
+	// [10-5-24] elisawaves - 🐺 LIFE IS STRANGE 2 🐺- EP 3： Wastelands ｜｜ ✨≋ELISAWAVES≋✨ - Chat
+	// [10-7-24] elisawaves - 🐺 LIFE IS STRANGE 2 🐺- EP 4： Faith ｜｜ ✨≋ELISAWAVES≋✨ - Chat
+	IT1f3eov5u8: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🐺 LIFE IS STRANGE 2 🐺- EP 5: Wolves || ✨≋ELISAWAVES≋✨ 
+	ZgqZBer0HlY: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 🦸🏼 THE AWESOME ADVENTURES OF CAPTAIN SPIRIT 🦸🏼 (Completo) || ✨≋ELISAWAVES≋✨ 
+	A7uC3yM8uiM: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 💿 LIFE IS STRANGE: WAVELENGTHS 💿 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	EpGUaNsK0hM: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 💿 LIFE IS STRANGE: WAVELENGTHS 💿 (Pt.02) || ✨≋ELISAWAVES≋✨ 
+	fzNZwc4EXw8: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 📸 LIFE IS STRANGE: DOUBLE EXPOSURE 📸 - EP 1 & 2: Naturaleza Muerta & Penumbra || ✨≋ELISAWAVES≋✨ 
+	aiB2hB2sJ14: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 📸 LIFE IS STRANGE: DOUBLE EXPOSURE 📸 - EP 3: Vuelta de tuerca || ✨≋ELISAWAVES≋✨ 
+	nQXJCO7desA: {
+		folder: "Life_Strange",
+		seconds: 0,
+	}, // 📸 LIFE IS STRANGE: DOUBLE EXPOSURE 📸 - EP 4 & 5: Díptico & Decoherencia || ✨≋ELISAWAVES≋✨ 
+
+
+	// GamePlays
+	zFa6fnjTmJ0: {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🗺️ Road 96 🗺️ (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	vg0b7v4WChU: {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🪣 The Stanley Parable: Ultra Deluxe 🪣 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	MFcFoOV8M_w: {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🧽 Crime Scene Cleaner 🧽 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	// 🧽 Crime Scene Cleaner 🧽 (Pt.02) || ✨≋ELISAWAVES≋✨ 
+	TWjUC_6KcB4: {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🚐 Dustborn 🚐 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	ej6tmB1NokI: {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🍺 Tavern Manager Simulator 🍺 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	"6fKSPfokAfA": {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // ⭐ Gimmick! 2 ⭐ (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	"-qsfj03OXJ4_": {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🤖 ASTRO BOT 🤖 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	"nYfykxQS-70": {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🪓God Of War Ragnarök🪓(Pt.01) || ✨≋ELISAWAVES≋✨ 
+	// "bbQ-ZLhP77k": {
+	// 	folder: "GamePlays",
+	// 	seconds: 0,
+	// }, // 🌀 The Medium 🌀 (Pt.01) || ✨≋ELISAWAVES≋✨ 
 
 };
