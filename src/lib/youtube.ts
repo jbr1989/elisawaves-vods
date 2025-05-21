@@ -57,31 +57,45 @@ export async function getAllPlaylists() : Promise<Playlist[]> {
 	return playlists;
 }
 
-export async function getPlaylists(channelId: string) : Promise<Playlist[]> {
-	const url = `${apiUrl}playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=25&key=${apiKey}`;
-
+export async function getPlaylists(channelId: string, pageToken: string = "") : Promise<Playlist[]> {
+	let url = `${apiUrl}playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=50&key=${apiKey}`;
+	if (pageToken!="") url += `&pageToken=${pageToken}`;
+	
 	const res = await fetch(url);
 	if (!res.ok) throw new Error("Error al obtener listas de reproducción.");
 
 	const data = await res.json();
 
+	// console.log("LISTAS", data);
+
 	const playlists = data.items.map((playlist: any) => new Playlist(playlist));
+
+	if (data.nextPageToken) { // Si hay más páginas, llamar recursivamente a la función
+		playlists.push(...(await getPlaylists(channelId, data.nextPageToken)));
+	}
 
 	return playlists;
 }
 
-export async function getPlaylistVideos(playlistId: string): Promise<Video[]> {
-	const url = `${apiUrl}playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
+export async function getPlaylistVideos(playlistId: string, pageToken: string = ""): Promise<Video[]> {
+	let url = `${apiUrl}playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
+	if (pageToken!="") url += `&pageToken=${pageToken}`;
 
 	const res = await fetch(url);
 	if (!res.ok) throw new Error("Error al obtener vídeos de la playlist.");
 
 	const data = await res.json();
 
-	//console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
+	console.log("VIDEOS", data); 
 
 	const ids = data.items.map((item: any) => item.contentDetails.videoId);
 	//console.log("IDS", ids);
+
+	if (data.nextPageToken) { // Si hay más páginas, llamar recursivamente a la función
+		ids.push(...(await getPlaylistVideos(playlistId, data.nextPageToken)));
+	}
+
+	if (pageToken !== "") return ids; // Si es paginacion, devolver los ids
 
 	return await getVideos(ids);
 }
