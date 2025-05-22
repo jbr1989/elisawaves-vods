@@ -867,5 +867,34 @@ export const playlistsConst = {
 	// 	folder: "GamePlays",
 	// 	seconds: 0,
 	// }, // 🌀 The Medium 🌀 (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	"qHWv-jhrA8M": {
+		folder: "GamePlays",
+		seconds: 0,
+	}, // 🏴‍☠️ SEA OF THIEVES ft SutanRP y QuiquitoDR 🏴‍☠️ || ✨ELISAWAVES≋✨ 
+
+
+	// WOW
+	// "3qwszE_QxAQ": {
+	// 	folder: "Wow",
+	// 	seconds: 0,
+	// }, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.01) || ✨≋ELISAWAVES≋✨ 
+	// C5hzRkz6W8E: {
+	// 	folder: "Wow",
+	// 	seconds: 0,
+	// }, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.02) || ✨≋ELISAWAVES≋✨ 
+	// IOcFiVveFqo: {
+	// 	folder: "Wow",
+	// 	seconds: 0,
+	// }, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.03) || ✨≋ELISAWAVES≋✨ 
+	// vLPoZWj06Ak: {
+	// 	folder: "Wow",
+	// 	seconds: 0,
+	// }, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.04) || ✨≋ELISAWAVES≋✨ 
+
+	// R.E.P.O
+	lLPwG0vy1bU: {
+		folder: "REPO",
+		seconds: 0,
+	}, // 🤖 R.E.P.O. con @/QuiquitoDR, @/SutanRP, @/Petrusco2 y @/WholeWinter  🤖 ||✨≋ELISAWAVES≋✨ 
 
 };
