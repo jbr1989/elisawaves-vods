@@ -1,3 +1,6 @@
+// Fecha generada en el momento del build
+export const buildTime = new Date().toISOString();
+
 export function iso8601ToHumanTime(isoDuration) {
     const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
     const [, h = "0", m = "0", s = "0"] = isoDuration.match(regex);

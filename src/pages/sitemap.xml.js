@@ -1,10 +1,11 @@
 // src/pages/sitemap.xml.js
 import { channelsConst } from "@/constants/channels";
 import { getAllPlaylists } from "@/lib/youtube";
+import { buildTime } from "@/utils/time";
 
 function createUrl(
 	url,
-	lastModified = new Date().toISOString(),
+	lastModified = buildTime,
 	priority = 1.0,
 ) {
 	return `
