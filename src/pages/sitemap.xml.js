@@ -34,14 +34,14 @@ export async function GET() {
 
 		// CHANNELS
 		for (const channel of channelsConst) {
-			sitemapContent += createUrl(`${dominio}channel/${channel.tag}`);
+			sitemapContent += createUrl(`${dominio}media/channel/${channel.tag}`);
 		}
 
 		// PLAYLISTS
 		const playlists = await getAllPlaylists();
 
 		for (const playlist of playlists) {
-			sitemapContent += createUrl(`${dominio}playlist/${playlist.id}`);
+			sitemapContent += createUrl(`${dominio}media/playlist/${playlist.id}`);
 		}
 
 		sitemapContent += "</urlset>";
