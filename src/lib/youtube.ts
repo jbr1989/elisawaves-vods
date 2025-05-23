@@ -86,7 +86,8 @@ export async function getPlaylistVideos(playlistId: string, pageToken: string = 
 
 	const data = await res.json();
 
-	console.log("VIDEOS", data); 
+	//console.log("VIDEOS", data); 
+	//console.log("CONTENTDETAILS", data.items[0].contentDetails);
 
 	const ids = data.items.map((item: any) => item.contentDetails.videoId);
 	//console.log("IDS", ids);
@@ -108,6 +109,10 @@ export async function getVideos(ids: string[]): Promise<Video[]> {
 	if (!res.ok) throw new Error("Error al obtener el vídeo.");
 
 	const data = await res.json();
+
+	// console.log("VIDEOS", data);
+	// console.log("SNIPPET", data.items[0].snippet);
+	// console.log("CONTENTDETAILS", data.items[0].contentDetails);
 
 	const videos = data.items.map((video: any) => new Video(video));
 
