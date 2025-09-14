@@ -18,4 +18,5 @@ export default defineConfig({
 	},
   output: "server",
   adapter: vercel(),
+  compressHTML: true
 });

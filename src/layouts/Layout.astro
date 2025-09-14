@@ -17,24 +17,43 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="robots" content={robots || "index, follow"} />
+    <meta name="author" content="Dizo" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Preconectar a dominios externos -->
+    <link rel="preconnect" href="https://www.youtube.com" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+
+    <!-- Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "[ElisaWaves,Elisa Waves]",
-        "jobTitle": "[Actriz de doblaje,Locutora de publicidad,Streamer]",
+        "name": "Elisa Waves",
+        "alternateName": "ElisaWaves",
+        "jobTitle": ["Actriz de doblaje", "Locutora de publicidad", "Streamer"],
         "url": "https://elisawaves.es",
-        "sameAs": "[https://twitch.tv/elisawaves,https://www.youtube.com/elisawaves]"
+        "sameAs": [
+          "https://twitch.tv/elisawaves",
+          "https://www.youtube.com/elisawaves"
+        ]
       }
     </script>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title || "Elisa Waves"} />
     <meta property="og:description" content={descr} />
     <meta property="og:image" content={new URL("/favicon.png", Astro.site)} />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Elisa Waves" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title || "Elisa Waves"} />
     <meta name="twitter:description" content={descr} />
-    <meta name="twitter:url" content={canonicalURL} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content={new URL("/favicon.png", Astro.site)} />
   </head>
   <body
     class=`bg-zinc-100 text-zinc-900 dark:bg-(--color-grey) dark:text-zinc-100 ${bodyClass || ""}`

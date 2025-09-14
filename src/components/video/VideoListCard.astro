@@ -10,22 +10,19 @@ const overlays = [``];
 <a
   href={`/media/playlist/${video.id}`}
   class="overflow-hidden text-[--color-text] hover:scale-105 transition"
+  aria-label={`Ver video: ${video.title}`}
 >
   <div class="thumbnail w-full aspect-video relative">
     <Image
       src={video.thumbnail}
-      alt="Poster de la playlist"
+      alt={`Miniatura del video: ${video.title}`}
       width={100}
       height={100}
       loading="lazy"
+      decoding="async"
+      fetchpriority="low"
       class="w-full object-cover rounded-xl"
     />
-    <!-- <img
-    src={playlist.thumbnail}
-    alt={playlist.title}
-    class="w-full object-cover aspect-video"
-  /> -->
-    <!-- <ThumbnailOverlay overlays={overlays} /> -->
   </div>
   <div class="p-2">
     <h2 class="text-md font-semibold">{video.title}</h2>

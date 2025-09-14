@@ -16,6 +16,7 @@ const { imageUrl, stacked = 3 } = Astro.props;
     width: 100%;
     aspect-ratio: 16 / 9;
     cursor: pointer;
+    will-change: transform; /* Optimización de rendimiento */
   }
 
   .thumbnail-stack div {
@@ -26,6 +27,7 @@ const { imageUrl, stacked = 3 } = Astro.props;
     background-color: #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Evita que las imágenes se salgan del contenedor */
   }
 
   .thumbnail-stack div:nth-child(3) {
@@ -74,6 +76,8 @@ const { imageUrl, stacked = 3 } = Astro.props;
       width={200}
       height={112}
       loading="lazy"
+      decoding="async"
+      fetchpriority="low"
       class="thumbnail-image"
     />
   </div>

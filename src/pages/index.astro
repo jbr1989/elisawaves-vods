@@ -31,9 +31,12 @@ const description =
           >
             <img
               src={channel.logo}
-              alt="Imagen del canal"
-              width="300px"
-              height="300px"
+              alt={`Imagen del canal ${channel.title}`}
+              width="300"
+              height="300"
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
               class="max-w-[100%] rounded-full border-4 border-transparent group-hover:border-red-500 transition"
             />
             <h2 class="text-sm font-semibold">{channel.title}</h2>
