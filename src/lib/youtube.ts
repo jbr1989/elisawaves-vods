@@ -10,12 +10,16 @@ const apiUrl = "https://www.googleapis.com/youtube/v3/";
 const apiKey = import.meta.env.YOUTUBE_API_KEY;
 
 // Sistema de caché para reducir llamadas a la API
-type CacheEntry = {
-  data: any;
+interface CacheEntry<T> {
+  data: T;
   timestamp: number;
+}
+
+type CacheStore = {
+  [key: string]: CacheEntry<unknown>;
 };
 
-const cache: Record<string, CacheEntry> = {};
+const cache: CacheStore = {};
 const CACHE_DURATION = 3600000; // 1 hora en milisegundos
 
 // Función para obtener datos de la caché o de la API

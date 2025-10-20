@@ -3,15 +3,15 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --port 4333",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "^8.2.7",
-    "@tailwindcss/vite": "^4.1.13",
-    "astro": "^5.13.7",
-    "tailwindcss": "^4.1.13"
+    "@astrojs/vercel": "^8.2.10",
+    "@tailwindcss/vite": "^4.1.15",
+    "astro": "^5.14.7",
+    "tailwindcss": "^4.1.15"
   }
 }

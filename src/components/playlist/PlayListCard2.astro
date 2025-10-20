@@ -13,25 +13,16 @@ const overlays = [
 <a
   href={`/media/playlist/${playlist.id}`}
   class="overflow-hidden text-[--color-text] hover:scale-105 transition"
+  aria-label={`Ver playlist: ${playlist.title} con ${playlist.numVideos} ${playlist.numVideos > 1 ? "videos" : "video"}`}
 >
   <div class="thumbnail w-full aspect-video relative">
-    <!-- <Image
-      src={playlist.thumbnail}
-      alt="Poster de la playlist"
-      width={100}
-      height={100}
-      loading="lazy"
-      class="w-full object-cover rounded-xl"
-    /> -->
     <PlayListElement imageUrl={playlist.thumbnail} stacked={3} />
-    <!-- <img
-    src={playlist.thumbnail}
-    alt={playlist.title}
-    class="w-full object-cover aspect-video"
-  /> -->
     <ThumbnailOverlay overlays={overlays} />
   </div>
   <div class="p-2">
     <h2 class="text-md font-semibold">{playlist.title}</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-400">
+      {playlist.numVideos} {playlist.numVideos > 1 ? "videos" : "video"}
+    </p>
   </div>
 </a>
