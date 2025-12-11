@@ -54,6 +54,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={title || "Elisa Waves"} />
     <meta name="twitter:description" content={descr} />
     <meta name="twitter:image" content={new URL("/favicon.png", Astro.site)} />
+
+    <script
+      type="module"
+      data-entity="elisawaves-vods"
+      src="https://info.jbr1989.es/script.js"></script>
   </head>
   <body
     class=`bg-zinc-100 text-zinc-900 dark:bg-(--color-bg-body) dark:text-zinc-100 ${bodyClass || ""}`
