@@ -34,6 +34,7 @@ async function fetchWithCache(url: string, cacheKey?: string): Promise<any> {
   }
   
   // Si no está en caché o expiró, hacer la petición
+  // console.log("Fetching: " + url);
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Error en la petición: ${res.status} ${res.statusText}`);
   
@@ -145,31 +146,34 @@ export async function getVideos(ids: string[]): Promise<Video[]> {
 	// Si no hay IDs, devolver array vacío
 	if (!ids || ids.length === 0) return [];
 	
-	// Crear un hash único para este conjunto de IDs
-	const idsHash = ids.sort().join(",");
-	const cacheKey = `videos_${idsHash}`;
+	// La API de YouTube tiene un límite de 50 IDs por solicitud
+	const MAX_IDS_PER_REQUEST = 50;
+	const allVideos: Video[] = [];
 	
-	try {
+	// Dividir los IDs en lotes de máximo 50
+	for (let i = 0; i < ids.length; i += MAX_IDS_PER_REQUEST) {
+		const batch = ids.slice(i, i + MAX_IDS_PER_REQUEST);
 		
-		const url = `${apiUrl}videos?part=snippet,contentDetails&id=${ids.join(",")}&key=${apiKey}`;
-		const data = await fetchWithCache(url, cacheKey);
-
-		// if (!data.ok) throw new Error("Error al obtener el vídeo.");
-
-		// console.log("VIDEOS", data);
-		// console.log("SNIPPET", data.items[0].snippet);
-		// console.log("CONTENTDETAILS", data.items[0].contentDetails);
+		// Crear un hash único para este lote de IDs
+		const idsHash = batch.sort().join(",");
+		const cacheKey = `videos_${idsHash}`;
 		
-		const videos = data.items.map((video: any) => new Video(video));
+		try {
+			const url = `${apiUrl}videos?part=snippet,contentDetails&id=${batch.join(",")}&key=${apiKey}`;
+			const data = await fetchWithCache(url, cacheKey);
 
-		//console.log("DATA", data); // TODO: eliminar este console.log una vez que se tenga el vide
-		//console.log("CONTENTDETAILS", data.items[0].contentDetails); // TODO: eliminar este console.log una vez que se tenga el vide
-
-		return videos;
-	} catch (error) {
-		console.error("Error al obtener los vídeos:", error);
-		throw new Error("Error al obtener el vídeo.");
+			// console.log(`Se han obtenido ${data.items.length} vídeos del lote ${Math.floor(i / MAX_IDS_PER_REQUEST) + 1}`);
+			
+			const videos = data.items.map((video: any) => new Video(video));
+			allVideos.push(...videos);
+		} catch (error) {
+			console.error(`Error al obtener los vídeos del lote ${Math.floor(i / MAX_IDS_PER_REQUEST) + 1}:`, error);
+			throw new Error("Error al obtener el vídeo.");
+		}
 	}
+
+	console.log(`Total de vídeos obtenidos: ${allVideos.length}`);
+	return allVideos;
 }
 
 export async function find(query: string): Promise<Result[]>  {
