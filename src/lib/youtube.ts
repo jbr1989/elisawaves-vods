@@ -196,14 +196,23 @@ export async function find(query: string): Promise<Result[]>  {
 
 export async function findInChannel(query: string, channelId: string): Promise<Result[]> {
 	const normalizedQuery = query.toLowerCase().trim();
-	const cacheKey = `search_channel_${channelId}_${normalizedQuery}`;
 	
 	try {
-		
-		const url = `${apiUrl}search?part=snippet&q=${query}&channelId=${channelId}&key=${apiKey}`;
-		const data = await fetchWithCache(url, cacheKey);
-		
-		const results = data.items.map((element: any) => new Result(element));
+		let url = `${apiUrl}search?part=snippet&q=${query}&order=date&channelId=${channelId}&key=${apiKey}`;
+		let pageToken = undefined;
+		let results = [];
+
+		do {
+			let cacheKey = `search_channel_${channelId}_${normalizedQuery}_${pageToken}`;
+			let nextUrl = url + (pageToken!=undefined ? `&pageToken=${pageToken}` : "");
+			console.log("Searching URL:", nextUrl);
+			let data = await fetchWithCache(nextUrl, cacheKey);
+
+			// console.log("Results found:", data);
+			results.push(...data.items.map((element: any) => new Result(element)));
+
+			pageToken = data.nextPageToken;
+		} while (pageToken);
 		
 		return results;
 	} catch (error) {
