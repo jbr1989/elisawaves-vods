@@ -8,18 +8,16 @@ import Finder from "@/assets/finder.svg";
     id="search-toggle-check"
     type="checkbox"
     class="hidden"
-    checked=""
     onchange="toggleSearch()"
   />
   <form action="/search" class="search-div">
     <input type="text" name="term" placeholder="Buscar..." />
-    <button type="submit" class="p-2"> 🔍 </button>
+    <button type="submit" class="p-2"> <Finder class="w-6 h-6 rounded-full inline-block" fill="black" /> </button>
   </form>
 </label>
 
 <style>
   .seach-toggle {
-    display: none;
     position: relative;
     cursor: pointer;
   }
