@@ -3,11 +3,14 @@ export const prerender = true;
 
 import PageLayout from "@/layouts/PageLayout.astro";
 import PlaylistCard from "@/components/playlist/PlayListCard2.astro";
-import { getChannel, getChannels, getPlaylists } from "@/lib/youtube";
+import { getChannel, getPlaylists, youtubeCache, initApp } from "@/lib/youtube";
 import type { Channel } from "@/models/channel";
 
 export async function getStaticPaths() {
-  const channels = await getChannels();
+  if (youtubeCache.channels.length==0) await initApp();
+  const channels = youtubeCache.channels;
+
+  // const channels = await getChannels();
 
   return channels.map((channel: Channel) => ({
     params: { name: channel.name },

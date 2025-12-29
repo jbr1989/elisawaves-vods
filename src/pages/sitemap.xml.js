@@ -1,6 +1,6 @@
 // src/pages/sitemap.xml.js
 import { channelsConst } from "@/constants/channels";
-import { getAllPlaylists } from "@/lib/youtube";
+import { youtubeCache, initApp } from "@/lib/youtube";
 import { buildTime } from "@/utils/time";
 
 function createUrl(
@@ -19,6 +19,8 @@ function createUrl(
 
 export async function GET() {
 	try {
+		if (youtubeCache.channels.length === 0) initApp();
+
 		const dominio = "https://elisawaves.es/";
 
 		// Genera el contenido del sitemap
@@ -39,9 +41,7 @@ export async function GET() {
 		}
 
 		// PLAYLISTS
-		const playlists = await getAllPlaylists();
-
-		for (const playlist of playlists) {
+		for (const playlist of youtubeCache.playlists) {
 			sitemapContent += createUrl(`${dominio}media/playlist/${playlist.id}`);
 		}
 

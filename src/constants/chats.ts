@@ -1,4 +1,4 @@
-export const playlistsConst = {
+export const chatsConst = {
 	// Lost Records
 	PT7kwCk4N80: {
 		folder: "Lost_Records",

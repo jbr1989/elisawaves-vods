@@ -4,14 +4,17 @@ export const prerender = true;
 import PageLayout from "@/layouts/PageLayout.astro";
 import PlaylistChat from "@/components/playlist/PlayListChat.astro";
 
-import { getAllPlaylists, getPlaylistVideos } from "@/lib/youtube";
-import { playlistsConst } from "@/constants/playlists";
+import { getPlaylistVideosAPI, youtubeCache, initApp } from "@/lib/youtube";
+import { chatsConst } from "@/constants/chats";
 import PlayListList from "@/components/playlist/PlayListList.astro";
 import Player from "@/components/Player.astro";
 import type { Video } from "@/models/video";
 
 export async function getStaticPaths() {
-  const playlists = await getAllPlaylists();
+  if (youtubeCache.playlists.length==0) await initApp();
+  const playlists = youtubeCache.playlists;
+
+  // const playlists = await getAllPlaylists();
 
   return playlists.map((playlist) => ({
     params: { id: playlist.id },
@@ -23,9 +26,9 @@ const { params, props } = Astro;
 const playlistId = params.id;
 const title = props.title;
 
-const videos: Video[] = await getPlaylistVideos(playlistId);
-const playListKeys = videos.map((video) => video.id);
-const playListChats = playListKeys.filter((id) => id in playlistsConst);
+const videos: Video[] = await getPlaylistVideosAPI(playlistId);
+const videoKeys = videos.map((video) => video.id);
+const videoChats = videoKeys.filter((id) => id in chatsConst);
 
 const channelId = videos[0]?.channelId;
 const initialVideoId = videos[0]?.id;
@@ -64,7 +67,7 @@ const initialVideoId = videos[0]?.id;
             id="playListChatButton"
             title="Chat"
             class=`text-xl cursor-pointer`
-            style=`${!playListChats.includes(initialVideoId) ? "display:none" : ""}`
+            style=`${!videoChats.includes(initialVideoId) ? "display:none" : ""}`
             onclick="openChat()"
           >
             <svg
@@ -127,8 +130,8 @@ const initialVideoId = videos[0]?.id;
       <PlayListList
         videos={videos}
         initialVideoId={initialVideoId}
-        playListsConst={playlistsConst}
-        playListChats={playListChats}
+        chatsConst={chatsConst}
+        videoChats={videoChats}
       />
 
       <PlaylistChat />

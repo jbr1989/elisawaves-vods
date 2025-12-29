@@ -3,6 +3,7 @@ import { ElementYoutube } from "./ElementYoutube";
 export class Playlist extends ElementYoutube {
 
 	numVideos: number;
+	videosId: string[] = [];
 
 	constructor(playlistYoutube: any) {
 		super(playlistYoutube);
