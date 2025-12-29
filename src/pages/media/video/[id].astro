@@ -4,20 +4,21 @@ export const prerender = false;
 import PageLayout from "@/layouts/PageLayout.astro";
 import PlaylistChat from "@/components/playlist/PlayListChat.astro";
 
-import { getAllPlaylists, getPlaylistVideos } from "@/lib/youtube";
-import { playlistsConst } from "@/constants/playlists";
-import PlayListList from "@/components/playlist/PlayListList.astro";
 import Player from "@/components/Player.astro";
+import { getVideo } from "@/lib/youtube";
 import type { Video } from "@/models/video";
 
 const { params, props } = Astro;
 const initialVideoId = params.id;
-const title = "VIDEO"; 
+
+
+const video: Video | null = await getVideo(initialVideoId || "");
+const title = video ? video.title : "VIDEO";
 ---
 
 <PageLayout
-  title=`Playlist de ${title}`
-  descr={""}
+  title=`Video - ${title}`
+  descr={video?.descr || ""}
   currentChannelId={""}
   mainClass="w-full"
 >
@@ -27,6 +28,8 @@ const title = "VIDEO";
       <Player videoId={initialVideoId} />
 
       <h1 class="text-2xl font-bold p-2 text-left">{title}</h1>
+
+      <p class="text-left" set:html={video?.descr.replaceAll("\n", "<br>")}></p>
     </div>
 
     <!-- 📺 Sidebar video list -->
@@ -108,14 +111,6 @@ const title = "VIDEO";
         </div> -->
       </div>
 
-      <!-- <PlayListList
-        videos={videos}
-        initialVideoId={initialVideoId}
-        playListsConst={playlistsConst}
-        playListChats={playListChats}
-      /> -->
-
-      <PlaylistChat />
     </aside>
   </div>
 </PageLayout>

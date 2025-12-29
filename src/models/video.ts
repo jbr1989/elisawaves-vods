@@ -1,4 +1,4 @@
-import { iso8601ToHumanTime } from "@/utils/time";
+import { iso8601ToHumanTime } from "../utils/time";
 import { ElementYoutube } from "./ElementYoutube";
 
 export class Video extends ElementYoutube  {

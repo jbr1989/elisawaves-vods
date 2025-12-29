@@ -6,7 +6,14 @@ export class Channel {
 	thumbnail: string;
 	subscribers: number;
 
-	constructor(channelYoutube: { id: string; snippet: { title: string; customUrl: string; description: string; thumbnails: { high: { url: string; }; }; }; statistics: { subscriberCount: number; }; }) {
+	uploadsPlaylistId?: string;
+
+	constructor(channelYoutube: {
+		id: string; 
+		snippet: { title: string; customUrl: string; description: string; thumbnails: { high: { url: string; }; }; }; 
+		statistics: { subscriberCount: number; }; 
+		contentDetails: any;
+	}) {
 		// console.log("channelYoutube", channelYoutube);
 
 		this.id = channelYoutube.id;
@@ -15,5 +22,6 @@ export class Channel {
 		this.description = channelYoutube.snippet.description;
 		this.thumbnail = channelYoutube.snippet.thumbnails.high.url;
 		this.subscribers = channelYoutube.statistics.subscriberCount;
+		this.uploadsPlaylistId = channelYoutube.contentDetails?.relatedPlaylists?.uploads;
 	}
 }

@@ -2,23 +2,23 @@
 import type { Video } from "@/models/video";
 import PlayListListElement from "./PlayListListElement.astro";
 
-const { videos, initialVideoId, playListsConst, playListChats } = Astro.props;
+const { videos, initialVideoId, chatsConst, videoChats } = Astro.props;
 ---
 
 <div
   id="playListList"
   class="grid gap-2 overflow-x-hidden overflow-y-auto pr-2 py-3"
   style="max-height:var(--height-playlist-list); "
-  data-chats={playListChats.join(",")}
+  data-chats={videoChats.join(",")}
 >
   {
     videos.map((video: Video, index: number) => {
       let chatFolder = "";
       let seconds = 0;
 
-      if (playListChats.includes(video.id)) {
-        chatFolder = playListsConst[video.id]?.folder;
-        seconds = playListsConst[video.id]?.seconds;
+      if (videoChats.includes(video.id)) {
+        chatFolder = chatsConst[video.id]?.folder;
+        seconds = chatsConst[video.id]?.seconds;
       }
 
       return (
