@@ -282,7 +282,7 @@ export async function getPlaylistVideosAPI(playlistId: string, pageToken: string
 		if (pageToken !== "") return ids; // Si es paginacion, devolver los ids
 
 		// Para la solicitud principal, obtener los videos completos
-		return await getVideos(ids);
+		return await getVideosAPI(ids);
 
 	} catch (error) {
 		console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
