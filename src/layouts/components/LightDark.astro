@@ -3,7 +3,7 @@ const { color, elementClass } = Astro.props;
 ---
 
 <label
-  class=`theme-toggle w-10 h-10 text-${color || "white"} ${elementClass || ""}`
+  class=`theme-toggle inline-block w-10 h-10 text-${color || "white"} ${elementClass || ""}`
   title="Toggle theme"
 >
   <input
