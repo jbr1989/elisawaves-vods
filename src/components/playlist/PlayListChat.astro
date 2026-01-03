@@ -1,5 +1,11 @@
 ---
 
+const { params, props } = Astro;
+const src = props.src || "";
+const seconds = props.seconds || 0;
+
+console.log("PARAMS CHAT", params, props);
+
 ---
 
 <div
@@ -10,8 +16,9 @@
   <iframe
     id="chatFrame"
     class="w-full h-full m-0"
+    src={src}
     frameborder="0"
-    data-seconds="0"></iframe>
+    data-seconds={seconds}></iframe>
 </div>
 
 <script is:inline>

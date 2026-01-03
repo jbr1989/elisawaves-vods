@@ -1,4 +1,4 @@
-export const channelsConst = [
+export const channelsConst : { title: string; tag: string; id: string; logo: string }[] = [
 	{
 		title: "Elisa Waves",
 		tag: "@elisawavesroleplay",

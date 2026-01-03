@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import path from "path";
 
-// import { initAppIntegration } from "./src/integrations/initApp"
+import { initAppIntegration } from "./src/integrations/initApp"
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,5 +21,5 @@ export default defineConfig({
   output: "server",
   adapter: vercel(),
   compressHTML: true,
-  // integrations: [initAppIntegration()],
+  integrations: [initAppIntegration()],
 });

@@ -4,22 +4,34 @@ export const prerender = false;
 import PageLayout from "@/layouts/PageLayout.astro";
 import PlaylistChat from "@/components/playlist/PlayListChat.astro";
 
+import { chatsConst } from "@/constants/chats";
 import Player from "@/components/Player.astro";
-import { getVideo } from "@/lib/youtube";
+import { getVideo, youtubeCache, initApp } from "@/lib/youtube";
 import type { Video } from "@/models/video";
 
-const { params, props } = Astro;
-const initialVideoId = params.id;
+if (youtubeCache.videos.length==0) await initApp();
 
+const { params, props } = Astro;
+const initialVideoId = params.id || "";
 
 const video: Video | null = await getVideo(initialVideoId || "");
+const videoChat = chatsConst[initialVideoId] || null;
+
 const title = video ? video.title : "VIDEO";
+let url = "";
+let seconds = 0;
+
+if (videoChat!=null) {
+  url = `/chat/${videoChat.folder}/${initialVideoId}.html`;
+  seconds = videoChat.seconds || 0;
+}
+
 ---
 
 <PageLayout
   title=`Video - ${title}`
   descr={video?.descr || ""}
-  currentChannelId={""}
+  currentChannelId={video?.channelId || ""}
   mainClass="w-full"
 >
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-x-6 relative">
@@ -42,16 +54,13 @@ const title = video ? video.title : "VIDEO";
         id="playListHeader"
         class="border-b border-b-gray-950 flex items-center justify-between px-4 py-3 bg-(--color-primary) text-white dark:border-zinc-800"
       >
-        <!-- <div class="text-sm font-medium">
-          {videos.length}
-          {videos.length > 1 ? "videos" : "video"}
-        </div>
+        <div class="text-sm font-medium">1 vídeo</div>
         <div class="flex space-x-2">
           <button
             id="playListChatButton"
             title="Chat"
             class=`text-xl cursor-pointer`
-            style=`${!playListChats.includes(initialVideoId) ? "display:none" : ""}`
+            style=`${!videoChat ? "display:none" : ""}`
             onclick="openChat()"
           >
             <svg
@@ -70,47 +79,11 @@ const title = video ? video.title : "VIDEO";
               ></path>
             </svg>
           </button>
-          <button
-            title="Anterior"
-            class="text-xl cursor-pointer"
-            onclick="nextVideo(-1)"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-chevron-left"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
-              ></path>
-            </svg>
-          </button>
-          <button
-            title="Siguiente"
-            class="text-xl cursor-pointer"
-            onclick="nextVideo(1)"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-chevron-right"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-              ></path>
-            </svg>
-          </button>
-        </div> -->
+          
+        </div>
       </div>
 
+      <PlaylistChat src={url} seconds={seconds} />
     </aside>
   </div>
 </PageLayout>
@@ -241,41 +214,41 @@ const title = video ? video.title : "VIDEO";
     chatIsVisible = playListChat.style.display != "none";
 
     playListChat.style.display = chatIsVisible ? "none" : "block";
-    playListList.style.display = chatIsVisible ? "block" : "none";
+    // playListList.style.display = chatIsVisible ? "block" : "none";
 
     chatVisible = !chatIsVisible;
-    toggleChat();
+    // toggleChat();
   }
 
-  function toggleChat() {
-    //console.log("TOGGLE CHAT", chatVisible);
+  // function toggleChat() {
+  //   //console.log("TOGGLE CHAT", chatVisible);
 
-    if (chatVisible) {
-      const video = playListVideos[currentVideoIndex];
-      // console.log(playListVideos);
-      // console.log(video);
-      // console.log(video.dataset);
+  //   // if (chatVisible) {
+  //   //   const video = playListVideos[currentVideoIndex];
+  //   //   // console.log(playListVideos);
+  //   //   // console.log(video);
+  //   //   // console.log(video.dataset);
 
-      const id = video.dataset.videoId;
-      const folder = video.dataset.chat;
-      const url = `/chat/${folder}/${id}.html`;
+  //   const id = video.dataset.videoId;
+  //   const folder = video.dataset.chat;
+  //   const url = `/chat/${folder}/${id}.html`;
 
-      // console.log("URL", url);
+  //   //   // console.log("URL", url);
 
-      chatFrame.src = url;
-      chatFrame.dataset.seconds = video.dataset.seconds;
+  //     chatFrame.src = url;
+  //     chatFrame.dataset.seconds = video.dataset.seconds;
 
-      // let html = fetch(`/chat/${id}.html`)
-      //   .then((response) => response.text())
-      //   .then((html) => (chatFrame.innerHTML = html));
+  //   //   // let html = fetch(`/chat/${id}.html`)
+  //   //   //   .then((response) => response.text())
+  //   //   //   .then((html) => (chatFrame.innerHTML = html));
 
-      // initChat();
-      // setComments();
-      //onPlayerReady();
-    } else {
-      //clearInterval(playerInterval);
-    }
+  //   //   // initChat();
+  //   //   // setComments();
+  //   //   //onPlayerReady();
+  //   // } else {
+  //   //   //clearInterval(playerInterval);
+  //   // }
 
-    // console.log("PLAYER", player);
-  }
+  //   // console.log("PLAYER", player);
+  // }
 </script>
