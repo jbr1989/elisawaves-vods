@@ -245,52 +245,126 @@ export async function getAllPlaylistsAPI() : Promise<Playlist[]> {
 	return playlists;
 }
 
-export async function getPlaylistsAPI(channelId: string, pageToken: string = "") : Promise<Playlist[]> {
-	let url = `${apiUrl}playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=50&key=${apiKey}`;
-	if (pageToken!="") url += `&pageToken=${pageToken}`;
+// export async function getPlaylistsAPI(channelId: string, pageToken: string = "") : Promise<Playlist[]> {
+// 	let url = `${apiUrl}playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=50&key=${apiKey}`;
+// 	if (pageToken!="") url += `&pageToken=${pageToken}`;
 	
-	const cacheKey = `playlists_${channelId}_${pageToken}`;
+// 	const cacheKey = `playlists_${channelId}_${pageToken}`;
 	
-	try {
-		const data = await fetchWithCache(url, cacheKey);
+// 	try {
+// 		const data = await fetchWithCache(url, cacheKey);
 		
-		const playlists = data.items.map((playlist: any) => new Playlist(playlist));
+// 		const playlists = data.items.map((playlist: any) => new Playlist(playlist));
 
-		if (data.nextPageToken) { // Si hay más páginas, llamar recursivamente a la función
-			playlists.push(...(await getPlaylistsAPI(channelId, data.nextPageToken)));
+// 		if (data.nextPageToken) { // Si hay más páginas, llamar recursivamente a la función
+// 			playlists.push(...(await getPlaylistsAPI(channelId, data.nextPageToken)));
+// 		}
+
+// 		return playlists;
+// 	} catch (error) {
+// 		console.error(`Error al obtener listas de reproducción para el canal ${channelId}:`, error);
+// 		throw new Error("Error al obtener listas de reproducción.");
+// 	}
+// }
+
+export async function getPlaylistsAPI(channelId: string) : Promise<Playlist[]> {
+	// Si no hay IDs, devolver array vacío
+	if (channelId=="") return [];
+	
+	// La API de YouTube tiene un límite de 50 IDs por solicitud
+	const MAX_IDS_PER_REQUEST = 50;
+	const playlists : Playlist[] = [];
+
+
+	let url = `${apiUrl}playlists?part=snippet,contentDetails&channelId=${channelId}&maxResults=${MAX_IDS_PER_REQUEST}&key=${apiKey}`;
+	let pageToken = "";
+
+	do {
+		let cacheKey = `playlists_${channelId}_${pageToken}`;
+		let nextUrl = url + (pageToken!=undefined ? `&pageToken=${pageToken}` : "");
+		
+		try {
+
+			let data = await fetchWithCache(nextUrl, cacheKey);
+
+			// console.log("Results found:", data);
+			if (data.items) playlists.push(...data.items.map((playlist: any) => new Playlist(playlist)));
+
+			pageToken = data.nextPageToken;
+		} catch (error) {
+			console.error(`Error al obtener los playlists del canal ${channelId}:`, error);
+			throw new Error(`Error al obtener los playlists del canal ${channelId}`);
 		}
+	} while (pageToken);
 
-		return playlists;
-	} catch (error) {
-		console.error(`Error al obtener listas de reproducción para el canal ${channelId}:`, error);
-		throw new Error("Error al obtener listas de reproducción.");
-	}
+	return playlists;
 }
 
-export async function getPlaylistVideosAPI(playlistId: string, pageToken: string = ""): Promise<Video[]> {
-	let url = `${apiUrl}playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
-	if (pageToken!="") url += `&pageToken=${pageToken}`;
+// export async function getPlaylistVideosAPI(playlistId: string, pageToken: string = ""): Promise<Video[]> {
+// 	let url = `${apiUrl}playlistItems?part=contentDetails,snippet&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
+// 	if (pageToken!="") url += `&pageToken=${pageToken}`;
 
-	const cacheKey = `playlist_videos_${playlistId}_${pageToken}`;
+// 	const cacheKey = `playlist_videos_${playlistId}_${pageToken}`;
 	
-	try {
+// 	try {
 		
-		const data = await fetchWithCache(url, cacheKey);
-		const ids = data.items.map((item: any) => item.contentDetails.videoId);
+// 		const data = await fetchWithCache(url, cacheKey);
 
-		if (data.nextPageToken) { // Si hay más páginas, llamar recursivamente a la función
-			ids.push(...(await getPlaylistVideosAPI(playlistId, data.nextPageToken)));
+// 		// console.log(data.items);
+
+// 		const ids = data.items
+// 			.sort((a: any, b: any) => a.snippet.position - b.snippet.position) // Ordenar por posición
+// 			.map((item: any) => item.contentDetails.videoId);
+
+// 		if (data.nextPageToken) { // Si hay más páginas, llamar recursivamente a la función
+// 			ids.push(...(await getPlaylistVideosAPI(playlistId, data.nextPageToken)));
+// 		}
+
+// 		if (pageToken !== "") return ids; // Si es paginacion, devolver los ids
+
+
+// 		// Para la solicitud principal, obtener los videos completos
+// 		return await getVideosAPI(ids);
+
+// 	} catch (error) {
+// 		console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
+// 		throw new Error("Error al obtener vídeos de la playlist.");
+// 	}
+// }
+
+export async function getPlaylistVideosAPI(playlistId: string): Promise<Video[]> {
+	// Si no hay IDs, devolver array vacío
+	if (playlistId=="") return [];
+	
+	// La API de YouTube tiene un límite de 50 IDs por solicitud
+	const MAX_IDS_PER_REQUEST = 50;
+	const ids : string[] = [];
+
+	let url = `${apiUrl}playlistItems?part=contentDetails,snippet&playlistId=${playlistId}&maxResults=${MAX_IDS_PER_REQUEST}&key=${apiKey}`;
+	let pageToken = "";
+
+	do {
+		let cacheKey = `playlist_videos_${playlistId}_${pageToken}`;
+		let nextUrl = url + (pageToken!=undefined ? `&pageToken=${pageToken}` : "");
+		
+		try {
+
+			let data = await fetchWithCache(nextUrl, cacheKey);
+			console.log(data.items);
+
+			// console.log("Results found:", data);
+			if (data.items) ids.push(...data.items.map((item: any) => item.contentDetails.videoId));
+
+			pageToken = data.nextPageToken;
+		} catch (error) {
+			console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
+			throw new Error("Error al obtener vídeos de la playlist.");
 		}
+	} while (pageToken);
 
-		if (pageToken !== "") return ids; // Si es paginacion, devolver los ids
+	console.log("IDS", ids);
 
-		// Para la solicitud principal, obtener los videos completos
-		return await getVideosAPI(ids);
-
-	} catch (error) {
-		console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
-		throw new Error("Error al obtener vídeos de la playlist.");
-	}
+	return await getVideosAPI(ids);
 }
 
 export async function getPlaylistVideosIdAPI(playlistId: string, pageToken: string = ""): Promise<string[]> {
@@ -347,8 +421,12 @@ export async function getVideosAPI(ids: string[]): Promise<Video[]> {
 		}
 	}
 
-	// console.log(`Total de vídeos obtenidos: ${allVideos.length}`);
-	return allVideos;
+	// Ordenar videos
+	const map = new Map( allVideos.map(video => [video.id, video]) );
+	return ids.map(id => map.get(id)).filter((v): v is Video => v !== undefined);
+
+	// // console.log(`Total de vídeos obtenidos: ${allVideos.length}`);
+	// return allVideos;
 }
 
 
