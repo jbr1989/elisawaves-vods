@@ -1,4 +1,4 @@
-export const socials = [
+export const socials : { title: string; url: string; icon: string }[] = [
 	{
 		title: "Youtube",
 		url: "https://www.youtube.com/@ElisaWavesRoleplay",

@@ -30,7 +30,10 @@ export let youtubeCache = {
 };
 
 export async function initApp() {
+	if (youtubeCache.channels.length > 0) return; // Ya inicializado
+
 	console.log("Inicializando integración de YouTube...");
+	// console.log(process.env);
 
 	// Pre-cargar canales
 	youtubeCache.channels = await getChannelsAPI();
@@ -66,29 +69,29 @@ const CACHE_DURATION = 3600000; // 1 hora en milisegundos
 
 // Función para obtener datos de la caché o de la API
 async function fetchWithCache(url: string, cacheKey?: string): Promise<any> {
-  const key = cacheKey || url;
-  const now = Date.now();
-  
-  // Verificar si existe en caché y no ha expirado
-  if (cache[key] && (now - cache[key].timestamp) < CACHE_DURATION) {
-	console.log("Cache hit", key);
-    return cache[key].data;
-  }
-  
-  // Si no está en caché o expiró, hacer la petición
-//   console.log("Fetching: " + url);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Error en la petición: ${res.status} ${res.statusText}`);
-  
-  const data = await res.json();
-  
-  // Guardar en caché
-  cache[key] = {
-    data,
-    timestamp: now
-  };
-  
-  return data;
+	const key = cacheKey || url;
+	const now = Date.now();
+
+	// Verificar si existe en caché y no ha expirado
+	if (cache[key] && (now - cache[key].timestamp) < CACHE_DURATION) {
+		console.log("Cache hit", key);
+		return cache[key].data;
+	}
+
+	// Si no está en caché o expiró, hacer la petición
+	// console.log("Fetching: " + url);
+	const res = await fetch(url);
+	if (!res.ok) throw new Error(`Error en la petición: ${res.status} ${res.statusText}`);
+
+	const data = await res.json();
+
+	// Guardar en caché
+	cache[key] = {
+	data,
+	timestamp: now
+	};
+
+	return data;
 }
 
 //#endregion
@@ -134,7 +137,7 @@ export async function getVideo(videoId: string) : Promise<Video | null> {
 	if (youtubeCache.videos.length === 0) await initApp();
 
 	console.log("Buscando vídeo en caché:", videoId);
-	console.log(youtubeCache.videos.map(v => v.id));
+	// console.log(youtubeCache.videos.map(v => v.id));
 
 	const cachedVideo = youtubeCache.videos.find((video) => video.id === videoId);
 	if (cachedVideo) return cachedVideo;
