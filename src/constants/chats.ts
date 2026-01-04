@@ -594,11 +594,19 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 	"iwOkGUkdaYc": {
 		folder: "Talks",
 		seconds: 0,
-	}, // 🎙️ TALKS: Cristina Gutiérrez 🎙️ (PC GAME PASS) || ✨≋ELISAWAVES≋✨ 
+	}, // 🎙️ TALKS: Cristina Gutiérrez 🎙️ (PC GAME PASS) || ✨≋ELISAWAVES≋✨ // Elisawaves TV
+	"Kjvppwg3i20": {
+		folder: "Talks",
+		seconds: 0,
+	}, // 🎙️ TALKS: Cristina Gutiérrez 🎙️ (PC GAME PASS) || ✨≋ELISAWAVES≋✨ // Elisawaves
 	"OHQj0Zj1arg": {
 		folder: "Talks",
 		seconds: 0,
 	}, // 🎙️ TALKS: Orbesio (Irakli) 🎙️ || ✨≋ELISAWAVES≋✨ 
+	"Fmu6cEn5owA": {
+		folder: "Talks",
+		seconds: -5,
+	}, // 🎙️ TALKS: Bea Carpio 🎙️ || ✨≋ELISAWAVES≋✨ 
 
 
 	// ANTIGUOS
@@ -647,10 +655,7 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 	// 	folder: "Especiales",
 	// 	seconds: 0,
 	// }, // 🔪 AMONG US con las nenas 🔪 || ✨≋ELISAWAVES≋✨ 
-	// "4Z2gYRNECqE": {
-	// 	folder: "Especiales",
-	// 	seconds: 0,
-	// }, // 🐕 SIRIUS STREAM 🐕 || ✨≋ELISAWAVES≋✨ 
+	// 🐕 SIRIUS STREAM 🐕 || ✨≋ELISAWAVES≋✨ // NO CHAT
 	"isLkAzbdTlg": {
 		folder: "Especiales",
 		seconds: 0,
@@ -725,6 +730,12 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 		folder: "Series_Activo",
 		seconds: 0,
 	}, // 🧝🏻‍♀️ World of Warcraft ft  SutanRP, QuiquitoDR y Masyebra 🧝🏻‍♀️ (Pt.04) || ✨≋ELISAWAVES≋✨ 
+
+	// WOW Classic
+	"IOcFiVveFqo": {
+		folder: "WOW",
+		seconds: 5110, // 01:25:10
+	}, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.03) || ✨≋ELISAWAVES≋✨
 
 
 	// The Wolf Among Us
