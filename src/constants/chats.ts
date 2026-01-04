@@ -1,9 +1,18 @@
 export const chatsConst : Record<string, { folder: string; seconds: number }> = {
 	// Lost Records
+
+	"z5OHi1AwCW0": {
+		folder: "Lost_Records",
+		seconds: -5, //
+	}, // 🎥 Lost Records： Bloom & Rage 🎥 - Cinta 1： Bloom (Pt.01) ｜｜✨≋ELISAWAVES≋✨
+	"LXTDLKGvcJM": {
+		folder: "Lost_Records",
+		seconds: -5, //
+	}, // 🎥 Lost Records： Bloom & Rage 🎥 - Cinta 1： Bloom (Pt.02) ｜｜✨≋ELISAWAVES≋✨
 	"PT7kwCk4N80": {
 		folder: "Lost_Records",
 		seconds: 1534, //00:25:36
-	},
+	}, // 🎥 Lost Records: Bloom & Rage 🎥 - Cinta 2: Rage (FINAL) ||✨≋ELISAWAVES≋✨
 
 
 
@@ -92,7 +101,8 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 
 
 
-	// JANE TURNER T01
+	// JANE TURNER T01 
+	// NO CHATS
 	//M0eLphlv9pA: 0, //  💚 Jane Turner 💚 || T01x01: “A New Beginning" || ✨≋ELISAWAVES≋✨
 	//wcmlI1AwcnU: 0, //  💚 Jane Turner 💚 || T01x02: "Conociendo la ciudad" || ✨≋ELISAWAVES≋✨
 	//A7bZHv71eDA: 0, //  💚Jane Turner 💚 || T01x03: ''Up-N-Atom'' || ✨≋ELISAWAVES≋✨
@@ -108,7 +118,7 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 	//a6aCSMh_8M8: 0, //  💚 Jane Turner 💚 || T01x13: "Paint My Bedroom Black” || ✨≋ELISAWAVES≋✨
 	//AsvnCeDyQ_A: 0, //  💚 Jane Turner 💚 || T01x14: "Scáth Fearthainne" || ✨≋ELISAWAVES≋✨
 	//iOx6repgmaE: 0, //  💚 Jane Turner 💚 || T01x15: "Cambiar El Mundo Entero” || ✨≋ELISAWAVES≋✨
-	//"vqruu-cmYc0": 0, //  💚 Jane Turner 💚 || T01x16: "Room Service" || ✨≋ELISAWAVES≋✨
+	//"vqruu-cmYc0": 0, // 💚 Jane Turner 💚 || T01x16: "Room Service" || ✨≋ELISAWAVES≋✨
 	"NxTREyLWzhY": {
 		folder: "Jane_Turner",
 		seconds: 0,
@@ -253,7 +263,7 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 		folder: "Jane_Turner_2",
 		seconds: 0,
 	}, // 💚 Jane Turner 💚 || T02x14: "while systemFails { keepHacking; }" || ✨≋ELISAWAVES≋✨ 
-	// T02x15 ????
+	// T02x15 ???? En TWITCH
 	"4O-rB7mRmFg": {
 		folder: "Jane_Turner_2",
 		seconds: 0,
@@ -397,7 +407,7 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 		folder: "Vera_Marquez_3",
 		seconds: 0,
 	}, // 💛 Vera Márquez 💛 || T03x07: "Investicaos" || ✨≋ELISAWAVES≋✨
-	// T03x08 ???
+	// T03x08 ??? TWITCH
 	"KPn3joHFRWE": {
 		folder: "Vera_Marquez_3",
 		seconds: 0,
@@ -442,7 +452,7 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 		folder: "Vera_Marquez_3",
 		seconds: 0,
 	}, // 💛 Vera Márquez 💛 ||  T03x17: "👰¿Y Fueron Muy Felices?👰" || ✨≋ELISAWAVES≋✨ 
-	"A3NOP3gMR644": {
+	"A3NOP3gMR64": {
 		folder: "Vera_Marquez_3",
 		seconds: 0,
 	}, // 🤍 Iris Márquez 🤍 || T04x02: "Enroque" || ✨≋ELISAWAVES≋✨ 
@@ -897,4 +907,9 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 		seconds: 0,
 	}, // 🤖 R.E.P.O. con @/QuiquitoDR, @/SutanRP, @/Petrusco2 y @/WholeWinter  🤖 ||✨≋ELISAWAVES≋✨ 
 
+	// RED DEAD
+	"bbIDeaD6XDs": {
+		folder: "Read Dead",
+		seconds: 8421, // 02:20:21
+	} // 🐎 Red Dead Redemption 2 🐎 (Pt.07) || ✨≋ELISAWAVES≋✨
 };
