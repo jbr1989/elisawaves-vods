@@ -876,7 +876,7 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 		folder: "GamePlays",
 		seconds: 0,
 	}, // ⭐ Gimmick! 2 ⭐ (Pt.01) || ✨≋ELISAWAVES≋✨ 
-	"-qsfj03OXJ4_": {
+	"-qsfj03OXJ4": {
 		folder: "GamePlays",
 		seconds: 0,
 	}, // 🤖 ASTRO BOT 🤖 (Pt.01) || ✨≋ELISAWAVES≋✨ 
