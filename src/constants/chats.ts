@@ -731,12 +731,6 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 		seconds: 0,
 	}, // 🧝🏻‍♀️ World of Warcraft ft  SutanRP, QuiquitoDR y Masyebra 🧝🏻‍♀️ (Pt.04) || ✨≋ELISAWAVES≋✨ 
 
-	// WOW Classic
-	"IOcFiVveFqo": {
-		folder: "WOW",
-		seconds: 5110, // 01:25:10
-	}, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.03) || ✨≋ELISAWAVES≋✨
-
 
 	// The Wolf Among Us
 	"g1BzTdWEfwY": {
@@ -894,7 +888,7 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 	}, // 🏴‍☠️ SEA OF THIEVES ft SutanRP y QuiquitoDR 🏴‍☠️ || ✨ELISAWAVES≋✨ 
 
 
-	// WOW
+	// WOW Classic
 	// "3qwszE_QxAQ": {
 	// 	folder: "Wow",
 	// 	seconds: 0,
@@ -903,14 +897,15 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 	// 	folder: "Wow",
 	// 	seconds: 0,
 	// }, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.02) || ✨≋ELISAWAVES≋✨ 
-	// IOcFiVveFqo: {
-	// 	folder: "Wow",
-	// 	seconds: 0,
-	// }, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.03) || ✨≋ELISAWAVES≋✨ 
-	// vLPoZWj06Ak: {
-	// 	folder: "Wow",
-	// 	seconds: 0,
-	// }, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.04) || ✨≋ELISAWAVES≋✨ 
+	
+	"IOcFiVveFqo": {
+		folder: "WOW",
+		seconds: 5110, // 01:25:10
+	}, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.03) || ✨≋ELISAWAVES≋✨
+	"vLPoZWj06Ak": {
+		folder: "WOW",
+		seconds: 2107, // 00:35:07
+	}, // 🌲🧝🏻‍♀️GO AGAIN WOW Classic Hardcore🌲🧝🏻‍♀️ (Pt.04) || ✨≋ELISAWAVES≋✨ 
 
 	// R.E.P.O
 	"lLPwG0vy1bU": {
@@ -922,5 +917,15 @@ export const chatsConst : Record<string, { folder: string; seconds: number }> = 
 	"bbIDeaD6XDs": {
 		folder: "Read Dead",
 		seconds: 8421, // 02:20:21
-	} // 🐎 Red Dead Redemption 2 🐎 (Pt.07) || ✨≋ELISAWAVES≋✨
+	}, // 🐎 Red Dead Redemption 2 🐎 (Pt.07) || ✨≋ELISAWAVES≋✨
+
+	// GOROGOA
+	"kJnCtsfXeEU": {
+		folder: "Gorogoa",
+		seconds: 2456, // 00:40:56
+	}, // 🧩Gorogoa🧩 (Pt.01) ||✨≋ELISAWAVES≋✨
+	"PeoQYgDoR4g": {
+		folder: "Gorogoa",
+		seconds: 7983, // 02:13:03
+	}, // 🧩Gorogoa🧩 (Pt.01) ||✨≋ELISAWAVES≋✨
 };
