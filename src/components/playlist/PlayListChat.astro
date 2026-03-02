@@ -12,12 +12,16 @@ console.log("PARAMS CHAT", params, props);
   id="playListChat"
   class="flex-1 overflow-y-auto p-0"
   style="display:none; height:var(--height-playlist-list);"
+  role="log"
+  aria-live="polite"
+  aria-label="Chat del video"
 >
   <iframe
     id="chatFrame"
+    title="Chat del video"
     class="w-full h-full m-0"
     src={src}
-    frameborder="0"
+    style="border:0;"
     data-seconds={seconds}></iframe>
 </div>
 

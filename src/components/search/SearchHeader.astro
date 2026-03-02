@@ -11,8 +11,10 @@ import Finder from "@/assets/finder.svg";
     onchange="toggleSearch()"
   />
   <form action="/search" class="search-div">
-    <input type="text" name="term" placeholder="Buscar..." />
-    <button type="submit" class="p-2"> <Finder class="w-6 h-6 rounded-full inline-block" fill="black" /> </button>
+    <input type="text" name="term" placeholder="Buscar..." aria-label="Buscar videos" />
+    <button type="submit" class="p-2" aria-label="Realizar búsqueda"> 
+      <Finder class="w-6 h-6 rounded-full inline-block" fill="black" aria-hidden="true" />
+    </button>
   </form>
 </label>
 

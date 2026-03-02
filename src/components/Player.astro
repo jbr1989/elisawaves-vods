@@ -7,6 +7,7 @@ const { videoId } = Astro.props;
   class="w-full h-full rounded-xl aspect-video"
   src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1`}
   title="YouTube Video Player"
+  aria-label="Reproductor ed video de Youtube"
   loading="lazy"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowfullscreen></iframe>
