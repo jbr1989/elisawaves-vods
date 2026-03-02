@@ -16,7 +16,7 @@ const overlays = [
   aria-label={`Ver playlist: ${playlist.title} con ${playlist.numVideos} ${playlist.numVideos > 1 ? "videos" : "video"}`}
 >
   <div class="thumbnail w-full aspect-video relative">
-    <PlayListElement imageUrl={playlist.thumbnail} stacked={3} />
+    <PlayListElement playList={playlist} stacked={3} />
     <ThumbnailOverlay overlays={overlays} />
   </div>
   <div class="p-2">

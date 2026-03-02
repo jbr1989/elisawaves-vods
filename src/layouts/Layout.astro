@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Footer from "./components/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
 
 const { title, descr, bodyClass, robots } = Astro.props;
 
@@ -11,6 +12,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ViewTransitions />
     <title>{title || "Elisa Waves"}</title>
     {descr && <meta name="description" content={descr} />}
     <link rel="icon" type="image/png" href="/favicon.png" />

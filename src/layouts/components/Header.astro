@@ -40,6 +40,7 @@ const { currentChannelId } = Astro.props;
                 ? "opacity-100 rounded-full border-2 border-red-500"
                 : "opacity-50 hover:opacity-100"
             }`}
+            transition:name={`channel-${channel.tag}`}
           />
         </a>
       ))
