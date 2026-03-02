@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
-const { imageUrl, stacked = 3 } = Astro.props;
+const { playList, stacked = 3 } = Astro.props;
+
+console.log(playList);
 ---
 
 <style>
@@ -71,8 +73,8 @@ const { imageUrl, stacked = 3 } = Astro.props;
       ))
     }
     <Image
-      src={imageUrl}
-      alt="Poster de la playlist"
+      src={playList.thumbnail}
+      alt={`Poster de la playlist ${playList.title}`}
       width={200}
       height={112}
       loading="lazy"
