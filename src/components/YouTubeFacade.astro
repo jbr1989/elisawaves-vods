@@ -11,6 +11,7 @@ const { playlistId, videoId, title = "Video" } = Astro.props;
 <div
   class="youtube-facade relative w-full aspect-video rounded-xl overflow-hidden cursor-pointer group"
   data-video-id={videoId}
+  style="cursor:pointer"
 >
   <img
     src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
@@ -34,15 +35,24 @@ const { playlistId, videoId, title = "Video" } = Astro.props;
 </div>
 
 <script>
-  document.querySelectorAll('.youtube-facade').forEach(facade => {
-    facade.addEventListener('click', function() {
-      const videoId = this.dataset.videoId;
-      this.innerHTML = `<iframe 
-        src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1" 
-        class="w-full h-full rounded-xl"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-      </iframe>`;
-    }, { once: true });
-  });
+  function initFacades() {
+    document.querySelectorAll('.youtube-facade').forEach(facade => {
+      if (facade.dataset.initialized) return;
+      facade.dataset.initialized = 'true';
+      
+      facade.addEventListener('click', function() {
+        const videoId = this.dataset.videoId;
+        this.innerHTML = `<iframe 
+          id="videoPlayer"
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1" 
+          class="w-full h-full rounded-xl"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>`;
+      }, { once: true });
+    });
+  }
+  
+  document.addEventListener('astro:page-load', initFacades);
+  initFacades();
 </script>
