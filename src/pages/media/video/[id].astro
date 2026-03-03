@@ -199,12 +199,12 @@ if (videoChat!=null) {
     const videoButton = videosButton[index];
     videoButton.classList.add("videoSelected");
 
-    const videoId = videoButton.dataset.videoId; //.getAttribute("data-video-id");
-    const hasChat = videoButton.dataset.chat !== ""; //.getAttribute("data-chat");
+    const videoId = videoButton.dataset.videoId;
+    const hasChat = videoButton.dataset.chat !== "";
     currentVideoIndex = index;
 
-    const player = document.getElementById("videoPlayer");
-    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1`;
+    const facade = document.querySelector('.youtube-facade');
+    facade?.dispatchEvent(new CustomEvent('youtube:change', { detail: { videoId } }));
 
     playListChatButton.style.display = hasChat ? "block" : "none";
 

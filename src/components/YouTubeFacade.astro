@@ -1,0 +1,87 @@
+---
+interface Props {
+  playlistId?: string;
+  videoId: string;
+  title?: string;
+}
+
+const { playlistId, videoId, title = "Video" } = Astro.props;
+---
+
+<div
+  class="youtube-facade relative w-full aspect-video rounded-xl overflow-hidden cursor-pointer group"
+  data-video-id={videoId}
+>
+  <img
+    src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
+    onload=`if(this.naturalHeight <= 90) { this.src='https://i.ytimg.com/vi/${videoId}/hqdefault.jpg'} `
+    alt={`Thumbnail de ${title}`}
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="lazy"
+    decoding="async"
+    transition:name={playlistId ? `playlist-${playlistId}` : `video-${videoId}`}
+  />
+  <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+  <button
+    class="play-button absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform hover:bg-red-700"
+    aria-label={`Reproducir ${title}`}
+  >
+    <svg class="w-8 h-8 md:w-10 md:h-10 text-white ml-1" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  function initFacades() {
+    document.querySelectorAll('.youtube-facade').forEach(el => {
+      const facade = el as HTMLElement;
+      if (facade.dataset.initialized) return;
+      facade.dataset.initialized = 'true';
+      
+      const button = facade.querySelector('.play-button');
+      let currentVideoId = facade.dataset.videoId || '';
+      let iframe: HTMLIFrameElement | null = null;
+      
+      const createIframe = (videoId: string) => {
+        iframe = document.createElement('iframe');
+        iframe.id = 'videoPlayer';
+        iframe.className = 'absolute inset-0 w-full h-full rounded-xl';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('title', 'YouTube Video Player');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1`;
+        facade.appendChild(iframe);
+      };
+      
+      const loadVideo = () => {
+        facade.querySelector('img')?.classList.add('hidden');
+        button?.classList.add('hidden');
+        facade.querySelector('div:nth-child(2)')?.classList.add('hidden');
+        createIframe(currentVideoId);
+      };
+      
+      button?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        loadVideo();
+      });
+      facade.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).tagName !== 'BUTTON') {
+          loadVideo();
+        }
+      });
+      
+      facade.addEventListener('youtube:change', ((e: CustomEvent) => {
+        const newVideoId = e.detail.videoId;
+        if (iframe) {
+          iframe.src = `https://www.youtube.com/embed/${newVideoId}?autoplay=1&rel=0&enablejsapi=1`;
+        } else {
+          loadVideo();
+        }
+      }) as EventListener);
+    });
+  }
+  
+  document.addEventListener('astro:page-load', initFacades);
+  initFacades();
+</script>
