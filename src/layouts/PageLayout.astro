@@ -1,8 +1,9 @@
 ---
 import Header from "./components/Header.astro";
 import Layout from "./Layout.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
 
-const { title, descr, bodyClass, mainClass, currentChannelId, videoId } = Astro.props;
+const { title, descr, bodyClass, mainClass, currentChannelId, videoId, breadcrumbs } = Astro.props;
 ---
 
 <Layout title={title} descr={descr} bodyClass={bodyClass} videoId={videoId}>
@@ -11,6 +12,7 @@ const { title, descr, bodyClass, mainClass, currentChannelId, videoId } = Astro.
     class=`relative max-w-8xl mx-auto p-4 pb-6 min-h-(--full-height-whithout-header) ${mainClass || ""}`
     }
   >
+    {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
     <slot />
   </main>
 </Layout>

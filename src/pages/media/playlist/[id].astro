@@ -4,7 +4,7 @@ export const prerender = true;
 import PageLayout from "@/layouts/PageLayout.astro";
 import PlaylistChat from "@/components/playlist/PlayListChat.astro";
 
-import { getPlaylistVideosAPI, youtubeCache, initApp } from "@/lib/youtube";
+import { getPlaylistVideosAPI, getChannel, youtubeCache, initApp } from "@/lib/youtube";
 import { chatsConst } from "@/constants/chats";
 import PlayListList from "@/components/playlist/PlayListList.astro";
 import Player from "@/components/Player.astro";
@@ -33,6 +33,13 @@ const videoChats = videoKeys.filter((id) => id in chatsConst);
 const channelId = videos[0]?.channelId;
 const initialVideoId = videos[0]?.id;
 
+const channel = channelId ? await getChannel({ channelId }) : null;
+
+const breadcrumbs = channel ? [
+  { label: channel.title, url: `/media/channel/${channel.name}` },
+  { label: title || "" }
+] : [];
+
 console.log("VIDEOS", videos);
 ---
 
@@ -40,6 +47,7 @@ console.log("VIDEOS", videos);
   title=`Playlist de ${title}`
   descr={videos[0]?.descr}
   currentChannelId={channelId}
+  breadcrumbs={breadcrumbs}
   mainClass="w-full"
 >
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-x-6 relative">

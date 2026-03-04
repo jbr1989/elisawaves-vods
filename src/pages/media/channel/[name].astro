@@ -31,6 +31,9 @@ const playlists = await getPlaylists(channel?.id || "");
   title=`Canal de ${channel?.title}`
   descr={channel?.description}
   currentChannelId={channel?.id}
+  breadcrumbs={[
+    { label: channel?.title || "" }
+  ]}
   mainClass="w-full"
 >
   <h1 class="text-3xl font-bold mb-6">Canal de {channel?.title}</h1>

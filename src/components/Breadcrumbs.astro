@@ -1,0 +1,79 @@
+---
+interface Props {
+  items: { label: string; url?: string }[];
+}
+
+const { items } = Astro.props;
+const siteUrl = "https://elisawaves.es";
+
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    "item": item.url ? `${siteUrl}${item.url}` : undefined
+  }))
+};
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol>
+    <li>
+      <a href="/">Inicio</a>
+      <span class="separator">/</span>
+    </li>
+    {items.map((item) => (
+      <li>
+        {item.url ? (
+          <a href={item.url}>{item.label}</a>
+        ) : (
+          <span>{item.label}</span>
+        )}
+        {item.url && <span class="separator">/</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+<style>
+  .breadcrumbs {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.25rem;
+  }
+
+  .breadcrumbs li {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumbs a {
+    color: #ef4444;
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumbs span {
+    color: #71717a;
+  }
+
+  .separator {
+    margin: 0 0.25rem;
+    color: #a1a1aa;
+  }
+</style>
