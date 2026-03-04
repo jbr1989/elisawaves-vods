@@ -11,3 +11,4 @@ Disallow: /404
 
 # Ubicación del sitemap
 Sitemap: https://elisawaves.es/sitemap.xml
+Sitemap: https://elisawaves.es/sitemap-videos.xml

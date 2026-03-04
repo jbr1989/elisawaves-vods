@@ -1,13 +1,12 @@
-// src/pages/sitemap.xml.js
-import { channelsConst } from "@/constants/channels";
+// src/pages/sitemap-videos.xml.js
 import { youtubeCache, initApp } from "@/lib/youtube";
 import { buildTime } from "@/utils/time";
 
 function createUrl(
 	url,
 	lastModified = buildTime,
-	priority = 1.0,
-	changeFreq = "weekly"
+	priority = 0.6,
+	changeFreq = "monthly"
 ) {
 	return `
     <url>
@@ -25,26 +24,13 @@ export async function GET() {
 
 		const dominio = "https://elisawaves.es/";
 
-		// Genera el contenido del sitemap
 		let sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
-		// PÁGINAS ESTÁTICAS
-		sitemapContent += createUrl(dominio);
-		// sitemapContent += createUrl(`${dominio}about`);
-		// sitemapContent += createUrl(`${dominio}explore`);
-		// sitemapContent += createUrl(`${dominio}you`);
-
-		// PÁGINAS DINÁMICAS
-
-		// CHANNELS
-		for (const channel of channelsConst) {
-			sitemapContent += createUrl(`${dominio}media/channel/${channel.tag}`, buildTime, 0.8, "weekly");
-		}
-
-		// PLAYLISTS
-		for (const playlist of youtubeCache.playlists) {
-			sitemapContent += createUrl(`${dominio}media/playlist/${playlist.id}`);
+		// VIDEOS (limitados a 1000 más recientes)
+		const recentVideos = youtubeCache.videos.slice(0, 1000);
+		for (const video of recentVideos) {
+			sitemapContent += createUrl(`${dominio}media/video/${video.id}`, buildTime, 0.6, "monthly");
 		}
 
 		sitemapContent += "</urlset>";
