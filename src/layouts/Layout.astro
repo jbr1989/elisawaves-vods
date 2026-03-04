@@ -2,10 +2,15 @@
 import "../styles/global.css";
 import Footer from "./components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
+import { buildTime } from "@/utils/time";
 
-const { title, descr, bodyClass, robots } = Astro.props;
+const { title, descr, bodyClass, robots, videoId } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const defaultOgImage = new URL("/favicon.png", Astro.site).href;
+const ogImage = videoId 
+  ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` 
+  : defaultOgImage;
 ---
 
 <html lang="es" class="dark">
@@ -27,35 +32,60 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://i.ytimg.com" />
 
     <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Elisa Waves",
-        "alternateName": "ElisaWaves",
-        "jobTitle": ["Actriz de doblaje", "Locutora de publicidad", "Streamer"],
-        "url": "https://elisawaves.es",
-        "sameAs": [
-          "https://twitch.tv/elisawaves",
-          "https://www.youtube.com/elisawaves"
-        ]
-      }
-    </script>
+    {videoId ? (
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": title,
+          "description": descr,
+          "thumbnailUrl": `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+          "uploadDate": buildTime,
+          "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
+          "embedUrl": `https://www.youtube.com/embed/${videoId}`,
+          "publisher": {
+            "@type": "Person",
+            "name": "Elisa Waves"
+          }
+        })}
+      </script>
+    ) : (
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Elisa Waves",
+          "alternateName": "ElisaWaves",
+          "jobTitle": ["Actriz de doblaje", "Locutora de publicidad", "Streamer"],
+          "url": "https://elisawaves.es",
+          "sameAs": [
+            "https://twitch.tv/elisawaves",
+            "https://www.youtube.com/elisawaves"
+          ]
+        })}
+      </script>
+    )}
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={videoId ? "video.other" : "website"} />
     <meta property="og:title" content={title || "Elisa Waves"} />
     <meta property="og:description" content={descr} />
-    <meta property="og:image" content={new URL("/favicon.png", Astro.site)} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Elisa Waves" />
     <meta property="og:locale" content="es_ES" />
+    {videoId && <meta property="og:video" content={`https://www.youtube.com/watch?v=${videoId}`} />}
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={videoId ? "player" : "summary_large_image"} />
     <meta name="twitter:title" content={title || "Elisa Waves"} />
     <meta name="twitter:description" content={descr} />
-    <meta name="twitter:image" content={new URL("/favicon.png", Astro.site)} />
+    <meta name="twitter:image" content={ogImage} />
+    {videoId && <meta name="twitter:player" content={`https://www.youtube.com/embed/${videoId}`} />}
+    {videoId && <meta name="twitter:player:width" content="1280" />}
+    {videoId && <meta name="twitter:player:height" content="720" />}
 
     <script
       type="module"

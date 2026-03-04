@@ -7,11 +7,13 @@ function createUrl(
 	url,
 	lastModified = buildTime,
 	priority = 1.0,
+	changeFreq = "weekly"
 ) {
 	return `
     <url>
       <loc>${url}</loc>
       <lastmod>${lastModified}</lastmod>
+      <changefreq>${changeFreq}</changefreq>
       <priority>${priority}</priority>
     </url>
     `;
@@ -37,7 +39,13 @@ export async function GET() {
 
 		// CHANNELS
 		for (const channel of channelsConst) {
-			sitemapContent += createUrl(`${dominio}media/channel/${channel.tag}`);
+			sitemapContent += createUrl(`${dominio}media/channel/${channel.tag}`, buildTime, 0.8, "weekly");
+		}
+
+		// VIDEOS (limitados a 1000 más recientes)
+		const recentVideos = youtubeCache.videos.slice(0, 1000);
+		for (const video of recentVideos) {
+			sitemapContent += createUrl(`${dominio}media/video/${video.id}`, buildTime, 0.6, "monthly");
 		}
 
 		// PLAYLISTS

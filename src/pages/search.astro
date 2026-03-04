@@ -15,7 +15,7 @@ console.log("RESULTS LENGTH", results.length);
 
 <PageLayout title=`Buscar ${term}` robots="noindex, follow" mainClass="w-full">
   <h1 class="text-3xl font-bold mb-6">
-    Buscando {term}: {results.length} ${results.length === 1 ? "video" : "videos"}
+    Buscando {term}: {results.length} {results.length === 1 ? "video" : "videos"}
   </h1>
 
   <SearchList term={term} results={results} />
