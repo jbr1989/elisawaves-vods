@@ -4,6 +4,7 @@ import { Video } from "../models/video";
 
 import { channelsConst } from "../constants/channels";
 import { Result } from "../models/result";
+import { loadPersistedCache, isCacheFresh, savePersistedCache } from "./cache";
 
 // src/lib/youtube.ts
 const apiUrl = "https://www.googleapis.com/youtube/v3/";
@@ -30,10 +31,21 @@ export let youtubeCache = {
 };
 
 export async function initApp() {
-	if (youtubeCache.channels.length > 0) return; // Ya inicializado
+	if (youtubeCache.channels.length > 0) return; // Ya inicializado en memoria
 
-	console.log("Inicializando integración de YouTube...");
-	// console.log(process.env);
+	// 1. Intentar cargar desde caché persistente (youtube-cache.json)
+	const persisted = loadPersistedCache();
+	if (isCacheFresh(persisted)) {
+		youtubeCache.channels = persisted!.channels as Channel[];
+		youtubeCache.playlists = persisted!.playlists as Playlist[];
+		youtubeCache.videos = persisted!.videos as Video[];
+		const ageH = ((Date.now() - persisted!.timestamp) / 3600000).toFixed(1);
+		console.log(`✅ Caché cargado desde JSON (edad: ${ageH}h). Sin llamadas a la API.`);
+		return;
+	}
+
+	// 2. Caché inexistente o expirado: fetch en vivo desde la API
+	console.log("Inicializando integración de YouTube desde API...");
 
 	// Pre-cargar canales
 	youtubeCache.channels = await getChannelsAPI();
@@ -42,11 +54,6 @@ export async function initApp() {
 	// Pre-cargar listas de reproducción
 	youtubeCache.playlists = await getAllPlaylistsAPI();
 	console.log(`- Listas de reproducción cargadas: ${youtubeCache.playlists.length}`);
-
-	// // Pre-cargar ID vídeos de las listas de reproducción
-	// for (const playlist of youtubeCache.playlists) {
-	// 	playlist.videosId = (await getPlaylistVideosIdAPI(playlist.id));
-	// }
 
 	let allVideosId = [];
 	// Pre-cargar TODOS los vídeos de los canales
@@ -58,8 +65,15 @@ export async function initApp() {
 
 	youtubeCache.videos = await getVideosAPI(allVideosId);
 	console.log(`- Videos cargados TOTAL: ${youtubeCache.videos.length}`);
-	
-	console.log("✅ Datos de YouTube precargados en caché.");
+
+	// 3. Persistir para futuros arranques (escribe en dev/build; ignora en prod RO)
+	savePersistedCache({
+		channels: youtubeCache.channels,
+		playlists: youtubeCache.playlists,
+		videos: youtubeCache.videos,
+	});
+
+	console.log("✅ Datos de YouTube cargados y persistidos.");
 }
 
 //#region CACHE

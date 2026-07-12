@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# generated youtube cache (regenerado en cada build)
+src/data/youtube-cache.json
