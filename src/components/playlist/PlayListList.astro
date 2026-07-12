@@ -5,9 +5,9 @@ import PlayListListElement from "./PlayListListElement.astro";
 const { videos, initialVideoId, chatsConst, videoChats } = Astro.props;
 ---
 
-<div
+<ol
   id="playListList"
-  class="grid gap-2 overflow-x-hidden overflow-y-auto pr-2 py-3"
+  class="grid gap-2 overflow-x-hidden overflow-y-auto pr-2 py-3 list-none p-0 m-0"
   style="max-height:var(--height-playlist-list); "
   data-chats={videoChats.join(",")}
 >
@@ -22,14 +22,16 @@ const { videos, initialVideoId, chatsConst, videoChats } = Astro.props;
       }
 
       return (
-        <PlayListListElement
-          video={video}
-          index={index}
-          selected={initialVideoId === video.id}
-          chat={chatFolder}
-          seconds={seconds}
-        />
+        <li>
+          <PlayListListElement
+            video={video}
+            index={index}
+            selected={initialVideoId === video.id}
+            chat={chatFolder}
+            seconds={seconds}
+          />
+        </li>
       );
     })
   }
-</div>
+</ol>

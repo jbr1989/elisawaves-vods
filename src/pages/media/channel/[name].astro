@@ -24,7 +24,20 @@ const name = params.name || "";
 const channel: Channel | null = await getChannel({ name: name });
 const playlists = await getPlaylists(channel?.id || "");
 
-// console.log("CHANNEL", channel);
+const totalVideos = playlists.reduce((acc, p) => acc + (p.numVideos || 0), 0);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": `Playlists del canal ${channel?.title || ""}`,
+  "numberOfItems": playlists.length,
+  "itemListElement": playlists.map((p, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": `https://elisawaves.es/media/playlist/${p.id}`,
+    "name": p.title
+  }))
+};
 ---
 
 <PageLayout
@@ -36,7 +49,17 @@ const playlists = await getPlaylists(channel?.id || "");
   ]}
   mainClass="w-full"
 >
-  <h1 class="text-3xl font-bold mb-6">Canal de {channel?.title}</h1>
+  <h1 class="text-3xl font-bold mb-2">Canal de {channel?.title}</h1>
+
+  {channel?.description && (
+    <section class="mb-6">
+      <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed">{channel.description}</p>
+    </section>
+  )}
+
+  <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
+    {playlists.length} {playlists.length === 1 ? "lista de reproducción" : "listas de reproducción"} · {totalVideos} {totalVideos === 1 ? "vídeo" : "vídeos"} en total
+  </p>
 
   <div
     class="w-full grid gap-6"
@@ -44,4 +67,6 @@ const playlists = await getPlaylists(channel?.id || "");
   >
     {playlists.map((playlist) => <PlaylistCard playlist={playlist} />)}
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
 </PageLayout>

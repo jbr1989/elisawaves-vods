@@ -73,6 +73,8 @@ const { playlistId, videoId, title = "Video" } = Astro.props;
       
       facade.addEventListener('youtube:change', ((e: CustomEvent) => {
         const newVideoId = e.detail.videoId;
+        currentVideoId = newVideoId;
+        facade.dataset.videoId = newVideoId;
         if (iframe) {
           iframe.src = `https://www.youtube.com/embed/${newVideoId}?autoplay=1&rel=0&enablejsapi=1`;
         } else {
