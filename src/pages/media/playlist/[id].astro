@@ -208,7 +208,7 @@ console.log("VIDEOS", videos);
     videosButton = document.querySelectorAll(".videoButton");
     numVideos = videosButton.length;
 
-    videoPlayer = document.getElementById("videoPlayer");
+    videoPlayer = document.getElementById("videoPlayer") || document.querySelector(".youtube-facade");
     playlistHeader = document.getElementById("playListHeader");
     playListList = document.getElementById("playListList");
     playListVideos = document.querySelectorAll("#playListList button");
@@ -220,6 +220,7 @@ console.log("VIDEOS", videos);
   });
 
   function setHeightPlaylist() {
+    if (!videoPlayer || !playlistHeader) return;
     var isMobile = window.innerWidth < 768;
 
     if (!isMobile) {
