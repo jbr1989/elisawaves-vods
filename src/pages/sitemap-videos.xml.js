@@ -20,7 +20,7 @@ function createUrl(
 
 export async function GET() {
 	try {
-		if (youtubeCache.channels.length === 0) initApp();
+		if (youtubeCache.channels.length === 0) await initApp();
 
 		const dominio = "https://elisawaves.es/";
 

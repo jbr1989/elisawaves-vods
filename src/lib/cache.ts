@@ -2,8 +2,15 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import path from "path";
 
 export const CACHE_TTL = 12 * 60 * 60 * 1000; // 12 horas en ms
-// Cambiar este número cuando cambie la estructura del caché (p.ej. añadir campos a un modelo)
+// Cambiar este número cuando cambie la estructura del caché (p.ej. añadir campos a un modelo).
+// Se mantiene en 2 a propósito: `channelStatus` es un campo OPCIONAL, así los
+// youtube-cache.json ya generados siguen siendo válidos sin migración (si se
+// subiera la versión, isCacheFresh descartaría TODO el caché y perderíamos
+// precisamente los datos del canal que queremos conservar).
 export const CACHE_VERSION = 2;
+
+/** Estado del último intento de captura de un canal. */
+export type ChannelStatus = "ok" | "stale" | "empty";
 
 export interface PersistedCache {
 	version?: number;
@@ -11,6 +18,8 @@ export interface PersistedCache {
 	channels: unknown[];
 	playlists: unknown[];
 	videos: unknown[];
+	/** Opcional: permite leer cachés v2 antiguos que no lo tenían. */
+	channelStatus?: Record<string, ChannelStatus>;
 }
 
 const CACHE_DIR = path.resolve("src/data");
@@ -21,7 +30,14 @@ export function loadPersistedCache(): PersistedCache | null {
 		if (!existsSync(CACHE_PATH)) return null;
 		const raw = readFileSync(CACHE_PATH, "utf-8");
 		const parsed = JSON.parse(raw) as PersistedCache;
-		if (!parsed.timestamp || !Array.isArray(parsed.videos)) return null;
+		if (
+			!parsed.timestamp ||
+			!Array.isArray(parsed.channels) ||
+			!Array.isArray(parsed.playlists) ||
+			!Array.isArray(parsed.videos)
+		) return null;
+		// Compatibilidad con cachés v2 generados antes de añadir `channelStatus`.
+		if (!parsed.channelStatus) parsed.channelStatus = {};
 		return parsed;
 	} catch (e) {
 		console.warn("No se pudo leer el caché persistente:", e);

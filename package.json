@@ -6,7 +6,8 @@
     "dev": "astro dev --port 4333",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "node --test tests/cacheMerge.test.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.8",

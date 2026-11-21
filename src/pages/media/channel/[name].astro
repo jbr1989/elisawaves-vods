@@ -3,7 +3,7 @@ export const prerender = true;
 
 import PageLayout from "@/layouts/PageLayout.astro";
 import PlaylistCard from "@/components/playlist/PlayListCard2.astro";
-import { getChannel, getPlaylists, youtubeCache, initApp } from "@/lib/youtube";
+import { getChannel, getPlaylists, getChannelStatus, youtubeCache, initApp } from "@/lib/youtube";
 import type { Channel } from "@/models/channel";
 
 export async function getStaticPaths() {
@@ -23,6 +23,7 @@ const name = params.name || "";
 
 const channel: Channel | null = await getChannel({ name: name });
 const playlists = await getPlaylists(channel?.id || "");
+const status = channel ? getChannelStatus(channel.id) : "ok";
 
 const totalVideos = playlists.reduce((acc, p) => acc + (p.numVideos || 0), 0);
 
@@ -50,6 +51,17 @@ const itemListSchema = {
   mainClass="w-full"
 >
   <h1 class="text-3xl font-bold mb-2">Canal de {channel?.title}</h1>
+
+  {status !== "ok" && (
+    <div
+      class="mb-6 rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200"
+      role="status"
+    >
+      {status === "stale"
+        ? "Datos temporalmente desactualizados: no se pudo actualizar este canal, se conserva la última versión disponible. Se reintentará en el próximo rebuild."
+        : "Todavía no hay datos de este canal. Se actualizará en el próximo rebuild."}
+    </div>
+  )}
 
   {channel?.description && (
     <section class="mb-6">
