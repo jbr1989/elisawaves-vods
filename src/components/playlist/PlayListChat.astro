@@ -4,7 +4,7 @@ const { params, props } = Astro;
 const src = props.src || "";
 const seconds = props.seconds || 0;
 
-console.log("PARAMS CHAT", params, props);
+// console.log("PARAMS CHAT", params, props);
 
 ---
 
@@ -34,6 +34,8 @@ console.log("PARAMS CHAT", params, props);
 
   window.addEventListener("DOMContentLoaded", function () {
     chatFrame.addEventListener("load", function () {
+      // Sin un src real (página degradada o sin chat) no hay nada que inicializar.
+      if (!chatFrame.getAttribute("src")) return;
       // Accedemos al contenido del iframe
       init();
       setComments();
@@ -47,12 +49,14 @@ console.log("PARAMS CHAT", params, props);
     // Accedemos al contenido del iframe
     const iframeDocument =
       chatFrame.contentDocument || chatFrame.contentWindow.document;
+    if (!iframeDocument) return;
 
     const dark = getThemeisDark();
     const html = iframeDocument.querySelector("html");
     html.classList.add(dark ? "dark" : "light");
 
     chatContent = iframeDocument.querySelector("#content");
+    if (!chatContent) return;
 
     const heightChat = window
       .getComputedStyle(document.documentElement)
@@ -117,6 +121,7 @@ console.log("PARAMS CHAT", params, props);
   }
 
   async function setComments() {
+    if (!comments) return;
     for (const comment of comments) {
       const totalSeconds = convertedTime(comment.textContent);
       comment.innerHTML = clearComment(comment.innerHTML);

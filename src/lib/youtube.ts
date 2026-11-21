@@ -8,6 +8,7 @@ import { loadPersistedCache, isCacheFresh, savePersistedCache } from "./cache";
 import type { ChannelStatus } from "./cache";
 import { mergeChannelSegments, partitionByChannel } from "./cacheMerge";
 import type { CacheSnapshot, ChannelSegment } from "./cacheMerge";
+import { readCachedPlaylistVideos, writeCachedPlaylistVideos } from "./playlistVideosCache";
 
 // src/lib/youtube.ts
 const apiUrl = "https://www.googleapis.com/youtube/v3/";
@@ -323,8 +324,8 @@ export async function getChannelsAPI() : Promise<Channel[]> {
 		const channels = data.items.map((channel: any) => new Channel(channel));
 		return channels;
 	} catch (error) {
-		console.error("Error al obtener los canales:", error);
-		throw new Error("Error al obtener la información de los canales.");
+		const detail = error instanceof Error ? error.message : "error desconocido";
+		throw new Error(`Error al obtener la información de los canales: ${detail}`);
 	}
 }
 
@@ -341,8 +342,8 @@ export async function getChannelAPI(channelId: string): Promise<Channel | null> 
 		const item = data.items?.[0];
 		return item ? new Channel(item) : null;
 	} catch (error) {
-		console.error(`Error al obtener el canal ${channelId}:`, error);
-		throw new Error(`Error al obtener la información del canal ${channelId}.`);
+		const detail = error instanceof Error ? error.message : "error desconocido";
+		throw new Error(`Error al obtener la información del canal ${channelId}: ${detail}`);
 	}
 }
 
@@ -403,8 +404,8 @@ export async function getPlaylistsAPI(channelId: string) : Promise<Playlist[]> {
 
 			pageToken = data.nextPageToken;
 		} catch (error) {
-			console.error(`Error al obtener los playlists del canal ${channelId}:`, error);
-			throw new Error(`Error al obtener los playlists del canal ${channelId}`);
+			const detail = error instanceof Error ? error.message : "error desconocido";
+			throw new Error(`Error al obtener los playlists del canal ${channelId}: ${detail}`);
 		}
 	} while (pageToken);
 
@@ -461,22 +462,68 @@ export async function getPlaylistVideosAPI(playlistId: string): Promise<Video[]>
 		try {
 
 			let data = await fetchWithCache(nextUrl, cacheKey);
-			console.log(data.items);
+			// console.log(data.items);
 
 			// console.log("Results found:", data);
 			if (data.items) ids.push(...data.items.map((item: any) => item.contentDetails.videoId));
 
 			pageToken = data.nextPageToken;
 		} catch (error) {
-			console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
-			throw new Error("Error al obtener vídeos de la playlist.");
+			const detail = error instanceof Error ? error.message : "error desconocido";
+			throw new Error(`Error al obtener vídeos de la playlist ${playlistId}: ${detail}`);
 		}
 	} while (pageToken);
 
-	console.log("IDS", ids);
+	// console.log("IDS", ids);
 
 	return await getVideosAPI(ids);
 }
+
+//#region CACHE DE VÍDEOS POR PLAYLIST
+
+export interface PlaylistVideosResult {
+	videos: Video[];
+	fromCache: boolean;
+}
+
+/**
+ * Fuente principal: la API de YouTube en vivo. El caché en disco SOLO se
+ * utiliza cuando ESA lista falla (o responde vacía habiendo datos guardados):
+ * en ese caso se devuelven los vídeos de la última captura correcta.
+ * En éxito se refresca el caché para el siguiente build.
+ *
+ * Las funciones de la API ya no imprimen stack traces: este es el único
+ * punto que informa del estado de una lista, con una sola línea por página.
+ */
+export async function getPlaylistVideosWithFallback(
+	playlistId: string
+): Promise<PlaylistVideosResult> {
+	const cached = readCachedPlaylistVideos(playlistId);
+
+	try {
+		const videos = await getPlaylistVideosAPI(playlistId);
+
+		// Un 200 sin items es un fallo silencioso: no debe publicar una página
+		// vacía ni dejar de usar el caché bueno que ya teníamos.
+		if (videos.length === 0 && cached && cached.length > 0) {
+			throw new Error("la API devolvió una lista vacía");
+		}
+		if (videos.length > 0) writeCachedPlaylistVideos(playlistId, videos);
+		return { videos, fromCache: false };
+	} catch (error) {
+		if (cached && cached.length > 0) {
+			console.warn(
+				`♻️ [playlist ${playlistId}] API no disponible; se usan ${cached.length} vídeos del caché.`
+			);
+			return { videos: cached, fromCache: true };
+		}
+		// Sin caché previo: una sola línea y se propaga para que la página degrade.
+		console.warn(`⚠️ [playlist ${playlistId}] sin vídeos: API no disponible y sin caché previo.`);
+		throw error instanceof Error ? error : new Error(String(error));
+	}
+}
+
+//#endregion
 
 export async function getPlaylistVideosIdAPI(playlistId: string, pageToken: string = ""): Promise<string[]> {
 	let url = `${apiUrl}playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
@@ -496,8 +543,8 @@ export async function getPlaylistVideosIdAPI(playlistId: string, pageToken: stri
 		return ids;
 
 	} catch (error) {
-		console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
-		throw new Error("Error al obtener vídeos de la playlist.");
+		const detail = error instanceof Error ? error.message : "error desconocido";
+		throw new Error(`Error al obtener vídeos de la playlist ${playlistId}: ${detail}`);
 	}
 }
 
@@ -527,8 +574,10 @@ export async function getVideosAPI(ids: string[]): Promise<Video[]> {
 			const videos = data.items.map((video: any) => new Video(video));
 			allVideos.push(...videos);
 		} catch (error) {
-			console.error(`Error al obtener los vídeos del lote ${Math.floor(i / MAX_IDS_PER_REQUEST) + 1}:`, error);
-			throw new Error("Error al obtener el vídeo.");
+			const detail = error instanceof Error ? error.message : "error desconocido";
+			throw new Error(
+				`Error al obtener los vídeos del lote ${Math.floor(i / MAX_IDS_PER_REQUEST) + 1}: ${detail}`
+			);
 		}
 	}
 
