@@ -4,7 +4,7 @@ export const prerender = true;
 import PageLayout from "@/layouts/PageLayout.astro";
 import PlaylistChat from "@/components/playlist/PlayListChat.astro";
 
-import { getPlaylistVideosAPI, getChannel, youtubeCache, initApp } from "@/lib/youtube";
+import { getPlaylistVideosWithFallback, getChannel, youtubeCache, initApp } from "@/lib/youtube";
 import { chatsConst } from "@/constants/chats";
 import PlayListList from "@/components/playlist/PlayListList.astro";
 import Player from "@/components/Player.astro";
@@ -29,7 +29,18 @@ const title = props.title;
 
 const playlist = youtubeCache.playlists.find((p) => p.id === playlistId) as Playlist | undefined;
 
-const videos: Video[] = await getPlaylistVideosAPI(playlistId);
+// Fuente principal: la API en vivo. Solo si ESA lista falla se usan los
+// vídeos guardados en el caché de la última captura correcta.
+let videos: Video[] = [];
+let videosUnavailable = false;
+let videosFromCache = false;
+try {
+  const result = await getPlaylistVideosWithFallback(playlistId);
+  videos = result.videos;
+  videosFromCache = result.fromCache;
+} catch {
+  videosUnavailable = true;
+}
 const videoKeys = videos.map((video) => video.id);
 const videoChats = videoKeys.filter((id) => id in chatsConst);
 
@@ -82,7 +93,7 @@ const itemListSchema = {
   }))
 };
 
-console.log("VIDEOS", videos);
+// console.log("VIDEOS", videos);
 ---
 
 <PageLayout
@@ -95,11 +106,21 @@ console.log("VIDEOS", videos);
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-x-6 relative">
     <!-- 🎬 Player -->
     <div class="w-full aspect-video min-w-0">
-      <Player playlistId={playlistId} videoId={initialVideoId} />
+      {initialVideoId && <Player playlistId={playlistId} videoId={initialVideoId} />}
 
       <h1 class="text-2xl font-bold p-2 text-left">{title}</h1>
 
       <section class="p-2">
+        {(videosUnavailable || videosFromCache) && (
+          <p
+            class="mb-3 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200"
+            role="status"
+          >
+            {videosFromCache
+              ? "Datos de la última actualización disponible: no se pudo refrescar esta lista en este build."
+              : "Los vídeos de esta lista no están disponibles temporalmente."}
+          </p>
+        )}
         {playlist?.description && playlist.description.trim() !== "" && (
           <>
             <h2 class="text-lg font-semibold mb-1">Sobre esta lista</h2>
@@ -154,6 +175,7 @@ console.log("VIDEOS", videos);
             title="Anterior"
             aria-label="Video anterior"
             class="text-xl cursor-pointer"
+            style=`${videos.length === 0 ? "display:none" : ""}`
             onclick="nextVideo(-1)"
           >
             <svg
@@ -175,6 +197,7 @@ console.log("VIDEOS", videos);
             title="Siguiente"
             aria-label="Video siguiente"
             class="text-xl cursor-pointer"
+            style=`${videos.length === 0 ? "display:none" : ""}`
             onclick="nextVideo(1)"
           >
             <svg
@@ -206,7 +229,9 @@ console.log("VIDEOS", videos);
     </aside>
   </div>
 
-  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+  {videos.length > 0 && (
+    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+  )}
 </PageLayout>
 
 <!-- JavaScript para cambiar el vídeo -->
@@ -306,6 +331,7 @@ console.log("VIDEOS", videos);
   }
 
   function nextVideo(sum) {
+    if (numVideos === 0) return;
     index = (currentVideoIndex + sum + numVideos) % numVideos;
     //console.log("INDEX", index);
     changeVideo(index);
@@ -317,6 +343,7 @@ console.log("VIDEOS", videos);
     });
 
     const videoButton = videosButton[index];
+    if (!videoButton) return;
     videoButton.classList.add("videoSelected");
 
     const videoId = videoButton.dataset.videoId;
@@ -347,6 +374,7 @@ console.log("VIDEOS", videos);
 
     if (chatVisible) {
       const video = playListVideos[currentVideoIndex];
+      if (!video) return;
       // console.log(playListVideos);
       // console.log(video);
       // console.log(video.dataset);

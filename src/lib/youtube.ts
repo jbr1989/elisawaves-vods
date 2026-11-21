@@ -5,6 +5,10 @@ import { Video } from "../models/video";
 import { channelsConst } from "../constants/channels";
 import { Result } from "../models/result";
 import { loadPersistedCache, isCacheFresh, savePersistedCache } from "./cache";
+import type { ChannelStatus } from "./cache";
+import { mergeChannelSegments, partitionByChannel } from "./cacheMerge";
+import type { CacheSnapshot, ChannelSegment } from "./cacheMerge";
+import { readCachedPlaylistVideos, writeCachedPlaylistVideos } from "./playlistVideosCache";
 
 // src/lib/youtube.ts
 const apiUrl = "https://www.googleapis.com/youtube/v3/";
@@ -30,50 +34,126 @@ export let youtubeCache = {
 	videos: [] as Video[],
 };
 
+/** Estado de la última captura por canal. Se persiste en youtube-cache.json. */
+export const channelStatus: Record<string, ChannelStatus> = {};
+
+let initialized = false;
+
+/** "ok" cuando no hay entrada (p.ej. caché v2 antiguo sin estados). */
+export function getChannelStatus(channelId: string): ChannelStatus {
+	return channelStatus[channelId] ?? "ok";
+}
+
+function replaceChannelStatuses(statuses: Record<string, ChannelStatus>): void {
+	for (const key of Object.keys(channelStatus)) delete channelStatus[key];
+	Object.assign(channelStatus, statuses);
+}
+
+// Se muta in place para no romper las referencias vivas de los importadores.
+function assignSnapshot(snapshot: CacheSnapshot): void {
+	youtubeCache.channels = snapshot.channels;
+	youtubeCache.playlists = snapshot.playlists;
+	youtubeCache.videos = snapshot.videos;
+}
+
 export async function initApp() {
-	if (youtubeCache.channels.length > 0) return; // Ya inicializado en memoria
+	if (initialized) return;
+
+	const channelIds = channelsConst.map((channel) => channel.id);
 
 	// 1. Intentar cargar desde caché persistente (youtube-cache.json)
 	const persisted = loadPersistedCache();
 	if (isCacheFresh(persisted)) {
-		youtubeCache.channels = persisted!.channels as Channel[];
-		youtubeCache.playlists = persisted!.playlists as Playlist[];
-		youtubeCache.videos = persisted!.videos as Video[];
+		assignSnapshot({
+			channels: persisted!.channels as Channel[],
+			playlists: persisted!.playlists as Playlist[],
+			videos: persisted!.videos as Video[],
+		});
+		replaceChannelStatuses(persisted!.channelStatus ?? {});
 		const ageH = ((Date.now() - persisted!.timestamp) / 3600000).toFixed(1);
 		console.log(`✅ Caché cargado desde JSON (edad: ${ageH}h). Sin llamadas a la API.`);
+		initialized = true;
 		return;
 	}
 
-	// 2. Caché inexistente o expirado: fetch en vivo desde la API
-	console.log("Inicializando integración de YouTube desde API...");
+	// 2. Caché inexistente o expirado: se parte de los datos ANTERIORES como
+	//    línea base. Si un canal falla, su segmento se conserva tal cual y solo
+	//    se sustituyen los segmentos de los canales que sí se actualizaron.
+	const base: CacheSnapshot = {
+		channels: Array.isArray(persisted?.channels) ? persisted!.channels as Channel[] : [],
+		playlists: Array.isArray(persisted?.playlists) ? persisted!.playlists as Playlist[] : [],
+		videos: Array.isArray(persisted?.videos) ? persisted!.videos as Video[] : [],
+	};
+	const previousSegments = partitionByChannel(base, channelIds);
+	const updates = new Map<string, ChannelSegment>();
+	let okCount = 0;
 
-	// Pre-cargar canales
-	youtubeCache.channels = await getChannelsAPI();
-	console.log(`- Canales cargados: ${youtubeCache.channels.length}`);
+	console.log("Inicializando integración de YouTube desde API (actualización por canal)...");
 
-	// Pre-cargar listas de reproducción
-	youtubeCache.playlists = await getAllPlaylistsAPI();
-	console.log(`- Listas de reproducción cargadas: ${youtubeCache.playlists.length}`);
+	for (const channelConst of channelsConst) {
+		const channelId = channelConst.id;
+		const previous = previousSegments.get(channelId)!;
+		const hasPreviousData =
+			previous.channels.length + previous.playlists.length + previous.videos.length > 0;
 
-	let allVideosId = [];
-	// Pre-cargar TODOS los vídeos de los canales
-	for (const channel of youtubeCache.channels) {
-		let videosId = await getPlaylistVideosIdAPI(channel.uploadsPlaylistId || "");
-		allVideosId.push(...videosId);
-		console.log(`- Vídeos cargados del canal '${channel.title}': ${videosId.length}`);
+		try {
+			const channel = await getChannelAPI(channelId);
+			const playlists = await getPlaylistsAPI(channelId);
+			// Si la ficha no llegó, se usa el uploadsPlaylistId ya almacenado.
+			const uploadsPlaylistId =
+				channel?.uploadsPlaylistId || previous.channels[0]?.uploadsPlaylistId || "";
+			const videosId = await getPlaylistVideosIdAPI(uploadsPlaylistId);
+			const videos = await getVideosAPI(videosId);
+
+			// Una respuesta 200 sin datos también cuenta como fallo: evita que un
+			// "fallo silencioso" de la API borre el segmento ya guardado del canal.
+			const emptyButHadData =
+				(playlists.length === 0 && previous.playlists.length > 0) ||
+				(videos.length === 0 && previous.videos.length > 0) ||
+				(channel === null && previous.channels.length > 0);
+			if (emptyButHadData) {
+				throw new Error(`Respuesta vacía de la API para el canal ${channelId}`);
+			}
+
+			updates.set(channelId, { channel, playlists, videos });
+			channelStatus[channelId] = "ok";
+			okCount++;
+			console.log(
+				`- Canal '${channelConst.title}' actualizado: ${playlists.length} listas, ${videos.length} vídeos.`
+			);
+		} catch (error) {
+			channelStatus[channelId] = hasPreviousData ? "stale" : "empty";
+			console.warn(
+				`⚠️ No se pudo actualizar el canal '${channelConst.title}' (${channelId}). ` +
+					`Se conservan sus datos previos (${channelStatus[channelId]}):`,
+				error instanceof Error ? error.message : error
+			);
+		}
 	}
 
-	youtubeCache.videos = await getVideosAPI(allVideosId);
-	console.log(`- Videos cargados TOTAL: ${youtubeCache.videos.length}`);
+	// 3. Mezclar y publicar en memoria (incluso si algún canal falló).
+	const merged = mergeChannelSegments(base, updates, channelIds);
+	assignSnapshot(merged);
 
-	// 3. Persistir para futuros arranques (escribe en dev/build; ignora en prod RO)
-	savePersistedCache({
-		channels: youtubeCache.channels,
-		playlists: youtubeCache.playlists,
-		videos: youtubeCache.videos,
-	});
+	// 4. Persistir. Si NINGÚN canal se pudo actualizar no se refresca el
+	//    timestamp: el caché anterior sigue expirado y el próximo build reintenta.
+	if (okCount > 0) {
+		savePersistedCache({
+			channels: merged.channels,
+			playlists: merged.playlists,
+			videos: merged.videos,
+			channelStatus: { ...channelStatus },
+		});
+		console.log(
+			`✅ Datos de YouTube cargados y persistidos (${okCount}/${channelsConst.length} canales actualizados).`
+		);
+	} else {
+		console.warn(
+			"⚠️ Ningún canal se pudo actualizar; se mantiene el timestamp anterior para reintentar en el próximo build."
+		);
+	}
 
-	console.log("✅ Datos de YouTube cargados y persistidos.");
+	initialized = true;
 }
 
 //#region CACHE
@@ -244,8 +324,26 @@ export async function getChannelsAPI() : Promise<Channel[]> {
 		const channels = data.items.map((channel: any) => new Channel(channel));
 		return channels;
 	} catch (error) {
-		console.error("Error al obtener los canales:", error);
-		throw new Error("Error al obtener la información de los canales.");
+		const detail = error instanceof Error ? error.message : "error desconocido";
+		throw new Error(`Error al obtener la información de los canales: ${detail}`);
+	}
+}
+
+/**
+ * Ficha de UN canal. Se usa una petición por canal para que un fallo (o la
+ * ausencia del canal en la respuesta) no afecte a los demás.
+ */
+export async function getChannelAPI(channelId: string): Promise<Channel | null> {
+	const url = `${apiUrl}channels?part=contentDetails,snippet,statistics&id=${channelId}&key=${apiKey}`;
+	const cacheKey = `channel_${channelId}`;
+
+	try {
+		const data = await fetchWithCache(url, cacheKey);
+		const item = data.items?.[0];
+		return item ? new Channel(item) : null;
+	} catch (error) {
+		const detail = error instanceof Error ? error.message : "error desconocido";
+		throw new Error(`Error al obtener la información del canal ${channelId}: ${detail}`);
 	}
 }
 
@@ -306,8 +404,8 @@ export async function getPlaylistsAPI(channelId: string) : Promise<Playlist[]> {
 
 			pageToken = data.nextPageToken;
 		} catch (error) {
-			console.error(`Error al obtener los playlists del canal ${channelId}:`, error);
-			throw new Error(`Error al obtener los playlists del canal ${channelId}`);
+			const detail = error instanceof Error ? error.message : "error desconocido";
+			throw new Error(`Error al obtener los playlists del canal ${channelId}: ${detail}`);
 		}
 	} while (pageToken);
 
@@ -364,22 +462,68 @@ export async function getPlaylistVideosAPI(playlistId: string): Promise<Video[]>
 		try {
 
 			let data = await fetchWithCache(nextUrl, cacheKey);
-			console.log(data.items);
+			// console.log(data.items);
 
 			// console.log("Results found:", data);
 			if (data.items) ids.push(...data.items.map((item: any) => item.contentDetails.videoId));
 
 			pageToken = data.nextPageToken;
 		} catch (error) {
-			console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
-			throw new Error("Error al obtener vídeos de la playlist.");
+			const detail = error instanceof Error ? error.message : "error desconocido";
+			throw new Error(`Error al obtener vídeos de la playlist ${playlistId}: ${detail}`);
 		}
 	} while (pageToken);
 
-	console.log("IDS", ids);
+	// console.log("IDS", ids);
 
 	return await getVideosAPI(ids);
 }
+
+//#region CACHE DE VÍDEOS POR PLAYLIST
+
+export interface PlaylistVideosResult {
+	videos: Video[];
+	fromCache: boolean;
+}
+
+/**
+ * Fuente principal: la API de YouTube en vivo. El caché en disco SOLO se
+ * utiliza cuando ESA lista falla (o responde vacía habiendo datos guardados):
+ * en ese caso se devuelven los vídeos de la última captura correcta.
+ * En éxito se refresca el caché para el siguiente build.
+ *
+ * Las funciones de la API ya no imprimen stack traces: este es el único
+ * punto que informa del estado de una lista, con una sola línea por página.
+ */
+export async function getPlaylistVideosWithFallback(
+	playlistId: string
+): Promise<PlaylistVideosResult> {
+	const cached = readCachedPlaylistVideos(playlistId);
+
+	try {
+		const videos = await getPlaylistVideosAPI(playlistId);
+
+		// Un 200 sin items es un fallo silencioso: no debe publicar una página
+		// vacía ni dejar de usar el caché bueno que ya teníamos.
+		if (videos.length === 0 && cached && cached.length > 0) {
+			throw new Error("la API devolvió una lista vacía");
+		}
+		if (videos.length > 0) writeCachedPlaylistVideos(playlistId, videos);
+		return { videos, fromCache: false };
+	} catch (error) {
+		if (cached && cached.length > 0) {
+			console.warn(
+				`♻️ [playlist ${playlistId}] API no disponible; se usan ${cached.length} vídeos del caché.`
+			);
+			return { videos: cached, fromCache: true };
+		}
+		// Sin caché previo: una sola línea y se propaga para que la página degrade.
+		console.warn(`⚠️ [playlist ${playlistId}] sin vídeos: API no disponible y sin caché previo.`);
+		throw error instanceof Error ? error : new Error(String(error));
+	}
+}
+
+//#endregion
 
 export async function getPlaylistVideosIdAPI(playlistId: string, pageToken: string = ""): Promise<string[]> {
 	let url = `${apiUrl}playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
@@ -399,8 +543,8 @@ export async function getPlaylistVideosIdAPI(playlistId: string, pageToken: stri
 		return ids;
 
 	} catch (error) {
-		console.error(`Error al obtener vídeos de la playlist ${playlistId}:`, error);
-		throw new Error("Error al obtener vídeos de la playlist.");
+		const detail = error instanceof Error ? error.message : "error desconocido";
+		throw new Error(`Error al obtener vídeos de la playlist ${playlistId}: ${detail}`);
 	}
 }
 
@@ -430,8 +574,10 @@ export async function getVideosAPI(ids: string[]): Promise<Video[]> {
 			const videos = data.items.map((video: any) => new Video(video));
 			allVideos.push(...videos);
 		} catch (error) {
-			console.error(`Error al obtener los vídeos del lote ${Math.floor(i / MAX_IDS_PER_REQUEST) + 1}:`, error);
-			throw new Error("Error al obtener el vídeo.");
+			const detail = error instanceof Error ? error.message : "error desconocido";
+			throw new Error(
+				`Error al obtener los vídeos del lote ${Math.floor(i / MAX_IDS_PER_REQUEST) + 1}: ${detail}`
+			);
 		}
 	}
 

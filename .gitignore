@@ -26,3 +26,6 @@ pnpm-debug.log*
 
 # generated youtube cache (regenerado en cada build)
 src/data/youtube-cache.json
+
+# caché de vídeos por playlist (fallback cuando una lista falla)
+src/data/playlist-videos/

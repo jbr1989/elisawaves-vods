@@ -31,11 +31,11 @@ export function initAppIntegration(): AstroIntegration {
 			 */
 			"astro:server:setup": async () => {
 				if (initialized) return;
-				initialized = true;
 
 				console.log("🚀 App inicializada desde integración externa");
 				setYoutubeApiKey(process.env.YOUTUBE_API_KEY || "");
 				await initApp();
+				initialized = true;
 			},
 		},
 	};
